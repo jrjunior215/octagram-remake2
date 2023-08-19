@@ -1,12 +1,17 @@
-.container_register{
+.container_register {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #9053c7;
+  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 
-.limit_register{
+.limit_register {
   width: 30%;
   height: 100vh;
   display: flex;
@@ -15,9 +20,22 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1496px) {
   .limit_register{
     width: 80%;
+  }
+}
+
+.box_register {
+  padding: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@media screen and (max-height: 700px) {
+  .container_register {
+    height: 56rem;
   }
 }
 
@@ -61,7 +79,7 @@
   font-size: 18px;
   border-radius: 10px;
   border: 1px solid #c9c3c3;
-  background-color: rgb(55, 97, 182);
+  background-color: #22549F;
   color: #fff;
   font-weight: 500;
   margin-top: 10px;
@@ -69,5 +87,67 @@
 }
 
 .form_register button:hover {
-  background-color: rgb(104, 140, 211);
+  background-color: #183F7B;
+}
+
+.form_register span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  color: #e96868;
+}
+
+.other_login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+.other_login span {
+  color: #999696;
+}
+
+.google_login {
+  margin-top: 20px;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  font-size: 20px;
+  color: #000;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.google_login:hover {
+  background-color: #c4c4c4;
+}
+
+.fas {
+  margin-right: 10px;
+  font-size: 25px;
+}
+
+.page_login {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.page_login span {
+  color: #999696;
+  margin-right: 5px;
+}
+
+.page_login a {
+  text-decoration: underline;
 }

@@ -1,16 +1,35 @@
 <div class="container_register">
   <div class="limit_register">
-    <div class="header_register">
-      <div class="icon_register">
-        <img src="/img/icon.png" alt="octagram_icon">
-        <span>Sign up to Octagram</span>
+    <div class="box_register">
+      <div class="header_register">
+        <div class="icon_register">
+          <img src="/img/icon.png" alt="octagram_icon">
+          <span>Sign up to Octagram</span>
+        </div>
+      </div>
+      <form class="form_register" action="/register/user" method="POST">
+        <input type="text" name="name" id="name" placeholder="Name"
+          value="<%= (locals.old_data) ? old_data.name: '' %>" autocomplete="off" readonly
+          onfocus="this.removeAttribute('readonly');" required>
+        <input type="email" name="email" id="email" placeholder="Email"
+          value="<%= (locals.old_data) ? old_data.email: '' %>" autocomplete="off" required>
+        <input type="password" name="pass" id="pass" placeholder="Password" autocomplete="off" readonly
+          onfocus="this.removeAttribute('readonly');" required>
+        <% if (locals.register_error) { %>
+          <span>
+            <%= register_error %>
+          </span>
+          <% } %>
+            <button>Register</button>
+      </form>
+      <div class="other_login">
+        <span>Or login with</span>
+        <a href="#" class="google_login"><i class="fas fa-brands fa-google"></i> Google</a>
+      </div>
+      <div class="page_login">
+        <span>Already have an account?</span>
+        <a href="/login">Sign in</a>
       </div>
     </div>
-    <form class="form_register" action="/register/user" method="POST">
-      <input type="text" name="name" id="name" placeholder="Name">
-      <input type="text" name="email" id="email" placeholder="Email">
-      <input type="password" name="pass" id="pass" placeholder="Password">
-      <button>Register</button>
-    </form>
   </div>
 </div>
