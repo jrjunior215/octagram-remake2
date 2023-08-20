@@ -9,7 +9,7 @@ const dbConnection = require('./js/database');
 // SET EXPRESS
 
 const app = express();
-const port = '4000';
+const port = '4002';
 
 // COOKIE SESSION
 
@@ -121,6 +121,10 @@ const indexController = require('./controllers/views/index/indexController');
 const loginController = require('./controllers/views/auth/loginController');
 const registerController = require('./controllers/views/auth/registerController');
 
+// HOME PAGE
+
+const homeController = require('./controllers/views/home/homeController');
+
 // MODELS
 
 // AUTH
@@ -138,6 +142,9 @@ app.get('/', indexController);
 
 app.get('/login', loginController);
 app.get('/register', registerController);
+
+// HOME PAGE
+app.get('/home', homeController);
 
 // POST
 

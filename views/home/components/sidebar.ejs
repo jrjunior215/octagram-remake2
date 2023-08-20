@@ -1,0 +1,50 @@
+<div class="side_bar">
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="/home" class="nav_link active">
+                    <i class="fas fa-pager"></i>
+                    <span>หน้าหลัก</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search" class="nav_link">
+                    <i class="fas fa-compass"></i>
+                    <span>ค้นหาคริเอเตอร์</span>
+                </a>
+            </li>
+            <li>
+                <a href="/message" class="nav_link">
+                    <i class="fas fa-envelope"></i>
+                    <span>ข้อความ</span>
+                </a>
+            </li>
+            <li>
+                <a href="/setting" class="nav_link">
+                    <i class="fas fa-gear"></i>
+                    <span>ตั้งค่า</span>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="/creator" class="nav_link">
+                  <i class="fas fa-house-user"></i>
+                  <span>คริเอเตอร์</span>
+                </a>
+              </li> -->
+        </ul>
+    </div>
+    <hr>
+    <div class="membership_navbar">
+        <span class="membership_title">การเป็นสมาชิก</span>
+        <div class="membership_list">
+            <% for(var i=0; i < 20; i++) { %>
+            <div class="creator_data">
+                <a href="/home" class="creator_link">
+                    <img src="/img/profile.png">
+                    <span>Creator</span>
+                </a>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
