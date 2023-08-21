@@ -1,27 +1,102 @@
 <div class="content">
-    <% for(var i=0; i < 10; i++) { %>
-        <div class="videos">
-            <div class="video">
-                <div class="thumbnail">
-                    <img src="https://img.youtube.com/vi/zUwB_imVjmg/maxresdefault.jpg" alt="" />
+    <div class="container_feed">
+        <div class="feed">
+            <div class="header_feed">
+                <div class="title_feed left">
+                    <span>หน้าหลัก</span>
                 </div>
+                <div class="filter_feed right">
+                    <i class="fa-solid fa-filter"></i>
+                </div>
+            </div>
+            <div class="content_feed">
+                <% for(var i=0; i < 20; i++) { %>
+                <div class="box_feed">
+                    <div class="header_creator_feed">
+                        <div class="creator_feed left">
+                            <img src="/img/bg.jpg">
+                            <span>Creator</span>
+                        </div>
+                        <div class="tooltip right">
+                            <i id="tooltip_click" class="material-icons">more_horiz</i>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="post_feed">
+                        <div class="post_img_feed">
+                            <img src="/img/test1.png" id="zoomable-image">
+                            <div class="close-button" id="close-button"><i class="fa-solid fa-xmark xmark"></i></div>
+                        </div>
+                        <div class="post_time_feed">
+                            <span>4 DAYS AGO AT 10:58 AM</span>
+                        </div>
+                        <div class="post_title_feed">
+                            <span>[PUBLIC EPISODE] The Wizard, the Witch and the Wild One: ep013 “Of the Gentle
+                                Sea”</span>
+                        </div>
+                        <div class="post_desc_feed">
+                            <p>
+                                Morning! Todays ep needs a bit longer in the old oven, and so it's gonna be out a li'l
+                                later. (Y'all these finale episodes are absolute thicc fellas). Please use the extra
+                                time to research which personal flotation devices are right for you and your family.
+                                It's never a bad time to brush up on maritime safety. Get your float on, fam! -t
 
-                <div class="details">
-                    <div class="author">
-                        <img src="https://yt3.ggpht.com/bpzY-S4DYlbTeOpY5hIA7qz_hcbMkgvLAugtwKBGTTImNnWAGudX0y53bo_fJZ0auypxrWkUiw=s88-c-k-c0x00ffffff-no-rj"
-                            alt="" />
+                                Update: pretty confident this sexy lil egg of an episode will drop on Wednesday. It’s
+                                got over 6,000 clips in it. That’s a lot of clips. you’re gonna love it. (Assuming you
+                                love clips!) And hey, to the 99.999% of you who are normal and supportive and friendly
+                                in the comments, you rock! Keeeeeep it up, the rocking that is!
+                            </p>
+                            <div class="read-more-button"><span>ดูเพิ่มเติม</span></div>
+                        </div>
                     </div>
-                    <div class="title">
-                        <h3>
-                            Introverts & Content Creation | Sumudu Siriwardana
-                        </h3>
-                        <a href="">
-                            Francesco Ciulla
-                        </a>
-                        <span> 2M Views • 3 Months Ago </span>
-                    </div>
+                </div>
+                <% } %>
+                <div class="limit_post">
+                    <span>สิ้นสุดเนื้อหา</span>
                 </div>
             </div>
         </div>
-        <% } %>
+    </div>
 </div>
+
+<script>
+    const zoomableImage = document.getElementById("zoomable-image");
+    const imageContainer = document.querySelector(".post_img_feed");
+    const closeButton = document.getElementById("close-button");
+
+    zoomableImage.addEventListener("click", () => {
+        imageContainer.classList.toggle("fullscreen");
+    });
+
+    closeButton.addEventListener("click", () => {
+        imageContainer.classList.remove("fullscreen");
+        imageContainer.classList.remove("active");
+    });
+
+    const readMoreButtons = document.querySelectorAll(".read-more-button");
+    readMoreButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const postDesc = button.parentNode.querySelector("p");
+            postDesc.classList.toggle("expanded");
+            if (postDesc.classList.contains("expanded")) {
+                button.querySelector("span").textContent = "ย่อเนื้อหา";
+            } else {
+                button.querySelector("span").textContent = "ดูเพิ่มเติม";
+            }
+        });
+    });
+
+    // Check if the text content overflows and show the button if needed
+    document.addEventListener("DOMContentLoaded", () => {
+    const postDescs = document.querySelectorAll(".post_desc_feed p");
+    
+    postDescs.forEach(postDesc => {
+        if (postDesc.scrollHeight > postDesc.clientHeight) {
+            const readMoreButton = postDesc.nextElementSibling;
+            readMoreButton.style.display = "block";
+        }
+    });
+});
+
+
+</script>
