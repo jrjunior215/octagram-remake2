@@ -124,6 +124,7 @@ const registerController = require('./controllers/views/auth/registerController'
 // HOME PAGE
 
 const homeController = require('./controllers/views/home/homeController');
+const searchController =require('./controllers/views/home/searchController');
 
 // MODELS
 
@@ -145,6 +146,7 @@ app.get('/register', registerController);
 
 // HOME PAGE
 app.get('/home', homeController);
+app.get('/search', searchController);
 
 // POST
 

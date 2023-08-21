@@ -1,0 +1,36 @@
+.container_search {
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container_search span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.limit_search {
+    width: 50%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.header_search {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+}
+
+.header_search span {
+    font-size: 30px;
+    margin: 10px;
+}
+
+.search_icons {
+    font-size: 50px;
+}

@@ -116,68 +116,10 @@ main {
   height: auto;
   cursor: pointer;
   overflow: hidden;
+}
+
+.post_time_feed  {
   margin-bottom: 20px;
-}
-
-.xmark {
-  color: #fff;
-  font-size: 30px;
-}
-
-.close-button {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  display: none;
-}
-
-#zoomable-image {
-  max-width: 100%;
-  max-height: 100%;
-  transition: transform 0.3s;
-}
-
-.post_img_feed.fullscreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(10px);
-}
-
-.post_img_feed.fullscreen #zoomable-image {
-  max-width: 90%;
-  max-height: 90%;
-  width: auto;
-  height: auto;
-  opacity: 1;
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-
-.post_img_feed.fullscreen .close-button {
-  display: block;
-}
-
-
-.post_img_feed.fullscreen::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s;
 }
 
 .post_time_feed span {
@@ -207,42 +149,6 @@ main {
   font-weight: 200;
   font-family: 'Noto Sans Thai', sans-serif;
   height: auto;
-  max-height: 6.5em;
-  overflow: hidden;
-  position: relative;
-  margin: 0;
-  padding: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-}
-
-.post_desc_feed p.expanded {
-  max-height: none;
-  opacity: 1;
-  padding-bottom: 60px;
-}
-
-.post_desc_feed .read-more-button {
-  display: none;
-  width: 100%;
-  padding-top: 60px;
-  background: linear-gradient(to bottom, transparent 10%, #ffffff 70%, #ffffff 100%);
-  border-radius: 10px;
-  color: #007bff;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
-.post_desc_feed .read-more-button:hover {
-  color: #12c3ea;
-}
-
-.read-more-button span {
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-size: 17px;
-  cursor: pointer;
 }
 
 .limit_post {

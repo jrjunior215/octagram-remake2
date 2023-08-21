@@ -1,6 +1,6 @@
 <header>
     <div class="logo left">
-        <!-- <i id="menu" class="material-icons">menu</i> -->
+        <i id="menu" class="material-icons">menu</i>
         <a href="/home" class="container_logo">
             <img src="/img/icon.png">
             <span>Octagram</span>
@@ -10,9 +10,21 @@
     <div class="icons right">
         <div class="container_icons">
             <div class="profile_pic">
-                <a>
+                <a onclick="MenuController()">
                     <img src="/img/profile.png">
                 </a>
+            </div>
+            <div class="menu" id="menu_drop">
+                <div class="profile_user">
+                    <img src="/img/bg.jpg">
+                    <span>Creator</span>
+                </div>
+                <hr>
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-face-smile menu_icon"></i>Creator</a></li>
+                    <li><a href="#"><i class="fa-solid fa-gear menu_icon"></i>Setting</a></li>
+                    <li><a href="/logout" class="menu_logout"><i class="fa-solid fa-right-from-bracket menu_icon menu_logout"></i>Sign out</a></li>
+                </ul>
             </div>
         </div>
     </div>

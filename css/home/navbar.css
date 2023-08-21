@@ -1,4 +1,5 @@
 header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,16 +13,23 @@ header {
     width: 300px;
     background-color: white;
     overflow-y: hidden;
+}   
+
+.side_bar:hover {
+    overflow-y: auto;
+}
+
+.logo #menu {
+    display: none;
 }
 
 @media screen and (max-width: 768px) {
     .side_bar {
         display: none;
     }
-}
-
-.side_bar:hover {
-    overflow-y: auto;
+    .logo #menu {
+        display: block;
+    }
 }
 
 .left {
@@ -61,13 +69,78 @@ header {
     width: 45px;
     height: 45px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .container_icons {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 10px;
+}
+
+.profile_user {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.menu_icon {
+    font-size: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.menu hr {
+    height: 1px;
+    background-color: #e5e5e5;
+    border: none;
+    margin: 0;
+}
+
+.profile_user span{
+    color: #000;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.profile_user img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.menu {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    background-color: #ffffff;
+    top: 70px;
+    right: 0;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 1;
+    display: none;
+}
+
+.menu.open_menu {
+    display: block;
+}
+
+.menu ul, .menu ul li{
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    color: #000;
+}
+
+.menu a:hover {
+    background-color: #c4c4c4;
 }
 
 .nav {
@@ -75,7 +148,7 @@ header {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
-    
+    padding-right: 10px;
 }
 
 ul li a {
@@ -165,6 +238,7 @@ hr {
 }
 
 .creator_data span {
+    color: #000;
     font-size: 15px;
     position: relative;
     margin-left: 10px;
