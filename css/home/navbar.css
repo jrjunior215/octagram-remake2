@@ -188,7 +188,7 @@ ul li a {
     font-family: 'Noto Sans Thai', sans-serif;
 }
 
-.active {
+.nav_link.active {
     background: #e5e5e5;
     border-radius: 10px;
 }

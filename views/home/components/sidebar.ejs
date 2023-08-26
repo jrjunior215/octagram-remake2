@@ -2,7 +2,7 @@
     <div class="nav">
         <ul>
             <li>
-                <a href="/home" class="nav_link active">
+                <a href="/home" class="nav_link">
                     <i class="fas fa-pager"></i>
                     <span>หน้าหลัก</span>
                 </a>
@@ -14,23 +14,17 @@
                 </a>
             </li>
             <li>
-                <a href="/message" class="nav_link">
+                <a href="#" class="nav_link">
                     <i class="fas fa-envelope"></i>
                     <span>ข้อความ</span>
                 </a>
             </li>
             <li>
-                <a href="/setting" class="nav_link">
+                <a href="/settings/basic" class="nav_link">
                     <i class="fas fa-gear"></i>
                     <span>ตั้งค่า</span>
                 </a>
             </li>
-            <!-- <li>
-                <a href="/creator" class="nav_link">
-                  <i class="fas fa-house-user"></i>
-                  <span>คริเอเตอร์</span>
-                </a>
-              </li> -->
         </ul>
     </div>
     <hr>
@@ -38,9 +32,9 @@
         <span class="membership_title">การเป็นสมาชิก</span>
         <div class="membership_list">
             <% for(var i=0; i < 20; i++) { %>
-            <div class="creator_data">
-                <a href="/home" class="creator_link">
-                    <img src="/img/bg.jpg"">
+                <div class="creator_data">
+                    <a href="/home" class="creator_link">
+                        <img src="/img/bg.jpg"">
                     <span>Creator</span>
                 </a>
             </div>
@@ -48,3 +42,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('.nav_link');
+
+        const currentPath = window.location.pathname;
+
+        // Check each navigation link's href attribute against the current URL pathname
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+    });
+
+</script>

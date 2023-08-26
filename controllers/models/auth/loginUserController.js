@@ -2,7 +2,6 @@ const User = require('../../../models/User')
 
 module.exports = async (req, res) => {
   const data = req.body;
-  console.log(data);
 
   await User.login(data).then(async (result) => {
     if (result[0].role === "USER") {

@@ -2,7 +2,7 @@
 
 .container_setting {
     width: 40%;
-    height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -21,7 +21,7 @@
     display: grid;
 }
 
-.setting_profile img{
+.setting_profile img {
     margin-top: 10px;
     height: 50px;
     width: 50px;
@@ -51,7 +51,7 @@
 }
 
 .btn_upload::-webkit-file-upload-button {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .btn_save {
@@ -94,8 +94,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
+    flex-direction: column;
+}
+
+.setting_title {
+    width: 100%;
+    margin: 10px;
+}
+
+.setting_title h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.setting nav {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.setting ul {
+    display: flex;
+}
+
+.setting ul li {
+    margin-right: 20px  ;
+}
+
+.setting ul li a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+}
+
 .old_img {
     display: block;
 }

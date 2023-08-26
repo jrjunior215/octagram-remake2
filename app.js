@@ -148,7 +148,7 @@ app.get('/register', registerController);
 // HOME PAGE
 app.get('/home', homeController);
 app.get('/search', searchController);
-app.get('/setting', settingController);
+app.get('/settings/basic', settingController);
 
 // POST
 

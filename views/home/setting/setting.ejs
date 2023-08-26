@@ -2,6 +2,9 @@
   <div class="container_page">
     <div class="container_setting">
       <div class="setting">
+        
+        <%- include('./navbar.ejs')%>
+
         <div class="setting_box">
           <form action="/profile/update" method="POST" enctype="multipart/form-data" class="setting_profile">
             <div class="setting_grid">
@@ -32,6 +35,7 @@
             </div>
           </form>
         </div>
+
       </div>
     </div>
   </div>
