@@ -1,11 +1,3 @@
-.container_page {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
 .container_search {
     height: auto;
     width: 100%;
@@ -55,6 +47,28 @@
     width: 90%;
     height: auto;
     position: relative;
+}
+
+/* .search_input .x_icon {
+    display: none;
+} */
+
+.x_icon {
+    font-size: 18px;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    height: 90%;
+    cursor: pointer;
+    color: #666666;
+    padding: 10px;
+    border-radius: 15px;
+    background: #e6e6e6;
+}
+
+.x_icon:hover {
+    font-weight: 700px;
+    color: #202020;
 }
 
 .search_icons_input {

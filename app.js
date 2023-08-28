@@ -127,6 +127,10 @@ const homeController = require('./controllers/views/home/homeController');
 const searchController = require('./controllers/views/home/searchController');
 const settingController = require('./controllers/views/home/settingController');
 
+// CREATOR PAGE
+
+const creatorController = require('./controllers/views/creator/creatorController');
+
 // MODELS
 
 // AUTH
@@ -149,6 +153,9 @@ app.get('/register', registerController);
 app.get('/home', homeController);
 app.get('/search', searchController);
 app.get('/settings/basic', settingController);
+
+// CREATOR PAGE
+app.get('/creator', creatorController);
 
 // POST
 

@@ -9,8 +9,33 @@
                 <div class="search_input_limiter">
                     <i class="fa-solid fa-magnifying-glass search_icons_input"></i>
                     <input class="search_text" type="text" name="search" id="search">
+                    <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function clearSearchInput() {
+        var searchInput = document.getElementById("search");
+        var clearIcon = document.querySelector(".x_icon");
+        searchInput.value = ""; // Clear the input value
+        clearIcon.style.display = "none";
+    }
+
+    function toggleClearIcon() {
+        var searchInput = document.getElementById("search");
+        var clearIcon = document.querySelector(".x_icon");
+
+        if (searchInput.value.trim() !== "") {
+            clearIcon.style.display = "inline";
+        } else {
+            clearIcon.style.display = "none";
+        }
+    }
+
+    // Call toggleClearIcon initially and add input event listener
+    toggleClearIcon();
+    document.getElementById("search").addEventListener("input", toggleClearIcon);
+</script>

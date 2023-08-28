@@ -1,0 +1,58 @@
+<div class="side_bar">
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="/home" class="nav_link">
+                  <i class="fas fa-house"></i>
+                  <span>หน้าหลัก</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav_link">
+                  <i class="fas fa-users"></i>
+                  <span>สมาชิก</span>
+                </a>
+              </li>
+              <li>
+                <a href="/package" class="nav_link">
+                  <i class="fas fa-cubes"></i>
+                  <span>แผนและราคา</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav_link">
+                  <i class="fas fa-envelope"></i>
+                  <span>ข้อความ</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav_link">
+                  <i class="fas fa-gear"></i>
+                  <span>ตั้งค่า</span>
+                </a>
+              </li>
+        </ul>
+    </div>
+    <hr>
+    <div class="post_navbar">
+        <a href="/post/create" class="btn_post_navbar"><i class="fa-solid fa-pen-to-square fa-lg fav"></i>Create</a>
+      </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('.nav_link');
+
+        const currentPath = window.location.pathname;
+
+        // Check each navigation link's href attribute against the current URL pathname
+        navLinks.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+    });
+
+</script>
