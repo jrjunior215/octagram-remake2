@@ -31,7 +31,7 @@ app.use("*", (req, res, next) => {
 passport.use(new GoogleStrategy({
   clientID: '1060557820848-pve84gfkcp0jkbkauk89hg2b17a8rge2.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: 'http://localhost:4000/auth/google/callback'
+  callbackURL: 'http://localhost:4002/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
   // try {
   //     // Check if user exists in your database based on Google profile.id
@@ -52,7 +52,7 @@ passport.use(new GoogleStrategy({
     google_id: profile.id,
     username: profile.displayName,
     email: (profile.emails && profile.emails.length > 0) ? profile.emails[0].value : '',
-    email: profile.emails[0].value,
+    // email: profile.emails[0].value,
     google_img: (profile.photos && profile.photos.length > 0) ? profile.photos[0].value : ''
   };
 
@@ -130,6 +130,7 @@ const settingController = require('./controllers/views/home/settingController');
 // CREATOR PAGE
 
 const creatorController = require('./controllers/views/creator/creatorController');
+const memberController = require('./controllers/views/creator/memberController')
 
 // MODELS
 
@@ -156,6 +157,7 @@ app.get('/settings/basic', settingController);
 
 // CREATOR PAGE
 app.get('/creator', creatorController);
+app.get('/members', memberController);
 
 // POST
 

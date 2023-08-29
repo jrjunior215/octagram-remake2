@@ -31,7 +31,7 @@ main {
 }
 
 .feed {
-  width: 50%;
+  width: 60%;
   height: 100vh;
 }
 
@@ -53,11 +53,9 @@ main {
   height: auto;
 }
 
-.feed hr {
-  height: 1px;
-  background-color: #e5e5e5;
-  border: none;
-  margin: 2px
+.creator_info {
+  display: flex;
+  flex-direction: column;
 }
 
 .box_feed {
@@ -67,6 +65,13 @@ main {
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-bottom: 20px;
+}
+
+.box_feed hr {
+  height: 1px;
+  background-color: #e5e5e5;
+  border: none;
+  margin: 2px
 }
 
 .header_creator_feed {
@@ -90,10 +95,19 @@ main {
   object-fit: cover;
 }
 
-.creator_feed span {
-  font-size: 20px;
-  margin: 10px;
+.post_time_feed {
+  color: #c4c4c4;
+  font-family: 'Noto Sans Thai', sans-serif;
+  margin: 0;
+  font-size: 12px;
+  margin: 0 10px;
 }
+
+.post_creator_name {
+  font-size: 20px;
+  margin: 0 10px;
+}
+
 
 .tooltip {
   padding: 20px;
@@ -116,15 +130,6 @@ main {
   height: auto;
   cursor: pointer;
   overflow: hidden;
-}
-
-.post_time_feed  {
-  margin-bottom: 20px;
-}
-
-.post_time_feed span {
-  color: #c4c4c4;
-  font-family: 'Noto Sans Thai', sans-serif;
 }
 
 .post_title_feed {

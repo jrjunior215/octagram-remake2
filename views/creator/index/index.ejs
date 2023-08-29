@@ -1,14 +1,34 @@
 <div class="content">
-    <div class="container_feed">
-        <div class="feed">
-            <div class="header_feed">
-                <div class="title_feed left">
-                    <span>หน้าหลัก</span>
+    <div class="creator_page">
+        <!-- <div class="bg_creator">
+        </div> -->
+        <div class="bg_creator_img">
+            <div class="bg_image">
+                <img src="/img/bg.jpg" alt="">
+            </div>
+        </div>
+        <div class="limit_creator_profile">
+            <div class="creator_profile">
+                <div class="creator_content">
+                    <img src="/img/bg.jpg" alt="">
+                    <div class="creator_detail">
+                        <span class="creators_name">
+                            Creator01
+                        </span>
+                        <span class="creators_desc">Creating website octagram</span>
+                        <p>5.2M Members 41 Posts</p>
+                    </div>
                 </div>
-                <div class="filter_feed right">
-                    <i class="fa-solid fa-filter"></i>
+                <div class="post">
+                    <a href="" class="btn_post"><i class="fa-solid fa-pen-to-square fa-lg fas"></i>Create</a>
                 </div>
             </div>
+        </div>
+        <div class="limit_navbar">
+            <%- include('./navbar.ejs')%>
+        </div>
+
+        <div class="content_feed_limit">
             <div class="content_feed">
                 <% for(var i=0; i < 20; i++) { %>
                 <div class="box_feed">
@@ -39,7 +59,7 @@
                                 later. (Y'all these finale episodes are absolute thicc fellas). Please use the extra
                                 time to research which personal flotation devices are right for you and your family.
                                 It's never a bad time to brush up on maritime safety. Get your float on, fam! -t
-
+    
                                 Update: pretty confident this sexy lil egg of an episode will drop on Wednesday. It’s
                                 got over 6,000 clips in it. That’s a lot of clips. you’re gonna love it. (Assuming you
                                 love clips!) And hey, to the 99.999% of you who are normal and supportive and friendly
@@ -54,5 +74,13 @@
                 </div>
             </div>
         </div>
+        
+        <!-- <div class="limit_post">
+        <div class="creator_post">
+            <div class="post_alert">
+                <h1>There is no post in this creator.</h1>
+            </div>
+        </div>
+    </div> -->
     </div>
 </div>
