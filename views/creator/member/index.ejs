@@ -1,0 +1,73 @@
+<div class="content">
+  <div class="limit_member_page">
+    <div class="member_page">
+      <%- include('./navbar.ejs')%>
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Img</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Current Tier</th>
+              <th>Status</th>
+              <th>Join Date</th>
+              <th>Last Charge Date</th>
+              <th>Next Charge Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (let i=0; i < data.length; i++) { %>
+              <tr>
+                <td>
+                  <%= i + 1 %>
+                </td>
+                <td><img src="<%= data[i].img %>" alt="user_profile" class="img_member_profile"></td>
+                <td>
+                  <%= data[i].name %>
+                </td>
+                <td>
+                  <%= data[i].email %>
+                </td>
+                <td>
+                  <%= data[i].currentTier %>
+                </td>
+                <td class="<%= data[i].status.toLowerCase() %>">
+                  <%= data[i].status %>
+                </td>
+                <td>
+                  <%= data[i].joinDate %>
+                </td>
+                <td>
+                  <%= data[i].lastChargeDate %>
+                </td>
+                <td>
+                  <%= data[i].nextChargeDate %>
+                </td>
+                <td><i id="tooltip_click" class="material-icons">more_horiz</i></td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+        <!-- <div id="pagination">
+          <button id="prevBtn">Previous</button>
+          <button id="nextBtn">Next</button>
+        </div> -->
+        <div class="pagination">
+          <a href="#">&laquo;</a>
+          <a href="#">1</a>
+          <a href="#" class="active">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a>
+          <a href="#">&raquo;</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+</script>

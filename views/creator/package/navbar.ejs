@@ -1,0 +1,25 @@
+<div class="package_title">
+  <h1>แผนและราคา</h1>
+</div>
+<nav>
+  <ul>
+    <li><a href="/package" class="nav_setting">แพ็กเกจ</a></li>
+  </ul>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const navSetting = document.querySelectorAll('.nav_setting');
+
+      const currentPath = window.location.pathname;
+
+      // Check each navigation link's href attribute against the current URL pathname
+      navSetting.forEach(link => {
+          const linkHref = link.getAttribute('href');
+          if (linkHref === currentPath) {
+              link.classList.add('active');
+          }
+      });
+
+  });
+</script>

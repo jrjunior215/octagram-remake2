@@ -130,7 +130,9 @@ const settingController = require('./controllers/views/home/settingController');
 // CREATOR PAGE
 
 const creatorController = require('./controllers/views/creator/creatorController');
-const memberController = require('./controllers/views/creator/memberController')
+const memberController = require('./controllers/views/creator/memberController');
+const packageController = require('./controllers/views/creator/packageController');
+const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 
 // MODELS
 
@@ -153,12 +155,13 @@ app.get('/register', registerController);
 // HOME PAGE
 app.get('/home', homeController);
 app.get('/search', searchController);
-app.get('/settings/basic', settingController);
+app.get('/setting/basic', settingController);
 
 // CREATOR PAGE
 app.get('/creator', creatorController);
 app.get('/members', memberController);
-
+app.get('/package', packageController);
+app.get('/setting/creator', settingCreatorController);
 // POST
 
 // AUTH

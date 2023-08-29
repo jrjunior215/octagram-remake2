@@ -4,6 +4,7 @@ module.exports = (req, res) => {
 
   for (let i = 1; i <= 20; i++) {
     const user = {
+      img: `/img/bg.jpg`,
       name: `User ${i}`,
       email: `user${i}@example.com`,
       currentTier: `Tier ${i % 3}`,
@@ -17,5 +18,5 @@ module.exports = (req, res) => {
   }
 
   res.locals.layout = 'creator/components/layout';
-  res.render('creator/member/member', { title_nav: 'Home | Octagram', data: data })
+  res.render('creator/member/index', { title_nav: 'Home | Octagram', data: data })
 }

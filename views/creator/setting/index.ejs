@@ -1,0 +1,63 @@
+<div class="content">
+    <div class="container_page_setting">
+      <div class="container_setting">
+        <div class="setting">
+          
+          <%- include('./navbar.ejs')%>
+  
+          <div class="setting_box">
+            <form action="/profile/update" method="POST" enctype="multipart/form-data" class="setting_profile">
+              <div class="setting_grid">
+                <span>Profile</span>
+                <div class="upload_pic">
+                  <div class="old_img">
+                    <img src="/img/creator01.png" alt="profile" id="oldImage">
+                  </div>
+                  <div class="new_img">
+                    <img id="uploadedImage" src="#" alt="profile">
+                  </div>
+                  <input type="file" name="image" id="imageInput" hidden>
+                  <label class="btn_upload" for="imageInput">Upload photo</label>
+                </div>
+              </div>
+              <div class="setting_grid">
+                <input type="hidden" name="id_user" value="">
+                <span>Display name</span>
+                <input type="text" name="name" value="">
+              </div>
+              <div class="setting_grid">
+                <span>Email</span>
+                <input type="text" name="email" value="">
+              </div>
+              <input type="hidden" name="img" value="">
+              <div class="setting_grid">
+                <button class="btn_save">Save</button>
+              </div>
+            </form>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const imageInput = document.getElementById('imageInput');
+    const uploadedImage = document.getElementById('uploadedImage');
+    const new_img = document.querySelector('.new_img');
+    const old_img = document.querySelector('.old_img');
+  
+    imageInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                uploadedImage.src = e.target.result;
+                new_img.style.display = 'block';
+                old_img.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+  
+  </script>
