@@ -11,7 +11,7 @@
               <span>Profile</span>
               <div class="upload_pic">
                 <div class="old_img">
-                  <img src="/img/creator01.png" alt="profile" id="oldImage">
+                  <img src="<%= SESSION_USER.img %>" alt="profile" id="oldImage">
                 </div>
                 <div class="new_img">
                   <img id="uploadedImage" src="#" alt="profile">
@@ -21,13 +21,13 @@
               </div>
             </div>
             <div class="setting_grid">
-              <input type="hidden" name="id_user" value="">
+              <input type="hidden" name="id_user" value="<%= SESSION_USER.id %>">
               <span>Display name</span>
-              <input type="text" name="name" value="">
+              <input type="text" name="name" value="<%= SESSION_USER.name %>">
             </div>
             <div class="setting_grid">
               <span>Email</span>
-              <input type="text" name="email" value="">
+              <input type="text" name="email" value="<%= SESSION_USER.email %>">
             </div>
             <input type="hidden" name="img" value="">
             <div class="setting_grid">

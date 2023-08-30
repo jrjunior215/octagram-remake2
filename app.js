@@ -69,7 +69,6 @@ const indexController = require('./controllers/views/index/indexController');
 
 const loginController = require('./controllers/views/auth/loginController');
 const registerController = require('./controllers/views/auth/registerController');
-const loginGoogleController = require('./controllers/models/google_auth/loginGoogleController')
 const logoutController = require('./controllers/models/auth/logoutController');
 
 // GOOGLE AUTH PAGE
@@ -89,6 +88,9 @@ const memberController = require('./controllers/views/creator/memberController')
 const packageController = require('./controllers/views/creator/packageController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 
+//SEARCH PAGE
+const searchAutoCreatorController = require('./controllers/models/search/searchAutoCreatorController');
+
 // MODELS
 
 // AUTH
@@ -104,7 +106,6 @@ app.get('/', indexController);
 // AUTH PAGE
 app.get('/login', loginController);
 app.get('/register', registerController);
-app.get('/login/google', loginGoogleController);
 app.get('/logout', logoutController);
 
 // GOOGLE AUTH PAGE
@@ -121,6 +122,9 @@ app.get('/home', homeController);
 app.get('/search', searchController);
 app.get('/setting/basic', settingController);
 
+// SEARCH
+app.get('/search/query');
+
 // CREATOR PAGE
 app.get('/creator', creatorController);
 app.get('/members', memberController);
@@ -129,9 +133,9 @@ app.get('/setting/creator', settingCreatorController);
 // POST
 
 // AUTH
-
 app.post('/register/user', registerUserController);
 app.post('/login/user', loginUserController);
+
 
 // SET POST LISTEN
 

@@ -12,30 +12,47 @@
                     <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
                 </div>
             </div>
+            <div class="search_content_limit">
+                <div class="search_content">
+                    <ul class="profile_search">
+                        <li class="search_result">
+                            <a href="">
+                                <img src="/img/bg.jpg" alt="">
+                                <div class="creator_info">
+                                    <span class="creator_name">
+                                        Creator01
+                                    </span>
+                                    <span class="creator_desc">Creating website octagram</span>
+                                    <input id="creatorUser" name="creatorUser" type="hidden" value="" />
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    function clearSearchInput() {
-        var searchInput = document.getElementById("search");
-        var clearIcon = document.querySelector(".x_icon");
-        searchInput.value = ""; // Clear the input value
-        clearIcon.style.display = "none";
-    }
-
-    function toggleClearIcon() {
-        var searchInput = document.getElementById("search");
-        var clearIcon = document.querySelector(".x_icon");
-
-        if (searchInput.value.trim() !== "") {
-            clearIcon.style.display = "inline";
-        } else {
+    <script>
+        function clearSearchInput() {
+            var searchInput = document.getElementById("search");
+            var clearIcon = document.querySelector(".x_icon");
+            searchInput.value = ""; // Clear the input value
             clearIcon.style.display = "none";
         }
-    }
 
-    // Call toggleClearIcon initially and add input event listener
-    toggleClearIcon();
-    document.getElementById("search").addEventListener("input", toggleClearIcon);
-</script>
+        function toggleClearIcon() {
+            var searchInput = document.getElementById("search");
+            var clearIcon = document.querySelector(".x_icon");
+
+            if (searchInput.value.trim() !== "") {
+                clearIcon.style.display = "inline";
+            } else {
+                clearIcon.style.display = "none";
+            }
+        }
+
+        // Call toggleClearIcon initially and add input event listener
+        toggleClearIcon();
+        document.getElementById("search").addEventListener("input", toggleClearIcon);
+    </script>

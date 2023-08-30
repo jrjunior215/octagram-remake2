@@ -11,18 +11,18 @@
         <div class="container_icons">
             <div class="profile_pic">
                 <a onclick="MenuController()">
-                    <img src="/img/profile.png">
+                    <img src="<%= SESSION_USER.img %>">
                 </a>
             </div>
             <div class="menu" id="menu_drop">
                 <div class="profile_user">
-                    <img src="/img/bg.jpg">
-                    <span>Creator</span>
+                    <img src="<%= SESSION_USER.img %>">
+                    <span><%= SESSION_USER.name %></span>
                 </div>
                 <hr>
                 <ul>
                     <li><a href="#"><i class="fa-solid fa-face-smile menu_icon"></i>Creator</a></li>
-                    <li><a href="/settings/basic"><i class="fa-solid fa-gear menu_icon"></i>Setting</a></li>
+                    <li><a href="/setting/basic"><i class="fa-solid fa-gear menu_icon"></i>Setting</a></li>
                     <li><a href="/logout" class="menu_logout"><i class="fa-solid fa-right-from-bracket menu_icon menu_logout"></i>Sign out</a></li>
                 </ul>
             </div>
