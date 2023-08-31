@@ -1,0 +1,191 @@
+.limit_new_creator_page {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.limit_new_creator_page span {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.new_creator_page {
+  margin-top: 10px;
+  width: 40%;
+  height: auto;
+}
+
+.new_creator_title {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.new_creator_title h1 {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.new_creator_desc {
+  margin-bottom: 10px;
+}
+
+.new_creator_desc span {
+  font-size: 13px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  color: #868282;
+}
+
+.new_creator_box {
+  width: 100%;
+  height: auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.new_creator_profile {
+  display: grid;
+}
+
+.new_creator_profile img {
+  margin-top: 10px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btn_upload {
+  height: 40px;
+  width: 120px;
+  border: 1px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #eeeeee;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+}
+
+.btn_upload:hover {
+  background-color: #d8d8d8;
+}
+
+.btn_upload::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.new_creator_save {
+  margin: 20px 0 20px 0;
+}
+
+.btn_save {
+  padding: 10px 20px 10px 20px;
+  width: auto;
+  border: 1px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #1e3c7e;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.btn_save:hover {
+  background-color: #4866a7;
+}
+
+.btn_goback {
+  padding-left: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #c4c4c4;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-decoration: underline;
+}
+
+.btn_goback:hover {
+  color: #9a9797;
+}
+
+.upload_pic {
+  width: 100%;
+  display: flex;
+}
+
+.new_creator_grid {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.new_creator_box input {
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #dfdfdf;
+  width: 100%;
+}
+
+.new_creator_profile_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.new_creator_profile_img img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Style for hiding the input element */
+.hidden {
+  display: none;
+}
+
+/* Style for the label (image container) to make it look like a clickable image */
+.new_creator_profile_img label {
+  cursor: pointer;  
+}
+
+.new_creator_profile_img label:hover {
+  opacity: 70%;
+}
+
+
+.new_creator_profile_img span {
+  font-size: 14px;
+  border-radius: 10px;
+  margin-top: 10px;
+  color: #fff;
+  background-color: #fb4c4c;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.new_creator_profile_img span:hover {
+  background-color: #dc1818;
+}
+
+.new_creator_grid textarea {
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #dfdfdf;
+  width: 100%;
+  height: 48px;
+  resize: none;
+  max-height: 330px;
+}
+
+.new_creator_grid textarea::-webkit-scrollbar {
+  width: 0;
+}

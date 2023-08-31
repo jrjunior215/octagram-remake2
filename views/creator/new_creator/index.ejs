@@ -1,0 +1,115 @@
+<div class="content">
+  <div class="limit_new_creator_page">
+    <div class="new_creator_page">
+      <div class="new_creator_title">
+        <h1>ตั้งชื่อเพจของคุณ</h1>
+      </div>
+      <form action="/creator/create" method="POST" enctype="multipart/form-data">
+        <div class="new_creator_box">
+          <div class="new_creator_profile">
+            <div class="new_creator_grid">
+              <span>ชื่อเพจ</span>
+              <input type="text" name="creator_name" placeholder="Octagram">
+            </div>
+            <div class="new_creator_grid">
+              <span>คำอธิบายเกี่ยวกับเพจของคุณ</span>
+              <input type="text" name="creator_desc" placeholder="Make people love">
+            </div>
+          </div>
+        </div>
+        <div class="new_creator_desc">
+          <span>* ชื่อเพจของคุณจะทำให้ผู้คนรู้จักคุณและค้นหาคุณได้อย่างไร คุณสามารถเปลี่ยนได้ในภายหลัง</span>
+        </div>
+        <div class="new_creator_title">
+          <h1>โปรไฟล์เพจของคุณ</h1>
+        </div>
+        <div class="new_creator_box">
+          <div class="new_creator_profile_img">
+            <label for="profile-image-upload">
+              <img alt="creator_img" src="/img/creator_img.png" id="profile-image1">
+            </label>
+            <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+            <span id="cancel-button" class="hidden" onclick="cancelUpload()">Cancel</span>
+          </div>
+        </div>
+        <div class="new_creator_desc">
+          <span></span>
+        </div>
+        <div class="new_creator_title">
+          <h1>ประวัติส่วนตัว</h1>
+        </div>
+        <div class="new_creator_box">
+          <div class="new_creator_profile">
+            <div class="new_creator_grid">
+              <span>ชื่อจริง</span>
+              <input type="text" name="fname">
+            </div>
+            <div class="new_creator_grid">
+              <span>นามสกุล</span>
+              <input type="text" name="lname">
+            </div>
+            <div class="new_creator_grid">
+              <span>เบอร์โทรศัพท์</span>
+              <input type="text" name="lname">
+            </div>
+            <div class="new_creator_grid">
+              <span>วันเดือนปีเกิด</span>
+              <input type="text" name="lname" placeholder="DD/MM/YYYY">
+            </div>
+            <div class="new_creator_grid">
+              <span>ที่อยู่ปัจจุบัน</span>
+              <textarea type="text" name="lname"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="new_creator_desc">
+          <span>* ข้อมูลส่วนตัวของคุณจะไม่ถูกนำไปเผยแพร่</span>
+        </div>
+        <div class="new_creator_save">
+          <button class="btn_save">Save</button>
+          <a class="btn_goback" id="backButton">Back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('backButton').addEventListener('click', function () {
+    window.history.back();
+  });
+
+  function previewFile() {
+    const fileInput = document.getElementById('profile-image-upload');
+    const image = document.getElementById('profile-image1');
+    const cancelButton = document.getElementById('cancel-button');
+
+    const file = fileInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        image.src = e.target.result;
+        cancelButton.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function cancelUpload() {
+    const image = document.getElementById('profile-image1');
+    const fileInput = document.getElementById('profile-image-upload');
+    const cancelButton = document.getElementById('cancel-button');
+
+    image.src = '/img/creator_img.png'; // Set the image source back to default
+    fileInput.value = ''; // Reset the input value
+    cancelButton.style.display = 'none'; // Hide the cancel button
+  }
+
+  const textarea = document.querySelector("textarea");
+  textarea.addEventListener("keyup", e => {
+    textarea.style.height = "49px";
+    let scHeight = e.target.scrollHeight;
+    textarea.style.height = `${scHeight}px`;
+  });
+
+</script>

@@ -157,8 +157,8 @@
   
   .search_result img {
     margin-left: 10px;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     object-fit: cover;
     border-radius: 50%;
   }
@@ -174,10 +174,11 @@
   }
   
   .creator_name {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 700;
+    color:#202020;
   }
   
   .creator_desc {
-    font-size: 13px;
+    font-size: 11px;
   }
