@@ -28,7 +28,7 @@
             <label for="profile-image-upload">
               <img alt="creator_img" src="/img/creator_img.png" id="profile-image1">
             </label>
-            <input id="profile-image-upload" class="hidden" type="file" onchange="previewFile()">
+            <input name="image" id="profile-image-upload" class="hidden" type="file" onchange="previewFile()" value="/img/creator_img.png">
             <span id="cancel-button" class="hidden" onclick="cancelUpload()">Cancel</span>
           </div>
         </div>
@@ -50,15 +50,15 @@
             </div>
             <div class="new_creator_grid">
               <span>เบอร์โทรศัพท์</span>
-              <input type="text" name="lname">
+              <input type="text" name="phone">
             </div>
             <div class="new_creator_grid">
               <span>วันเดือนปีเกิด</span>
-              <input type="text" name="lname" placeholder="DD/MM/YYYY">
+              <input type="date" id="dateInput" name="birthdate" placeholder="DD/MM/YYYY">
             </div>
             <div class="new_creator_grid">
               <span>ที่อยู่ปัจจุบัน</span>
-              <textarea type="text" name="lname"></textarea>
+              <textarea type="text" name="location"></textarea>
             </div>
           </div>
         </div>
@@ -66,6 +66,7 @@
           <span>* ข้อมูลส่วนตัวของคุณจะไม่ถูกนำไปเผยแพร่</span>
         </div>
         <div class="new_creator_save">
+          <input type="hidden" name="id_user" value="<%=SESSION_USER.id%>">
           <button class="btn_save">Save</button>
           <a class="btn_goback" id="backButton">Back</a>
         </div>
@@ -92,6 +93,8 @@
         cancelButton.style.display = 'block';
       };
       reader.readAsDataURL(file);
+    } else {
+      imagePreview.src = '/img/creator_img.png';
     }
   }
 

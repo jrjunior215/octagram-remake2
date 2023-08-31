@@ -60,4 +60,55 @@ User.login = async (data) => {
 
 };
 
+User.creator = async (id_user) => {
+
+  const queryString = `UPDATE users SET role = 'CREATOR' WHERE id = ${id_user};`
+  await dbConnection.execute(queryString);
+
+};
+
+User.relogin = async (id_user) => {
+  const queryString = `SELECT * FROM users WHERE id = '${id_user}'`
+
+  return new Promise(function (resolve) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+        if (rows[0].role === "CREATOR") {
+          const queryCreator = `SELECT *,creators.id AS creator_id, creators.img AS creator_img FROM creators JOIN users ON creators.id_user = users.id WHERE creators.id_user = '${id_user}'`
+          dbConnection.execute(queryCreator).then(async ([rows]) => {
+            resolve(rows)
+          }).catch(err => {
+            if (err) throw err;
+        });
+        } else {
+          resolve(rows)
+        }
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
+User.creator_login = async (id_user) => {
+  const queryString = `SELECT * FROM users WHERE id = '${id_user}'`
+
+  return new Promise(function (resolve) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+        if (rows[0].role === "CREATOR") {
+          const queryCreator = `SELECT *,creators.id AS creator_id, creators.img AS creator_img FROM creators JOIN users ON creators.id_user = users.id WHERE creators.id_user = '${id_user}'`
+          dbConnection.execute(queryCreator).then(async ([rows]) => {
+            resolve(rows)
+          }).catch(err => {
+            if (err) throw err;
+        });
+        } else {
+          resolve(rows)
+        }
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
 module.exports = User;

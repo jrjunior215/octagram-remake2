@@ -76,13 +76,11 @@ const googleController = require('./controllers/models/google_auth/googleControl
 const googleCallBackController = require('./controllers/models/google_auth/googleCallBackController');
 
 // HOME PAGE
-
 const homeController = require('./controllers/views/home/homeController');
 const searchController = require('./controllers/views/home/searchController');
 const settingController = require('./controllers/views/home/settingController');
 
 // CREATOR PAGE
-
 const creatorController = require('./controllers/views/creator/creatorController');
 const memberController = require('./controllers/views/creator/memberController');
 const packageController = require('./controllers/views/creator/packageController');
@@ -94,9 +92,11 @@ const searchAutoCreatorController = require('./controllers/models/search/searchA
 // MODELS
 
 // AUTH
-
 const registerUserController = require('./controllers/models/auth/registerUserController');
 const loginUserController = require('./controllers/models/auth/loginUserController');
+
+// CREATOR
+const newCreatorController = require('./controllers/models/creator/newCreatorController');
 
 // GET
 
@@ -110,12 +110,27 @@ app.get('/logout', logoutController);
 
 // GOOGLE AUTH PAGE
 app.get('/auth/google', googleController);
-app.get('/auth/google/callback', passport.authenticate('google', { session: false, failureRedirect: '/login' }),
-  (req, res) => {
-    const data = req.user;
-    req.session.userData = data;
-    res.redirect('/home');
-});
+// app.get('/auth/google/callback', passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+//   async (req, res) => {
+//     const data = req.user;
+//     const { id, role } = data
+//     if (role === "USER") {
+//       req.session.userData = data;
+//       res.redirect('/home');
+//     } else if (role === "ADMIN") {
+//       req.session.userData = data;
+//       res.redirect('/');
+//     } else if (role === "CREATOR") {
+//       const id_user = id;
+//       const Creator = await User.creator_login(id_user);
+//       req.session.userData = Creator[0]
+//       res.redirect('/creator');
+//     } else {
+//       req.session.userData = result[0]
+//       res.redirect('/');
+//     }
+// });
+app.get('/auth/google/callback', googleCallBackController);
 
 // HOME PAGE
 app.get('/home', homeController);
@@ -130,12 +145,19 @@ app.get('/creator', creatorController);
 app.get('/members', memberController);
 app.get('/package', packageController);
 app.get('/setting/creator', settingCreatorController);
+
+// CREATOR PAGE
+app.get('/creator2', );
+
 // POST
+
 
 // AUTH
 app.post('/register/user', registerUserController);
 app.post('/login/user', loginUserController);
 
+// NEW CREATOR
+app.post('/creator/create', newCreatorController);
 
 // SET POST LISTEN
 

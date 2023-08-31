@@ -189,3 +189,10 @@
 .new_creator_grid textarea::-webkit-scrollbar {
   width: 0;
 }
+
+input[type="date"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}

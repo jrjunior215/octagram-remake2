@@ -4,6 +4,7 @@ module.exports = async (req, res) => {
   const data = req.body;
 
   await User.login(data).then(async (result) => {
+    console.log(result)
     if (result[0].role === "USER") {
       req.session.userData = result[0]
       res.redirect('/home');
@@ -11,10 +12,10 @@ module.exports = async (req, res) => {
       req.session.userData = result[0]
       res.redirect('/');
     } else if (result[0].role === "CREATOR") {
-      const id_user = result[0].id;
-      const Creator = await User.creator(id_user);
+      const id_user = id;
+      const Creator = await User.creator_login(id_user);
       req.session.userData = Creator[0]
-      res.redirect('/' + Creator[0].pname + '/home');
+      res.redirect('/creator');
     } else {
       req.session.userData = result[0]
       res.redirect('/');
