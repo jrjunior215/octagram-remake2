@@ -30,7 +30,7 @@ module.exports = (req, res) => {
             res.redirect('/creator')
         } else {
             const image = req.file.filename;
-            const imageUrl = `/img/profile/user/${image}`;
+            const imageUrl = `/img/profile/creator/${image}`;
             await Creator.create(data, imageUrl);
             await User.creator(id_user);
             await User.relogin(id_user).then(async (result) => {

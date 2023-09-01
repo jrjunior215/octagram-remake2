@@ -11,13 +11,13 @@
         <div class="container_icons">
             <div class="profile_pic">
                 <a onclick="MenuController()">
-                    <img src="/img/profile.png">
+                    <img src="<%= SESSION_USER.creator_img %>">
                 </a>
             </div>
             <div class="menu" id="menu_drop">
                 <div class="profile_user">
-                    <img src="/img/bg.jpg">
-                    <span>Creator</span>
+                    <img src="<%= SESSION_USER.creator_img %>">
+                    <span><%= SESSION_USER.creator_name %></span>
                 </div>
                 <hr>
                 <ul>

@@ -1,0 +1,52 @@
+<div class="content">
+  <form action="/package/data/edit" method="POST">
+    <div class="limit_package_page">
+      <div class="package_page">
+        <div class="package_create_header">
+          <div class="package_create_title">
+            <span>แก้ไขแพ็กเกจ</span>
+          </div>
+          <div class="package_create_preview">
+            <a href="" target="_blank">ดูตัวอย่าง<i class="fa-regular fa-note-sticky fa-note"></i></a>
+          </div>
+        </div>
+        <div class="package_creator_box">
+          <div class="setting_grid">
+            <span>ชื่อแพ็กเกจ</span>
+            <input type="text" name="package_name" value="<%=packages[0].package_name%>">
+          </div>
+          <div class="setting_grid">
+            <span>ราคารายเดือน</span>
+            <div class="price-input">
+              <input type="number" name="package_price" placeholder="0.00" id="price" value="<%=packages[0].package_price%>">
+            </div>
+          </div>
+          <div class="setting_grid">
+            <span>รายละเอียดแพ็กเกจ</span>
+            <textarea name="package_desc" id="textEditor" value="<%=packages[0].package_desc%>"><%-packages[0].package_desc%></textarea>
+          </div>
+          <input type="hidden" name="id_package" value="<%=packages[0].id%>">
+          <div class="btn_submit">
+            <button>แก้ไข</button>
+            <a class="btn_goback_package" id="backButton">กลับ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('backButton').addEventListener('click', function () {
+    window.history.back();
+  });
+
+  const priceInput = document.getElementById('price');
+
+  priceInput.addEventListener('blur', function () {
+    const inputValue = parseFloat(this.value);
+    if (!isNaN(inputValue)) {
+      this.value = inputValue.toFixed(2);
+    }
+  });
+</script>

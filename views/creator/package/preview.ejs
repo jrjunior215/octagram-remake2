@@ -1,0 +1,53 @@
+<div class="content">
+  <div class="creator_page">
+      <div class="bg_creator">
+      </div>
+      <!-- <div class="bg_creator_img">
+          <div class="bg_image">
+              <img src="/img/bg.jpg" alt="">
+          </div>
+      </div> -->
+      <div class="limit_creator_profile">
+          <div class="creator_profile">
+              <div class="creator_content">
+                  <img src="<%= SESSION_USER.creator_img %>" alt="">
+                  <div class="creator_detail">
+                      <span class="creators_name">
+                          <%= SESSION_USER.creator_name %>
+                      </span>
+                      <span class="creators_desc"><%= SESSION_USER.creator_desc %></span>
+
+                  </div>
+              </div>
+              <div class="post">
+                  <a href="/creator" class="btn_sub">สมัคร</a>
+                  <i id="tooltip_creator" class="material-icons">more_horiz</i>
+              </div>
+          </div>
+      </div>
+      <!-- <div class="limit_navbar">
+          <%- include('../index/navbar.ejs')%>
+      </div> -->
+
+      <div class="limit_package_preview">
+        <div class="package_preview_header">
+          <span>สมัครเข้าร่วมเป็นสมาชิกกับเรา!</span>
+        </div>
+        <div class="package_preview_list">
+
+          <div class="package_preview_item">
+            <div class="package_preview_price">
+              <span>฿ 35 / เดือน</span>
+            </div>
+            <a href="">เข้าร่วม</a>
+            <div class="package_preview_desc">
+              <!-- <span><%=packages[0].package_desc%></span> -->
+              <%-packages[0].package_desc%>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+  </div>
+</div>

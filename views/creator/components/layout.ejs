@@ -22,6 +22,17 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <!-- Font awesome -->
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!-- Text Editor -->
+    <script src="https://cdn.tiny.cloud/1/tm45ih6ayn2iq51b3tcaftd0r1lne5iz3ouzo1zun3rc3xuw/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: '#textEditor',
+        plugins: 'advlist autolink lists link image charmap print preview anchor',
+        toolbar_mode: 'floating',
+        height: 300,
+        toolbar: 'undo redo | formatselect | bold italic | bullist numlist | link'
+      });
+    </script>
 </head>
 
 <body>

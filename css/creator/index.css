@@ -114,13 +114,15 @@ main {
 .post {
     position: absolute;
     right: 0px;
-    top: 35px;
+    top: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .btn_post {
     font-size: 15px;
     padding: 13px;
-    background-color: #0b47a0;
+    background-color: #22549F;
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
@@ -300,4 +302,12 @@ main {
     font-size: 30px;
     font-weight: 200;
     font-family: 'Noto Sans Thai', sans-serif;
+}
+
+#tooltip_creator {
+    margin-left: 5px;
+    border-radius: 20%;
+    background-color: #dfeaf1;
+    padding: 12px;
+    cursor: pointer;
 }

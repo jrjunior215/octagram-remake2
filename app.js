@@ -73,6 +73,7 @@ const logoutController = require('./controllers/models/auth/logoutController');
 
 // GOOGLE AUTH PAGE
 const googleController = require('./controllers/models/google_auth/googleController');
+const googleLoginController = require('./controllers/models/google_auth/googleLoginController');
 const googleCallBackController = require('./controllers/models/google_auth/googleCallBackController');
 
 // HOME PAGE
@@ -86,6 +87,11 @@ const memberController = require('./controllers/views/creator/memberController')
 const packageController = require('./controllers/views/creator/packageController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 
+// PACKAGE PAGE
+const packageCreateController = require('./controllers/views/creator/packageCreateController');
+const packagePreviewController = require('./controllers/views/creator/packagePreviewController');
+const packageEditController = require('./controllers/views/creator/packageEditController');
+
 //SEARCH PAGE
 const searchAutoCreatorController = require('./controllers/models/search/searchAutoCreatorController');
 
@@ -98,6 +104,10 @@ const loginUserController = require('./controllers/models/auth/loginUserControll
 // CREATOR
 const newCreatorController = require('./controllers/models/creator/newCreatorController');
 
+// PACKAGE
+const packageCreate = require('./controllers/models/package/packageCreate');
+const packageEdit = require('./controllers/models/package/packageEdit');
+
 // GET
 
 // INDEX PAGE
@@ -109,64 +119,14 @@ app.get('/register', registerController);
 app.get('/logout', logoutController);
 
 // GOOGLE AUTH PAGE
+app.get('/auth/google/login', googleLoginController);
 app.get('/auth/google', googleController);
 app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
   async (req, res) => {
     const data = req.user;
     req.session.userData = data;
-    res.redirect('/home');
+    res.redirect('/auth/google/login');
 });
-
-// app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
-//   async (req, res) => {
-//     try {
-//       const User = require('./models/User');
-//       const data = req.user;
-//       const { id, role } = data;
-
-//       if (role === "USER") {
-//         req.session.userData = data;
-//         return res.redirect('/home');
-//       } else if (role === "ADMIN") {
-//         req.session.userData = data;
-//         return res.redirect('/');
-//       } else if (role === "CREATOR") {
-//         const id_user = id;
-//         const Creator = await User.creator_login(id_user);
-//         req.session.userData = Creator[0];
-//         return res.redirect('/home');
-//       } else {
-//         req.session.userData = data;
-//         return res.redirect('/');
-//       }
-//     } catch (error) {
-//       // Handle any errors that might occur during the processing
-//       console.error(error);
-//       return res.status(500).send('Internal Server Error');
-//     }
-// });
-
-// app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
-//   async (req, res) => {
-//     const User = require('./models/User');
-//     const data = req.user;
-//     const { id, role } = data
-//     if (role === "USER") {
-//       req.session.userData = data;
-//       return res.redirect('/home');
-//     } else if (role === "ADMIN") {
-//       req.session.userData = data;
-//       return res.redirect('/');
-//     } else if (role === "CREATOR") {
-//       const id_user = id;
-//       const Creator = await User.creator_login(id_user);
-//       req.session.userData = Creator[0]
-//       return res.redirect('/home');
-//     } else {
-//       req.session.userData = data;
-//       res.redirect('/');
-//     }
-// });
 
 // app.get('/auth/google/callback', googleCallBackController);
 
@@ -184,11 +144,15 @@ app.get('/members', memberController);
 app.get('/package', packageController);
 app.get('/setting/creator', settingCreatorController);
 
+// PACKAGE PAGE
+app.get('/package/create', packageCreateController);
+app.get('/package/preview', packagePreviewController);
+app.get('/package/edit', packageEditController);
+
 // CREATOR PAGE
 app.get('/creator2',);
 
 // POST
-
 
 // AUTH
 app.post('/register/user', registerUserController);
@@ -196,6 +160,10 @@ app.post('/login/user', loginUserController);
 
 // NEW CREATOR
 app.post('/creator/create', newCreatorController);
+
+// PACKAGE
+app.post('/package/data/create', packageCreate);
+app.post('/package/data/edit', packageEdit);
 
 // SET POST LISTEN
 

@@ -2,6 +2,50 @@
     <div class="limit_package_page">
         <div class="package_page">
             <%- include('./navbar.ejs')%>
+                <div class="package_list_box">
+                    <div class="package_list_header">
+                        <div class="package_list_title left">
+                            <span>แพ็กเกจทั้งหมด</span>
+                        </div>
+                        <div class="package_list_preview right">
+                            <a href="/package/preview?creator=<%= SESSION_USER.creator_name %>" target="_blank">ดูตัวอย่าง<i class="fa-regular fa-note-sticky fa-note"></i></a>
+                        </div>
+                    </div>
+                    <div class="package_list">
+                        <% if (packages.length > 0) { %>
+                            <% for(var i=0; i < packages.length; i++) { %>
+                                <div class="package_item">
+                                    <div class="edit_package">
+                                        <a href="/package/edit?creator=<%= SESSION_USER.creator_name %>&package=<%=packages[i].id%>">แก้ไข</a>
+                                    </div>
+                                    <div class="package_price">
+                                        <span><%=packages[i].package_price%> บาท / เดือน</span>
+                                    </div>
+                                    <div class="package_member">
+                                        <span>0 คนสมัคร</span>
+                                    </div>
+                                    <div class="package_name">
+                                        <span><%=packages[i].package_name%></span>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <%} else { %>  
+
+                            <div class="package_no_item">
+                                <div class="package_no_title">
+                                    <span><i class="fa-solid fa-file-circle-xmark fa-mark-x"></i></span>
+                                    <span class="package_no_title_text">ไม่มีแพ็กเกจ</span>
+                                    <span class="package_no_title_desc">กำหนดราคาและอธิบายว่าผู้คนจะได้รับอะไรหากเข้าร่วมเป็นสมาชิกของคุณ</span>
+                                </div>
+                            </div>
+
+                        <% } %>
+                    </div>
+
+                    <div class="package_add">
+                        <a href="/package/create">เพิ่มแพ็กเกจ</a>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

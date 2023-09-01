@@ -5,5 +5,5 @@ module.exports = async (req, res) => {
     const package = await Package.list(id_creator);
 
     res.locals.layout = 'creator/components/layout';
-    res.render('creator/package/index', { title_nav: 'Home | Octagram', packages: package })
+    res.render('creator/package/preview', { title_nav: 'Home | Octagram', packages: package })
 }
