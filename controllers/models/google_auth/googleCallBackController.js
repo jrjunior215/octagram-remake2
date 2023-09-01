@@ -1,32 +1,27 @@
 const passport = require('../../../js/passport');
 const User = require('../../../models/User');
 
-const googleCallBackController = (req, res, next) => {
-  passport.authenticate('google', { session: false, failureRedirect: '/login' }, async (err, user, info) => {
-    if (err) {
-      return next(err); // Handle errors appropriately
-    }
-
-    if (!user) {
-      return res.redirect('/login'); // Handle failed authentication
-    }
-
-    const { id, role } = user;
-    let redirectPath = '/';
+const googleCallBackController = async (req, res) => {
+  passport.authenticate('google', { session: false })(req, res, async () => {
+    const data = req.user;
+    const { id, role } = data;
 
     if (role === "USER") {
-      redirectPath = '/home';
+      req.session.userData = data;
+      res.redirect('/home');
     } else if (role === "ADMIN") {
-      redirectPath = '/';
+      req.session.userData = data;
+      res.redirect('/');
     } else if (role === "CREATOR") {
-      const Creator = await User.creator_login(id);
+      const id_user = id;
+      const Creator = await User.creator_login(id_user);
       req.session.userData = Creator[0];
-      redirectPath = '/creator';
+      res.redirect('/creator');
+    } else {
+      req.session.userData = data;
+      res.redirect('/');
     }
-
-    req.session.userData = user;
-    res.redirect(redirectPath);
-  })(req, res, next);
+  });
 };
 
 module.exports = googleCallBackController;

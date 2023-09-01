@@ -110,27 +110,65 @@ app.get('/logout', logoutController);
 
 // GOOGLE AUTH PAGE
 app.get('/auth/google', googleController);
-// app.get('/auth/google/callback', passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
+  async (req, res) => {
+    const data = req.user;
+    req.session.userData = data;
+    res.redirect('/home');
+});
+
+// app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
 //   async (req, res) => {
+//     try {
+//       const User = require('./models/User');
+//       const data = req.user;
+//       const { id, role } = data;
+
+//       if (role === "USER") {
+//         req.session.userData = data;
+//         return res.redirect('/home');
+//       } else if (role === "ADMIN") {
+//         req.session.userData = data;
+//         return res.redirect('/');
+//       } else if (role === "CREATOR") {
+//         const id_user = id;
+//         const Creator = await User.creator_login(id_user);
+//         req.session.userData = Creator[0];
+//         return res.redirect('/home');
+//       } else {
+//         req.session.userData = data;
+//         return res.redirect('/');
+//       }
+//     } catch (error) {
+//       // Handle any errors that might occur during the processing
+//       console.error(error);
+//       return res.status(500).send('Internal Server Error');
+//     }
+// });
+
+// app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
+//   async (req, res) => {
+//     const User = require('./models/User');
 //     const data = req.user;
 //     const { id, role } = data
 //     if (role === "USER") {
 //       req.session.userData = data;
-//       res.redirect('/home');
+//       return res.redirect('/home');
 //     } else if (role === "ADMIN") {
 //       req.session.userData = data;
-//       res.redirect('/');
+//       return res.redirect('/');
 //     } else if (role === "CREATOR") {
 //       const id_user = id;
 //       const Creator = await User.creator_login(id_user);
 //       req.session.userData = Creator[0]
-//       res.redirect('/creator');
+//       return res.redirect('/home');
 //     } else {
-//       req.session.userData = result[0]
+//       req.session.userData = data;
 //       res.redirect('/');
 //     }
 // });
-app.get('/auth/google/callback', googleCallBackController);
+
+// app.get('/auth/google/callback', googleCallBackController);
 
 // HOME PAGE
 app.get('/home', homeController);
@@ -147,7 +185,7 @@ app.get('/package', packageController);
 app.get('/setting/creator', settingCreatorController);
 
 // CREATOR PAGE
-app.get('/creator2', );
+app.get('/creator2',);
 
 // POST
 
