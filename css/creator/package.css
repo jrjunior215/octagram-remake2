@@ -330,10 +330,18 @@
     font-family: 'Noto Sans Thai', sans-serif;
 }
 
+.package_preview_list {
+    display: flex;
+    flex-wrap: wrap; /* Add this property to wrap items to a new line */
+    justify-content: center;
+}
+
 .package_preview_item {
+    margin: 0 10px;
+    margin-top: 4vh;
     display: flex;
     align-items: start;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     width: 400px;
     background-color: #ffffff;
@@ -341,6 +349,11 @@
     padding: 20px;
     height: auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.package_preview_name span {
+    font-size: 20px;
+    color: #524e4e;
 }
 
 .package_preview_price {

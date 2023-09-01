@@ -6,7 +6,7 @@ Package.create = async (data) => {
 
   const { id_creator, package_name, package_desc, package_price } = data;
   const queryString = `INSERT INTO packages(id_creator, package_name, package_desc, package_price) 
-  VALUES('${id_creator}', '${package_name}', '${package_desc}', '${package_price}')`
+  VALUES("${id_creator}", "${package_name}", "${package_desc}", "${package_price}")`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
@@ -49,7 +49,7 @@ Package.select = async (id_package) => {
 Package.edit = async (data) => {
 
   const { package_name, package_desc, package_price, id_package } = data;
-  const queryString = `UPDATE packages SET package_name = '${package_name}', package_desc = '${package_desc}', package_price = '${package_price}' WHERE id = '${id_package}';`
+  const queryString = `UPDATE packages SET package_name = "${package_name}", package_desc = "${package_desc}", package_price = "${package_price}" WHERE id = '${id_package}';`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {

@@ -18,12 +18,13 @@
           <div class="setting_grid">
             <span>ราคารายเดือน</span>
             <div class="price-input">
-              <input type="number" name="package_price" placeholder="0.00" id="price" value="<%=packages[0].package_price%>">
+              <input type="number" name="package_price" placeholder="0.00" id="price"
+                value="<%=packages[0].package_price%>">
             </div>
           </div>
           <div class="setting_grid">
             <span>รายละเอียดแพ็กเกจ</span>
-            <textarea name="package_desc" id="textEditor" value="<%=packages[0].package_desc%>"><%-packages[0].package_desc%></textarea>
+            <textarea name="package_desc" id="textEditor"><%- packages[0].package_desc %></textarea>
           </div>
           <input type="hidden" name="id_package" value="<%=packages[0].id%>">
           <div class="btn_submit">
@@ -49,4 +50,5 @@
       this.value = inputValue.toFixed(2);
     }
   });
+
 </script>
