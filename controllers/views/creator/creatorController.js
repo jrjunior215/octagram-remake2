@@ -5,11 +5,12 @@ module.exports = async (req, res) => {
   const id_user = SESSION_USER.id;
 
   if (role === "USER") {
-    res.locals.layout = 'creator/components/layout';
+    res.locals.layout = 'creator/new_creator/layout';
     res.render('creator/new_creator/index', { title_nav: 'Home | Octagram' })
   } else if (role === "CREATOR") {
+    const creator_name = SESSION_USER.creator_name;
     res.locals.layout = 'creator/components/layout';
-    res.render('creator/index/index', { title_nav: 'Home | Octagram' })
+    res.render('creator/index/index', { title_nav: `${creator_name} | Octagram` })
   }
 
 }

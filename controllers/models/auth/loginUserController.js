@@ -4,7 +4,6 @@ module.exports = async (req, res) => {
   const data = req.body;
 
   await User.login(data).then(async (result) => {
-    console.log(result)
     if (result[0].role === "USER") {
       req.session.userData = result[0]
       res.redirect('/home');

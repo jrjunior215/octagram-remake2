@@ -7,7 +7,8 @@
             <span>แก้ไขแพ็กเกจ</span>
           </div>
           <div class="package_create_preview">
-            <a href="" target="_blank">ดูตัวอย่าง<i class="fa-regular fa-note-sticky fa-note"></i></a>
+            <a href="/package/preview?creator=<%= SESSION_USER.creator_name %>" target="_blank">ดูตัวอย่าง<i
+                class="fa-regular fa-note-sticky fa-note"></i></a>
           </div>
         </div>
         <div class="package_creator_box">
@@ -29,12 +30,13 @@
           <input type="hidden" name="id_package" value="<%=packages[0].id%>">
           <div class="btn_submit">
             <button>แก้ไข</button>
-            <a class="btn_goback_package" id="backButton">กลับ</a>
+            <a class="btn_goback_package" id="click">ลบ</a>
           </div>
         </div>
       </div>
     </div>
   </form>
+
 </div>
 
 <script>
@@ -50,5 +52,7 @@
       this.value = inputValue.toFixed(2);
     }
   });
+
+  
 
 </script>
