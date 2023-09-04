@@ -41,8 +41,30 @@
 </head>
 
 <body>
-    
     <div class="container">
+        <div class="container_pop_up" id="ConfirmPopup">
+            <div class="pop_up">
+                <div class="pop_up_confirm">
+                    <div class="header_popup">
+                        <div class="header_popup_title">
+                            <span>ลบข้อมูล</span>
+                        </div>
+                        <div class="close_popup" id="XmarkClose">
+                            <i class="fa-solid fa-x"></i>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="content_popup">
+                        <span>คุณแน่ใจที่จะลบข้อมูลออกจากระบบหรือไม่?</span>
+                    </div>
+                    <hr>
+                    <div class="option_popup">
+                        <button class="yes_popup" id="YesConfirmPopup">ใช่</button>
+                        <button class="no_popup" id="NoConfirmPopup">ไม่</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%- include('./navbar.ejs')%>
             <main>
                 <%- include('./sidebar.ejs')%>

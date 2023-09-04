@@ -30,7 +30,7 @@
           <input type="hidden" name="id_package" value="<%=packages[0].id%>">
           <div class="btn_submit">
             <button>แก้ไข</button>
-            <a class="btn_goback_package" id="click">ลบ</a>
+            <a class="btn_goback_package" id="click_remove">ลบ</a>
           </div>
         </div>
       </div>
@@ -40,6 +40,42 @@
 </div>
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    var clickRemoveButton = document.getElementById("click_remove");
+    var ConfirmPopup = document.getElementById("ConfirmPopup");
+    var YesConfirmPopup = document.getElementById("YesConfirmPopup");
+    var NoConfirmPopup = document.getElementById("NoConfirmPopup");
+    var XmarkClose = document.getElementById("XmarkClose");
+
+    clickRemoveButton.addEventListener("click", function () {
+      ConfirmPopup.classList.add('show_popup');
+    });
+
+    YesConfirmPopup.addEventListener("click", function () {
+      // Redirect to the specified URL
+      var id = "<%=packages[0].id%>";
+      window.location.href = "/package/delete?id=" + id;
+    });
+
+    NoConfirmPopup.addEventListener("click", function () {
+      // Hide the popup
+      ConfirmPopup.classList.remove('show_popup');
+    });
+
+    XmarkClose.addEventListener("click", function () {
+      // Hide the popup
+      ConfirmPopup.classList.remove('show_popup');
+    });
+
+    document.addEventListener("click", function (event) {
+      // Check if the target is not within the .pop_up element
+      if (!ConfirmPopup.querySelector(".pop_up").contains(event.target) && event.target !== clickRemoveButton) {
+        ConfirmPopup.classList.remove('show_popup');
+      }
+    });
+  });
+
   document.getElementById('backButton').addEventListener('click', function () {
     window.history.back();
   });
@@ -52,7 +88,5 @@
       this.value = inputValue.toFixed(2);
     }
   });
-
-  
 
 </script>

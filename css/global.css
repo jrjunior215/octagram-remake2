@@ -55,3 +55,9 @@ li {
 ul {
     list-style-type: none;
 }
+
+.container {
+    position: relative;
+    width: auto;
+    height: auto;
+}

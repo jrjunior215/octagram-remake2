@@ -107,6 +107,7 @@ const newCreatorController = require('./controllers/models/creator/newCreatorCon
 // PACKAGE
 const packageCreate = require('./controllers/models/package/packageCreate');
 const packageEdit = require('./controllers/models/package/packageEdit');
+const packageDelete = require('./controllers/models/package/packageDelete');
 
 // GET
 
@@ -164,6 +165,8 @@ app.post('/creator/create', newCreatorController);
 // PACKAGE
 app.post('/package/data/create', packageCreate);
 app.post('/package/data/edit', packageEdit);
+app.get('/package/delete', packageDelete);
+
 
 // SET POST LISTEN
 

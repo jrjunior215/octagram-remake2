@@ -61,4 +61,18 @@ Package.edit = async (data) => {
 
 };
 
+Package.delete = async (data) => {
+
+  const queryString = `DELETE FROM packages WHERE id = '${data}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Package;
