@@ -84,13 +84,16 @@ const settingController = require('./controllers/views/home/settingController');
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
 const memberController = require('./controllers/views/creator/memberController');
-const packageController = require('./controllers/views/creator/packageController');
+const packageController = require('./controllers/views/creator/package/packageController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 
 // PACKAGE PAGE
-const packageCreateController = require('./controllers/views/creator/packageCreateController');
-const packagePreviewController = require('./controllers/views/creator/packagePreviewController');
-const packageEditController = require('./controllers/views/creator/packageEditController');
+const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
+const packagePreviewController = require('./controllers/views/creator/package/packagePreviewController');
+const packageEditController = require('./controllers/views/creator/package/packageEditController');
+
+// POST PAGE
+const postTextController = require('./controllers/views/creator/post/postTextController');
 
 //SEARCH PAGE
 const searchAutoCreatorController = require('./controllers/models/search/searchAutoCreatorController');
@@ -108,6 +111,9 @@ const newCreatorController = require('./controllers/models/creator/newCreatorCon
 const packageCreate = require('./controllers/models/package/packageCreate');
 const packageEdit = require('./controllers/models/package/packageEdit');
 const packageDelete = require('./controllers/models/package/packageDelete');
+
+// POST 
+const postText = require('./controllers/models/post/postText');
 
 // GET
 
@@ -150,8 +156,11 @@ app.get('/package/create', packageCreateController);
 app.get('/package/preview', packagePreviewController);
 app.get('/package/edit', packageEditController);
 
+// POST PAGE
+app.get('/post/text', postTextController); 
+
 // CREATOR PAGE
-app.get('/creator2',);
+app.get('/creator2', postText);
 
 // POST
 
@@ -166,6 +175,9 @@ app.post('/creator/create', newCreatorController);
 app.post('/package/data/create', packageCreate);
 app.post('/package/data/edit', packageEdit);
 app.get('/package/delete', packageDelete);
+
+// POST
+app.post('/post/data/create', postText);
 
 
 // SET POST LISTEN

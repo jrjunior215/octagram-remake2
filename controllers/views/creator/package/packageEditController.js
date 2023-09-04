@@ -1,4 +1,4 @@
-const Package = require('../../../models/Package');
+const Package = require('../../../../models/Package');
 
 module.exports = async (req, res) => {
   const id_package = req.query.package;

@@ -422,7 +422,6 @@
     height: 100vh;
     z-index: 3;
     background-color: #000000;
-    display: block;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
     transition: opacity 0.3s ease; 
@@ -485,10 +484,13 @@
 
 .close_popup {
     cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%; 
 }
 
 .close_popup:hover {
  color: #3b3b3b;
+ background-color: #c4c4c4;
 }
 
 .yes_popup {

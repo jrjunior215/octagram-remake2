@@ -1,0 +1,70 @@
+<div class="content">
+  <form id="myForm" action="/post/data/create" method="POST">
+    <div class="limit_post_page">
+      <div class="post_page">
+        <div class="post_create_header">
+          <div class="post_create_title">
+            <span>สร้างโพสต์ของคุณ</span>
+          </div>
+        </div>
+        <div class="post_creator_box">
+          <div class="setting_grid">
+            <span>หัวข้อ</span>
+            <input type="text" name="post_name" value="">
+          </div>
+          <div class="setting_grid">
+            <span>รายละเอียด</span>
+            <textarea name="post_desc" id="textEditor"></textarea>
+          </div>
+          <div class="setting_grid">
+            <a href="/post/image"><i class="fa-solid fa-camera fas_camera"></i></a>
+          </div>
+          <div class="setting_grid">
+            <span>กำหนดสิทธิ์ในการเข้าถึงให้สมาชิกของคุณมองเห็นโพสต์</span>
+            <div class="container_check_box">
+              <% if (packages.length> 0) { %>
+                <label class="form-control">
+                  <input type="checkbox" name="permission" value="ALL"/>
+                  Public | * ทุกคนสามารถเห็น ร่วมไปถึงคนที่ไม่ได้สมัครสมาชิกกับคุณ *
+                </label>
+                <% for(var i=0; i < packages.length; i++) { %>
+                  <label class="form-control">
+                    <input type="checkbox" name="permission" value="<%=packages[i].id%>"/>
+                    <%=packages[i].package_name%> | <%=packages[i].package_price%> บาท / เดือน
+                  </label>
+                  <% } %>
+                    <%} else { %>
+                      <label class="form-control">
+                        <input type="checkbox" name="permission" checked />
+                        Public | * ทุกคนสามารถเค้ามาดูได้ ร่วมถึงคนที่ไม่ได้สมัครสมาชิกกับคุณ *
+                      </label>
+                      <% } %>
+            </div>
+
+          </div>
+          <input type="hidden" name="id_creator" value="<%= SESSION_USER.creator_id %>">
+          <div class="btn_submit">
+            <button>สร้าง</button>
+            <a class="btn_goback_post" id="backButton">กลับ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('backButton').addEventListener('click', function () {
+    window.history.back();
+  });
+
+  $(document).ready(function () {
+    $("#myForm").submit(function (e) {
+      // Check if at least one checkbox with the name "permission" is checked
+      if ($("input[name='permission']:checked").length === 0) {
+        e.preventDefault(); // Prevent form submission
+        alert("กรุณากำหนดสิทธิ์ในการเข้าถึงอย่างน้อยหนึงสิทธิ์."); // Show an error message
+      }
+    });
+  });
+</script>
