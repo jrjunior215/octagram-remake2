@@ -115,6 +115,9 @@ const packageCreate = require('./controllers/models/package/packageCreate');
 const packageEdit = require('./controllers/models/package/packageEdit');
 const packageDelete = require('./controllers/models/package/packageDelete');
 
+// CREATOR PAGE
+const creatorPageController = require('./controllers/views/home/creator/creatorPageController')
+
 // POST 
 const postText = require('./controllers/models/post/postText');
 
@@ -181,6 +184,9 @@ app.post('/creator/create', newCreatorController);
 app.post('/package/data/create', packageCreate);
 app.post('/package/data/edit', packageEdit);
 app.get('/package/delete', packageDelete);
+
+// CREATOR PAGE
+app.get('/:creator_name', creatorPageController);
 
 
 // POST

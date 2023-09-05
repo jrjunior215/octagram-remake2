@@ -1,0 +1,22 @@
+<div class="navbar">
+  <a href="/creator" class="nav_creator">Home</a>
+  <a href="#" class="nav_creator">About</a>
+  <a href="#" class="nav_creator">Review</a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const navSetting = document.querySelectorAll('.nav_creator');
+
+      const currentPath = window.location.pathname;
+
+      // Check each navigation link's href attribute against the current URL pathname
+      navSetting.forEach(link => {
+          const linkHref = link.getAttribute('href');
+          if (linkHref === currentPath) {
+              link.classList.add('active');
+          }
+      });
+
+  });
+</script>

@@ -17,4 +17,17 @@ Creator.create = async (data, imageUrl) => {
 
 };
 
+Creator.page = async (creator_name) => {
+
+    const queryString = `SELECT * FROM creators WHERE creator_name = '${creator_name}'`
+    return new Promise(function (resolve, reject) {
+        dbConnection.execute(queryString).then(async ([rows]) => {
+            resolve(rows);
+        }).catch(err => {
+            if (err) throw err;
+        });
+    })
+
+};
+
 module.exports = Creator;
