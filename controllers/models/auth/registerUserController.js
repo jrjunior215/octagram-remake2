@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
   const data = req.body;
   const password = req.body.pass;
 
-  if (password.length !== 6) {
+  if (password.length < 6) {
     const error = 'Password must be 6 characters long';
     res.locals.layout = 'auth/components/layout';
     res.render('auth/register', {

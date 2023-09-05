@@ -29,11 +29,11 @@ async function load_data(query = '') {
                 if (data.length > 0) {
                     for (var count = 0; count < data.length; count++) {
                         html += '<li class="search_result">';
-                        html += '<a href="/' + data[count].pname + '">';
+                        html += '<a href="/' + data[count].creator_name + '">';
                         html += '<img src="' + data[count].img + '" alt="">';
                         html += '<div class="creator_info">';
-                        html += '<span class="creator_name">' + data[count].pname + '</span>';
-                        html += '<span class="creator_desc">Creating website octagram</span>';
+                        html += '<span class="creator_name">' + data[count].creator_name + '</span>';
+                        html += '<span class="creator_desc">' + data[count].creator_desc + '</span>';
                         html += '</div>';
                         html += '</a>';
                         html += '</li>';
@@ -42,7 +42,7 @@ async function load_data(query = '') {
                 else {
                     html += '<li class="search_result">';
                     html += '<div class="center_data">';
-                    html += '<span class="nodata">No data found.</span>';
+                    html += '<span class="nodata">ไม่พบคริเอเตอร์ของคุณ.</span>';
                     html += '</div>';
                     html += '</li>';
                 }
@@ -59,19 +59,24 @@ async function load_data(query = '') {
 }
 
 var search_element = document.getElementById("autosearch");
+var search_content = document.getElementById("search_content");
 
 search_element.onkeyup = async function () {
-
     var query = search_element.value;
-
     await load_data(query);
 
+    // Check if the input value is empty
+    if (query.trim() === '') {
+        search_content.classList.remove("show_content");
+    }
 };
 
 search_element.onfocus = async function () {
-
     var query = search_element.value;
-
     await load_data(query);
 
+    // Check if the input value is empty
+    if (query.trim() === '') {
+        search_content.classList.remove("show_content");
+    }
 };

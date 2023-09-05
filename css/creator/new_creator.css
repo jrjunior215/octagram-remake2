@@ -1,8 +1,14 @@
+.cotent_new_creator {
+  width: 100%;
+  height: auto;
+}
+
 .limit_new_creator_page {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
+  background-color: #F6F7FA;
 }
 
 .limit_new_creator_page span {

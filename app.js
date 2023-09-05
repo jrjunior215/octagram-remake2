@@ -104,6 +104,9 @@ const searchAutoCreatorController = require('./controllers/models/search/searchA
 const registerUserController = require('./controllers/models/auth/registerUserController');
 const loginUserController = require('./controllers/models/auth/loginUserController');
 
+// USER PROFILE
+const profileUser = require('./controllers/models/profile/profileUser');
+
 // CREATOR
 const newCreatorController = require('./controllers/models/creator/newCreatorController');
 
@@ -143,7 +146,7 @@ app.get('/search', searchController);
 app.get('/setting/basic', settingController);
 
 // SEARCH
-app.get('/search/query');
+app.get('/search/query', searchAutoCreatorController);
 
 // CREATOR PAGE
 app.get('/creator', creatorController);
@@ -168,6 +171,9 @@ app.get('/creator2', postText);
 app.post('/register/user', registerUserController);
 app.post('/login/user', loginUserController);
 
+// USER PROFILE
+app.post('/profile/user/update', profileUser);
+
 // NEW CREATOR
 app.post('/creator/create', newCreatorController);
 
@@ -175,6 +181,7 @@ app.post('/creator/create', newCreatorController);
 app.post('/package/data/create', packageCreate);
 app.post('/package/data/edit', packageEdit);
 app.get('/package/delete', packageDelete);
+
 
 // POST
 app.post('/post/data/create', postText);

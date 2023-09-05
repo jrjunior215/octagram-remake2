@@ -10,7 +10,7 @@
         <div class="post_creator_box">
           <div class="setting_grid">
             <span>หัวข้อ</span>
-            <input type="text" name="post_name" value="">
+            <input type="text" name="post_title" value="">
           </div>
           <div class="setting_grid">
             <span>รายละเอียด</span>
@@ -24,7 +24,7 @@
             <div class="container_check_box">
               <% if (packages.length> 0) { %>
                 <label class="form-control">
-                  <input type="checkbox" name="permission" value="ALL"/>
+                  <input type="checkbox" name="permission" id="permission_all" value="ALL"/>
                   Public | * ทุกคนสามารถเห็น ร่วมไปถึงคนที่ไม่ได้สมัครสมาชิกกับคุณ *
                 </label>
                 <% for(var i=0; i < packages.length; i++) { %>
@@ -67,4 +67,18 @@
       }
     });
   });
+
+  const permissionAllCheckbox = document.getElementById('permission_all');
+  const permissionCheckboxes = document.querySelectorAll('input[name="permission"]');
+
+  // Add an event listener to the permission_all checkbox
+  permissionAllCheckbox.addEventListener('change', function () {
+    const isChecked = this.checked; // Check if permission_all is checked
+
+    // Loop through the permission checkboxes and set their checked property
+    permissionCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = isChecked;
+    });
+  }); 
+
 </script>

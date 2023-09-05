@@ -111,4 +111,32 @@ User.creator_login = async (id_user) => {
 
 };
 
+User.profiletext = async (data) => {
+  const { id_user, name, email, img} = data;
+  const queryString = `UPDATE users SET name = '${name}', email = '${email}',img = '${img}' WHERE id = ${id_user}`
+
+  return new Promise(function (resolve) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
+User.profileImg = async (data, imageUrl) => {
+  const { id_user, name, email } = data;
+  const queryString = `UPDATE users SET name = '${name}', email = '${email}',img = '${imageUrl}' WHERE id = ${id_user}`
+
+  return new Promise(function (resolve) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
 module.exports = User;

@@ -8,51 +8,45 @@
             <div class="search_input">
                 <div class="search_input_limiter">
                     <i class="fa-solid fa-magnifying-glass search_icons_input"></i>
-                    <input class="search_text" type="text" name="search" id="search">
+                    <input class="search_text" type="text" name="search" id="autosearch" autocomplete="off">
                     <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
                 </div>
             </div>
+
             <div class="search_content_limit">
-                <div class="search_content">
-                    <ul class="profile_search">
-                        <li class="search_result">
-                            <a href="">
-                                <img src="/img/bg.jpg" alt="">
-                                <div class="creator_info">
-                                    <span class="creator_name">
-                                        Creator01
-                                    </span>
-                                    <span class="creator_desc">Creating website octagram</span>
-                                    <input id="creatorUser" name="creatorUser" type="hidden" value="" />
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="search_content" id="search_content">
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 
-    <script>
-        function clearSearchInput() {
-            var searchInput = document.getElementById("search");
-            var clearIcon = document.querySelector(".x_icon");
-            searchInput.value = ""; // Clear the input value
+
+<script>
+    function clearSearchInput() {
+        var searchInput = document.getElementById("autosearch");
+        var clearIcon = document.querySelector(".x_icon");
+        var search_content = document.getElementById("search_content");
+        search_content.classList.remove("show_content");
+        searchInput.value = ""; // Clear the input value
+        clearIcon.style.display = "none";
+    }
+
+    function toggleClearIcon() {
+        var searchInput = document.getElementById("autosearch");
+        var clearIcon = document.querySelector(".x_icon");
+
+        if (searchInput.value.trim() !== "") {
+            clearIcon.style.display = "inline";
+        } else {
             clearIcon.style.display = "none";
         }
+    }
 
-        function toggleClearIcon() {
-            var searchInput = document.getElementById("search");
-            var clearIcon = document.querySelector(".x_icon");
+    // Call toggleClearIcon initially and add input event listener
+    toggleClearIcon();
+    document.getElementById("autosearch").addEventListener("input", toggleClearIcon);
 
-            if (searchInput.value.trim() !== "") {
-                clearIcon.style.display = "inline";
-            } else {
-                clearIcon.style.display = "none";
-            }
-        }
 
-        // Call toggleClearIcon initially and add input event listener
-        toggleClearIcon();
-        document.getElementById("search").addEventListener("input", toggleClearIcon);
-    </script>
+</script>

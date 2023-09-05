@@ -6,7 +6,7 @@
         <%- include('./navbar.ejs')%>
 
         <div class="setting_box">
-          <form action="/profile/update" method="POST" enctype="multipart/form-data" class="setting_profile">
+          <form action="/profile/user/update" method="POST" enctype="multipart/form-data" class="setting_profile">
             <div class="setting_grid">
               <span>Profile</span>
               <div class="upload_pic">
@@ -29,7 +29,7 @@
               <span>Email</span>
               <input type="text" name="email" value="<%= SESSION_USER.email %>">
             </div>
-            <input type="hidden" name="img" value="">
+            <input type="hidden" name="img" value="<%= SESSION_USER.img %>">
             <div class="setting_grid">
               <button class="btn_save">Save</button>
             </div>
