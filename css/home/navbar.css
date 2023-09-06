@@ -223,8 +223,8 @@ hr {
 }
 
 .membership_list img{
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -251,6 +251,12 @@ hr {
     align-items: center;
     padding: 5px 5px 5px 5px;
     margin-left: 10px;
+}
+
+.creator_link span {
+    color: #464343;
+    font-size: 13px;
+    font-family: 'Noto Sans Thai', sans-serif;
 }
 
 .creator_data:hover {

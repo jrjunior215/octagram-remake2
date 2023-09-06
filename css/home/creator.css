@@ -99,22 +99,23 @@
     align-items: center;
 }
 
-.btn_post {
+.btn_sub_creator {
     font-size: 15px;
     padding: 13px;
-    background-color: #22549F;
+    background-color: #ED1C24;
     color: #fff;
     border-radius: 10px;
     cursor: pointer;
     border: 1px #6d6d6d;
+    font-family: 'Noto Sans Thai', sans-serif;
 }
 
 .fas {
     margin-right: 10px;
 }
 
-.btn_post:hover {
-    background-color: #1f4f77;
+.btn_sub_creator:hover {
+    background-color: #dd4247;
 }
 
 /* Creator Bar */
@@ -244,10 +245,6 @@
     height: auto;
     cursor: pointer;
     overflow: hidden;
-}
-
-.post_title_feed {
-
 }
 
 .post_title_feed span {

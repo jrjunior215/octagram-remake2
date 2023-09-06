@@ -82,29 +82,29 @@ main {
   justify-content: space-between;
 }
 
-.creator_feed {
+.creator_feed_home {
   display: flex;
   padding: 20px;
   align-items: center;
 }
 
-.creator_feed img {
-  width: 50px;
-  height: 50px;
+.creator_feed_home img {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.post_time_feed {
+.post_time_feed_home {
   color: #c4c4c4;
   font-family: 'Noto Sans Thai', sans-serif;
   margin: 0;
-  font-size: 12px;
+  font-size: 10px;
   margin: 0 10px;
 }
 
-.post_creator_name {
-  font-size: 20px;
+.post_creator_name_home {
+  font-size: 15px;
   margin: 0 10px;
 }
 
@@ -130,10 +130,6 @@ main {
   height: auto;
   cursor: pointer;
   overflow: hidden;
-}
-
-.post_title_feed {
-  padding-top: 10px;
 }
 
 .post_title_feed span {

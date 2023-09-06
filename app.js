@@ -185,6 +185,9 @@ app.post('/package/data/create', packageCreate);
 app.post('/package/data/edit', packageEdit);
 app.get('/package/delete', packageDelete);
 
+// MEMBER SUB
+app.get('/:creator_name/join',  )
+
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);
 
