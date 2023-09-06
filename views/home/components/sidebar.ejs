@@ -31,11 +31,11 @@
     <div class="membership_navbar">
         <span class="membership_title">การเป็นสมาชิก</span>
         <div class="membership_list">
-            <% for(var i=0; i < 20; i++) { %>
+            <% for(var i=0; i < members.length; i++) { %>
                 <div class="creator_data">
-                    <a href="/home" class="creator_link">
-                        <img src="/img/bg.jpg"">
-                    <span>Creator</span>
+                    <a href="/<%= members[i].creator_name %>" class="creator_link">
+                        <img src="<%= members[i].img %>">
+                    <span><%= members[i].creator_name %></span>
                 </a>
             </div>
             <% } %>
@@ -58,5 +58,7 @@
         });
 
     });
+
+
 
 </script>

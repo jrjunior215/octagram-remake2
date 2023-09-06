@@ -344,12 +344,13 @@
     align-items: start;
     justify-content: start;
     flex-direction: column;
-    width: 400px;
+    width: 500px;
     background-color: #ffffff;
     border-radius: 20px;
     padding: 20px;
     height: auto;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-height: 500px;
 }
 
 .package_preview_name span {

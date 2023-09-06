@@ -240,6 +240,11 @@
     padding: 20px;
 }
 
+.post_feed p{
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #4e4c4c;
+}
+
 .post_img_feed img {
     width: 100%;
     height: auto;
@@ -257,9 +262,6 @@
     position: relative;
     margin: 0 auto;
     padding-top: 5px;
-}
-
-.post_desc_feed {
     font-family: 'Noto Sans Thai', sans-serif;
     height: auto;
 }
@@ -284,4 +286,16 @@
     background-color: #dfeaf1;
     padding: 12px;
     cursor: pointer;
+}
+
+.header_post_creator  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+}
+
+.header_post_creator span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 23px;
 }

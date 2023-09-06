@@ -63,6 +63,53 @@
         </div>
       </div>
 
+      <div class="content_feed_limit">
+        <div class="content_feed">
+          <div class="header_post_creator">
+            <span>โพสต์ล่าสุด โดย <%= creators[0].creator_name %></span>
+          </div>
+          <% for(var i=0; i < posts.length; i++) { %>
+            <div class="box_feed">
+              <div class="header_creator_feed">
+                <div class="creator_feed left">
+                  <img src="<%= creators[0].img %>">
+                  <div class="creator_info">
+                    <span class="post_creator_name">
+                      <%= creators[0].creator_name %>
+                    </span>
+                    <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
+                  </div>
+                </div>
+                <div class="tooltip right">
+                  <i id="tooltip_click" class="material-icons">more_horiz</i>
+                </div>
+              </div>
+              <hr>
+              <div class="post_feed">
+                <% if (!posts[i].post_img) { %>
+
+                  <% } else { %>
+                    <div class="post_img_feed">
+                      <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                    </div>
+                    <% } %>
+                      <div class="post_title_feed">
+                        <span>
+                          <%= posts[i].post_title %>
+                        </span>
+                      </div>
+                      <div class="post_desc_feed">
+                        <%- posts[i].post_desc %>
+                      </div>
+              </div>
+            </div>
+            <% } %>
+              <div class="limit_post">
+                <span>สิ้นสุดเนื้อหา</span>
+              </div>
+        </div>
+      </div>
+
       <% } else { %>
 
         <div class="content_feed_limit">

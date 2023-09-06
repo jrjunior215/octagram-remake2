@@ -10,6 +10,6 @@ module.exports = async (req, res) => {
   }
 
   await Post.text(data);
-  res.redirect('/post/text');
+  res.redirect('/creator');
 
 }

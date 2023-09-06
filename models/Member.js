@@ -1,3 +1,4 @@
+const { query } = require('express');
 const dbConnection = require('../js/database');
 
 const Member = {};
@@ -9,12 +10,24 @@ Member.check = async (id_creator, id_user) => {
           if (rows.length > 0) {
               resolve(rows);
           } else {
-              resolve(false);
+            reject(false);
           }
       }).catch(err => {
           if (err) throw err;
       });
   })
 };
+
+Member.navbar = async (id_user) => {
+  const queryString = `SELECT * FROM memberships JOIN creators ON memberships.id_creator = creators.id WHERE memberships.id_user = '${id_user}'`
+  return new Promise(function (resolve, reject) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+        resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+};
+
 
 module.exports = Member;
