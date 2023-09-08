@@ -508,3 +508,9 @@
 .no_popup:hover {
     background-color: #db5b5b;
 }
+
+.no-packages-message span{
+    font-size: 20px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #5c5858;
+}

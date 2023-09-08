@@ -238,6 +238,22 @@ hr {
     border-radius: 30px;
 }
 
+.creator_data_no {
+    position: relative;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.creator_data_no span {
+    color: rgb(148, 143, 143);
+    font-size: 15px;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
 .creator_data span {
     color: #000;
     font-size: 15px;

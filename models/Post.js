@@ -60,4 +60,44 @@ Post.show_check2 = async (id_creator) => {
 
 };
 
+Post.feed = async (id_user) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_user = '${id_user} ORDER BY id DESC'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+
+        if (rows.length > 0) {
+
+            const id_creator = [];
+            const id_package = [];
+
+            for (var i = 0; i < rows.length; i++) {
+                const id_creators = rows[i].id_creator
+                id_creator.push(id_creators);
+                if ( rows[i].id_package === null ) {
+                } else {
+                  const id_packages = rows[i].id_package
+                  id_package.push(id_packages);
+                }
+            }
+
+            const postString = `SELECT * FROM posts JOIN creators ON posts.id_creator = creators.id WHERE posts.id_creator IN (${id_creator}) AND (permission IN (${id_package}) OR permission = 'ALL') ORDER BY posts.id DESC`
+            dbConnection.execute(postString).then(async ([rows]) => {
+                resolve(rows);
+            }).catch(err => {
+                if (err) throw err;
+            });
+
+        } else {
+            resolve(rows);
+        }
+
+    }).catch(err => {
+        if (err) throw err;
+    });
+})
+
+};
+
 module.exports = Post;

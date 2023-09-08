@@ -80,6 +80,7 @@ const googleCallBackController = require('./controllers/models/google_auth/googl
 const homeController = require('./controllers/views/home/homeController');
 const searchController = require('./controllers/views/home/searchController');
 const settingController = require('./controllers/views/home/settingController');
+const memberListNav = require('./controllers/models/member/memberListNav');
 
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
@@ -147,6 +148,7 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
 app.get('/home', homeController);
 app.get('/search', searchController);
 app.get('/setting/basic', settingController);
+app.get('/member/navbar', memberListNav)
 
 // SEARCH
 app.get('/search/query', searchAutoCreatorController);

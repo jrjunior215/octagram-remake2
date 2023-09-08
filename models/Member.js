@@ -29,5 +29,4 @@ Member.navbar = async (id_user) => {
   })
 };
 
-
 module.exports = Member;

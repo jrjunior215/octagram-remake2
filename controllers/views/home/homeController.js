@@ -1,11 +1,10 @@
-const Member = require('../../../models/Member');
+const Post = require('../../../models/Post');
 
 module.exports = async (req, res) => {
 
     const id_user = SESSION_USER.id;
-
-    const member = await Member.navbar(id_user);
+    const post = await Post.feed(id_user);
 
     res.locals.layout = 'home/components/layout';
-    res.render('home/index/index', {title_nav: 'Home | Octagram', members: member })
+    res.render('home/index/index', {title_nav: 'Home | Octagram', posts: post })
 }

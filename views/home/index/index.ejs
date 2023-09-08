@@ -10,13 +10,16 @@
                 </div>
             </div>
             <div class="content_feed_home">
-                <% for(var i=0; i < 20; i++) { %>
+                <% if (posts.length > 0) { %>
+                <% for(var i=0; i < posts.length; i++) { %>
                 <div class="box_feed">
                     <div class="header_creator_feed">
                         <div class="creator_feed_home left">
-                            <img src="/img/bg.jpg">
+                            <img src="<%= posts[i].img %>">
                             <div class="creator_info">
-                                <span class="post_creator_name_home">Creator</span>
+                                <span class="post_creator_name">
+                                    <%= posts[i].creator_name %>
+                                  </span>
                                 <span class="post_time_feed_home">4 DAYS AGO AT 10:58 AM</span>
                             </div>
                         </div>
@@ -26,32 +29,35 @@
                     </div>
                     <hr>
                     <div class="post_feed">
-                        <div class="post_img_feed">
-                            <img src="/img/bg.jpg" id="zoomable-image">
-                        </div>
-                        <div class="post_title_feed">
-                            <span>[PUBLIC EPISODE] The Wizard, the Witch and the Wild One: ep013 “Of the Gentle
-                                Sea”</span>
-                        </div>
-                        <div class="post_desc_feed">
-                            <p>
-                                Morning! Todays ep needs a bit longer in the old oven, and so it's gonna be out a li'l
-                                later. (Y'all these finale episodes are absolute thicc fellas). Please use the extra
-                                time to research which personal flotation devices are right for you and your family.
-                                It's never a bad time to brush up on maritime safety. Get your float on, fam! -t
+                        <% if (!posts[i].post_img) { %>
 
-                                Update: pretty confident this sexy lil egg of an episode will drop on Wednesday. It’s
-                                got over 6,000 clips in it. That’s a lot of clips. you’re gonna love it. (Assuming you
-                                love clips!) And hey, to the 99.999% of you who are normal and supportive and friendly
-                                in the comments, you rock! Keeeeeep it up, the rocking that is!
-                            </p>
-                        </div>
+                            <% } else { %>
+                              <div class="post_img_feed">
+                                <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                              </div>
+                              <% } %>
+                        <div class="post_title_feed">
+                            <span>
+                              <%= posts[i].post_title %>
+                            </span>
+                          </div>
+                          <div class="post_desc_feed">
+                            <%- posts[i].post_desc %>
+                          </div>
                     </div>
                 </div>
                 <% } %>
                 <div class="limit_post">
                     <span>สิ้นสุดเนื้อหา</span>
                 </div>
+
+                <% } else { %>
+                <div class="no_post_feed">
+                    <img src="/img/find_creator.png" alt="">
+                    <span>ไม่มีเนื้อหา</span>
+                </div>
+                <% } %>
+
             </div>
         </div>
     </div>

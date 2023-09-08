@@ -30,15 +30,7 @@
     <hr>
     <div class="membership_navbar">
         <span class="membership_title">การเป็นสมาชิก</span>
-        <div class="membership_list">
-            <% for(var i=0; i < members.length; i++) { %>
-                <div class="creator_data">
-                    <a href="/<%= members[i].creator_name %>" class="creator_link">
-                        <img src="<%= members[i].img %>">
-                    <span><%= members[i].creator_name %></span>
-                </a>
-            </div>
-            <% } %>
+        <div class="membership_list" id="memberlist_navbar">
         </div>
     </div>
 </div>
@@ -59,6 +51,37 @@
 
     });
 
+    window.onload = async function () {
+        fetch('/member/navbar')
+            .then(response => response.json())
+            .then(memberlist => {
 
+                let html = '';
+
+                if (memberlist.length > 0) {
+                    for (var count = 0; memberlist.length > count; count++) {
+                        html += '<div class="creator_data">';
+                        html += '<a href="/' + memberlist[count].creator_name + '" class="creator_link">';
+                        html += '<img src=" ' + memberlist[count].img + '">';
+                        html += '<span>' + memberlist[count].creator_name + '</span>';
+                        html += '</a>';
+                        html += '</div>';
+                    }
+                }
+                else {
+
+                    html += '<div class="creator_data_no">';
+                    html += '<span><i class="fa-solid fa-user-xmark"></i></span>';
+                    html += '<span>ยังไม่ได้สมัครสมาชิก</span>';
+                    html += '<a href="/search">ค้นหาคริเอเตอร์</a>';
+                    html += '</div>';
+
+                }
+
+                const memberlist_navbar = $("#memberlist_navbar");
+                memberlist_navbar.empty();
+                memberlist_navbar.append(html);
+            })
+    }
 
 </script>

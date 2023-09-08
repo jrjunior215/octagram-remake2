@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
       req.session.userData = result[0]
       res.redirect('/');
     } else if (result[0].role === "CREATOR") {
-      const id_user = id;
+      const id_user = result[0].id;
       const Creator = await User.creator_login(id_user);
       req.session.userData = Creator[0]
       res.redirect('/creator');

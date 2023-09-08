@@ -19,11 +19,17 @@
               <%= creators[0].creator_desc %>
             </span>
             <!-- <p>5.2M Members 41 Posts</p> -->
-            <p><%= posts.length %> Posts</p>
+            <p>
+              <%= posts_all.length %> Posts
+            </p>
           </div>
         </div>
         <div class="post">
+          <% if (!checks) { %>
           <a class="btn_sub_creator">สมัคร</a>
+          <% } else { %>
+          <a class="btn_sub_update">อัพเดท</a>
+          <% } %>
           <i id="tooltip_creator" class="material-icons">more_horiz</i>
         </div>
       </div>
@@ -35,128 +41,161 @@
 
     <% if (!checks) { %>
 
-      <div class="limit_package_preview">
-        <div class="package_preview_header">
-          <span>สมัครเข้าร่วมเป็นสมาชิกกับเรา!</span>
-        </div>
-        <div class="package_preview_list">
-          <% if (packages.length> 0) { %>
-            <% for(var i=0; i < packages.length; i++) { %>
-              <div class="package_preview_item">
-                <div class="package_preview_name">
-                  <span>
-                    <%=packages[i].package_name%>
-                  </span>
-                </div>
-                <div class="package_preview_price">
-                  <span>฿ <%=packages[i].package_price%> / เดือน</span>
-                </div>
-                <a href="">เข้าร่วม</a>
-                <div class="package_preview_desc">
-                  <%-packages[i].package_desc%>
-                </div>
-              </div>
-              <% } %>
-                <%} else { %>
-                  <div class="no-packages-message">No packages available.</div>
-                  <% } %>
-        </div>
-      </div>
+      <% if (packages.length> 0) { %>
 
-      <div class="content_feed_limit">
-        <div class="content_feed">
-          <div class="header_post_creator">
-            <span>โพสต์ล่าสุด โดย <%= creators[0].creator_name %></span>
+        <div class="limit_package_preview">
+          <div class="package_preview_header">
+            <span>สมัครเข้าร่วมเป็นสมาชิกกับเรา!</span>
           </div>
-          <% for(var i=0; i < posts.length; i++) { %>
-            <div class="box_feed">
-              <div class="header_creator_feed">
-                <div class="creator_feed left">
-                  <img src="<%= creators[0].img %>">
-                  <div class="creator_info">
-                    <span class="post_creator_name">
-                      <%= creators[0].creator_name %>
+          <div class="package_preview_list">
+            <% if (packages.length> 0) { %>
+              <% for(var i=0; i < packages.length; i++) { %>
+                <div class="package_preview_item">
+                  <div class="package_preview_name">
+                    <span>
+                      <%=packages[i].package_name%>
                     </span>
-                    <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
+                  </div>
+                  <div class="package_preview_price">
+                    <span>฿ <%=packages[i].package_price%> / เดือน</span>
+                  </div>
+                  <a href="">เข้าร่วม</a>
+                  <div class="package_preview_desc">
+                    <%-packages[i].package_desc%>
                   </div>
                 </div>
-                <div class="tooltip right">
-                  <i id="tooltip_click" class="material-icons">more_horiz</i>
-                </div>
-              </div>
-              <hr>
-              <div class="post_feed">
-                <% if (!posts[i].post_img) { %>
-
-                  <% } else { %>
-                    <div class="post_img_feed">
-                      <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                    </div>
+                <% } %>
+                  <%} else { %>
+                    <div class="no-packages-message">No packages available.</div>
                     <% } %>
-                      <div class="post_title_feed">
-                        <span>
-                          <%= posts[i].post_title %>
-                        </span>
+          </div>
+        </div>
+
+        <% } else { %>
+
+          <div class="limit_package_preview">
+            <div class="package_preview_header">
+              <span>ยินดีต้อนรับสู่ <%= creators[0].creator_name %></span>
+            </div>
+          </div>
+
+          <% } %>
+
+        <% if (posts.length > 0) { %>
+
+            <div class="content_feed_limit">
+              <div class="content_feed">
+                <div class="header_post_creator">
+                  <span>โพสต์ล่าสุดของ <%= creators[0].creator_name %></span>
+                </div>
+                <% for(var i=0; i < posts.length; i++) { %>
+                  <div class="box_feed">
+                    <div class="header_creator_feed">
+                      <div class="creator_feed left">
+                        <img src="<%= creators[0].img %>">
+                        <div class="creator_info">
+                          <span class="post_creator_name">
+                            <%= creators[0].creator_name %>
+                          </span>
+                          <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
+                        </div>
                       </div>
-                      <div class="post_desc_feed">
-                        <%- posts[i].post_desc %>
+                      <div class="tooltip right">
+                        <i id="tooltip_click" class="material-icons">more_horiz</i>
                       </div>
+                    </div>
+                    <hr>
+                    <div class="post_feed">
+                      <% if (!posts[i].post_img) { %>
+
+                        <% } else { %>
+                          <div class="post_img_feed">
+                            <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                          </div>
+                          <% } %>
+                            <div class="post_title_feed">
+                              <span>
+                                <%= posts[i].post_title %>
+                              </span>
+                            </div>
+                            <div class="post_desc_feed">
+                              <%- posts[i].post_desc %>
+                            </div>
+                    </div>
+                  </div>
+
+                  <% } %>
+                    <div class="limit_post">
+                      <span>สิ้นสุดเนื้อหา</span>
+                    </div>
               </div>
             </div>
+
+            <% } else { %>
+
             <% } %>
-              <div class="limit_post">
-                <span>สิ้นสุดเนื้อหา</span>
-              </div>
-        </div>
-      </div>
 
-      <% } else { %>
+            <% } else { %>
 
-        <div class="content_feed_limit">
-          <div class="content_feed">
-            <% for(var i=0; i < posts.length; i++) { %>
-              <div class="box_feed">
-                <div class="header_creator_feed">
-                  <div class="creator_feed left">
-                    <img src="<%= creators[0].img %>">
-                    <div class="creator_info">
-                      <span class="post_creator_name">
-                        <%= creators[0].creator_name %>
-                      </span>
-                      <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
-                    </div>
-                  </div>
-                  <div class="tooltip right">
-                    <i id="tooltip_click" class="material-icons">more_horiz</i>
-                  </div>
-                </div>
-                <hr>
-                <div class="post_feed">
-                  <% if (!posts[i].post_img) { %>
+              <% if (posts.length > 0) { %>
 
-                    <% } else { %>
-                      <div class="post_img_feed">
-                        <img src="<%= posts[i].post_img %>" id="zoomable-image">
+              <div class="content_feed_limit">
+                <div class="content_feed">
+                  <% for(var i=0; i < posts.length; i++) { %>
+                    <div class="box_feed">
+                      <div class="header_creator_feed">
+                        <div class="creator_feed left">
+                          <img src="<%= creators[0].img %>">
+                          <div class="creator_info">
+                            <span class="post_creator_name">
+                              <%= creators[0].creator_name %>
+                            </span>
+                            <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
+                          </div>
+                        </div>
+                        <div class="tooltip right">
+                          <i id="tooltip_click" class="material-icons">more_horiz</i>
+                        </div>
                       </div>
-                      <% } %>
-                        <div class="post_title_feed">
-                          <span>
-                            <%= posts[i].post_title %>
-                          </span>
-                        </div>
-                        <div class="post_desc_feed">
-                          <%- posts[i].post_desc %>
-                        </div>
+                      <hr>
+                      <div class="post_feed">
+                        <% if (!posts[i].post_img) { %>
+
+                          <% } else { %>
+                            <div class="post_img_feed">
+                              <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                            </div>
+                            <% } %>
+                              <div class="post_title_feed">
+                                <span>
+                                  <%= posts[i].post_title %>
+                                </span>
+                              </div>
+                              <div class="post_desc_feed">
+                                <%- posts[i].post_desc %>
+                              </div>
+                      </div>
+                    </div>
+                    <% } %>
+                      <div class="limit_post">
+                        <span>สิ้นสุดเนื้อหา</span>
+                      </div>
                 </div>
               </div>
-              <% } %>
-                <div class="limit_post">
-                  <span>สิ้นสุดเนื้อหา</span>
-                </div>
-          </div>
-        </div>
 
-        <% } %>
+              <% } else { %>
+
+              <div class="content_feed_limit">
+                <div class="content_feed">
+                  <div class="header_post_creator_no">
+                    <span>ไม่มีเนื้อหา</span>
+                  </div>
+                </div>
+              </div>
+
+              <% } %>
+
+              <% } %>
 
   </div>
 </div>

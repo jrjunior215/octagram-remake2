@@ -110,12 +110,28 @@
     font-family: 'Noto Sans Thai', sans-serif;
 }
 
-.fas {
-    margin-right: 10px;
-}
-
 .btn_sub_creator:hover {
     background-color: #dd4247;
+}
+
+.btn_sub_update {
+    font-size: 15px;
+    padding: 13px;
+    background-color: #3088ec;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px #6d6d6d;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.btn_sub_update:hover {
+    background-color: #5ba1f1;
+}
+
+
+.fas {
+    margin-right: 10px;
 }
 
 /* Creator Bar */
@@ -204,8 +220,8 @@
 }
 
 .creator_feed img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -219,7 +235,7 @@
 }
 
 .post_creator_name {
-    font-size: 20px;
+    font-size: 16px;
     margin: 0 10px;
 }
 
@@ -298,4 +314,22 @@
 .header_post_creator span {
     font-family: 'Noto Sans Thai', sans-serif;
     font-size: 23px;
+}
+
+.header_post_creator_no {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.header_post_creator_no span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 34px;
+    color: #666666;
+}
+
+.creator_data_no a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 12px;
 }

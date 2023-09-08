@@ -48,16 +48,24 @@
   const old_img = document.querySelector('.old_img');
 
   imageInput.addEventListener('change', function (event) {
-      const file = event.target.files[0];
-      if (file) {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-              uploadedImage.src = e.target.result;
-              new_img.style.display = 'block';
-              old_img.style.display = 'none';
-          };
-          reader.readAsDataURL(file);
-      }
-  });
+    const file = event.target.files[0];
+    if (file) {
+        const fileType = file.type;
+        const fileSize = file.size;
+        if (!fileType.match(/^image\/(webp|png|jpeg)$/)) {
+            alert('Please upload an image in WebP, PNG, or JPEG format.');
+            imageInput.value = ''; // Reset the file input field
+            return;
+        } 
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            uploadedImage.src = e.target.result;
+            new_img.style.display = 'block';
+            old_img.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
 </script>

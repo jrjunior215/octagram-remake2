@@ -33,7 +33,7 @@ module.exports = (req, res) => {
           await User.relogin(id_user).then(async (result) => {
             req.session.userData = await result[0]
         })
-        if (oldImageUrl) {
+        if (oldImageUrl !== '/img/profile.png') {
           const oldImagePath = path.join(__dirname, '..', '..', '..', oldImageUrl);
           fs.unlink(oldImagePath, (err) => {
               if (err) {
