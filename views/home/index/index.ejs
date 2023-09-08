@@ -15,13 +15,15 @@
                 <div class="box_feed">
                     <div class="header_creator_feed">
                         <div class="creator_feed_home left">
-                            <img src="<%= posts[i].img %>">
-                            <div class="creator_info">
-                                <span class="post_creator_name">
-                                    <%= posts[i].creator_name %>
-                                  </span>
-                                <span class="post_time_feed_home">4 DAYS AGO AT 10:58 AM</span>
-                            </div>
+                            <a class="creator_feed_home_href" href="/<%= posts[i].creator_name %>">
+                                <img src="<%= posts[i].img %>">
+                                <div class="creator_info">
+                                    <span class="post_creator_name">
+                                        <%= posts[i].creator_name %>
+                                    </span>
+                                    <span class="post_time_feed_home">4 DAYS AGO AT 10:58 AM</span>
+                                </div>
+                            </a>
                         </div>
                         <div class="tooltip right">
                             <i id="tooltip_click" class="material-icons">more_horiz</i>

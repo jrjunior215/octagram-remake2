@@ -105,8 +105,9 @@ const searchAutoCreatorController = require('./controllers/models/search/searchA
 const registerUserController = require('./controllers/models/auth/registerUserController');
 const loginUserController = require('./controllers/models/auth/loginUserController');
 
-// USER PROFILE
+// PROFILE UPDATE
 const profileUser = require('./controllers/models/profile/profileUser');
+const profileCreator = require('./controllers/models/profile/profileCreator');
 
 // CREATOR
 const newCreatorController = require('./controllers/models/creator/newCreatorController');
@@ -142,8 +143,6 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
     res.redirect('/auth/google/login');
 });
 
-// app.get('/auth/google/callback', googleCallBackController);
-
 // HOME PAGE
 app.get('/home', homeController);
 app.get('/search', searchController);
@@ -176,8 +175,9 @@ app.get('/creator2', postText);
 app.post('/register/user', registerUserController);
 app.post('/login/user', loginUserController);
 
-// USER PROFILE
+// PROFILE UPDATE
 app.post('/profile/user/update', profileUser);
+app.post('/profile/creator/update', profileCreator);
 
 // NEW CREATOR
 app.post('/creator/create', newCreatorController);
@@ -187,16 +187,14 @@ app.post('/package/data/create', packageCreate);
 app.post('/package/data/edit', packageEdit);
 app.get('/package/delete', packageDelete);
 
+// POST
+app.post('/post/data/create', postText);
+
 // MEMBER SUB
 app.get('/:creator_name/join',  )
 
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);
-
-
-// POST
-app.post('/post/data/create', postText);
-
 
 // SET POST LISTEN
 
