@@ -49,25 +49,45 @@
               <% } %>
           </tbody>
         </table>
-        <!-- <div id="pagination">
-          <button id="prevBtn">Previous</button>
-          <button id="nextBtn">Next</button>
-        </div> -->
-        <div class="pagination">
-          <a href="#">&laquo;</a>
-          <a href="#">1</a>
-          <a href="#" class="active">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <a href="#">6</a>
-          <a href="#">&raquo;</a>
-        </div>
     </div>
   </div>
 </div>
 
-
 <script>
 
+window.onload = async function () {
+        fetch('/member/navbar')
+            .then(response => response.json())
+            .then(memberlist => {
+              console.log(memberlist);
+
+                // let html = '';
+
+                // if (memberlist.length > 0) {
+                //     for (var count = 0; memberlist.length > count; count++) {
+                //         html += '<div class="creator_data">';
+                //         html += '<a href="/' + memberlist[count].creator_name + '" class="creator_link">';
+                //         html += '<img src=" ' + memberlist[count].img + '">';
+                //         html += '<span>' + memberlist[count].creator_name + '</span>';
+                //         html += '</a>';
+                //         html += '</div>';
+                //     }
+                // }
+                // else {
+
+                //     html += '<div class="creator_data_no">';
+                //     html += '<span><i class="fa-solid fa-user-xmark"></i></span>';
+                //     html += '<span>ยังไม่ได้สมัครสมาชิก</span>';
+                //     html += '<a href="/search">ค้นหาคริเอเตอร์</a>';
+                //     html += '</div>';
+
+                // }
+
+                // const memberlist_navbar = $("#memberlist_navbar");
+                // memberlist_navbar.empty();
+                // memberlist_navbar.append(html);
+
+            })
+    }
+  
 </script>

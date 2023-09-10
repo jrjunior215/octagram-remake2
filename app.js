@@ -87,6 +87,7 @@ const creatorController = require('./controllers/views/creator/creatorController
 const memberController = require('./controllers/views/creator/memberController');
 const packageController = require('./controllers/views/creator/package/packageController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
+const memberCreator = require('./controllers/models/member/memberCreator');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -147,7 +148,7 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
 app.get('/home', homeController);
 app.get('/search', searchController);
 app.get('/setting/basic', settingController);
-app.get('/member/navbar', memberListNav)
+app.get('/member/navbar', memberCreator);
 
 // SEARCH
 app.get('/search/query', searchAutoCreatorController);
@@ -157,6 +158,7 @@ app.get('/creator', creatorController);
 app.get('/members', memberController);
 app.get('/package', packageController);
 app.get('/setting/creator', settingCreatorController);
+app.get('/member/creator', memberCreator);
 
 // PACKAGE PAGE
 app.get('/package/create', packageCreateController);
