@@ -97,6 +97,9 @@ const packageEditController = require('./controllers/views/creator/package/packa
 // POST PAGE
 const postTextController = require('./controllers/views/creator/post/postTextController');
 
+// POST EDIT
+const textEditController = require('./controllers/views/creator/post/edit/textEditController');
+
 //SEARCH PAGE
 const searchAutoCreatorController = require('./controllers/models/search/searchAutoCreatorController');
 
@@ -123,6 +126,9 @@ const creatorPageController = require('./controllers/views/home/creator/creatorP
 
 // POST 
 const postText = require('./controllers/models/post/postText');
+
+// POST EDIT 
+const postEdit = require('./controllers/models/post/edit/postEdit');
 
 // GET
 
@@ -168,10 +174,11 @@ app.get('/package/edit', packageEditController);
 // POST PAGE
 app.get('/post/text', postTextController); 
 
+// POST EDIT
+app.get('/post/edit', textEditController);
+
 // CREATOR PAGE
 app.get('/creator2', postText);
-
-// POST
 
 // AUTH
 app.post('/register/user', registerUserController);
@@ -192,8 +199,8 @@ app.get('/package/delete', packageDelete);
 // POST
 app.post('/post/data/create', postText);
 
-// MEMBER SUB
-app.get('/:creator_name/join',  )
+// edit
+app.post('/post/edit/data', postEdit);
 
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);

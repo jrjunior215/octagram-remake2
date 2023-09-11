@@ -15,9 +15,13 @@
                         <span class="creators_name">
                             <%= SESSION_USER.creator_name %>
                         </span>
-                        <span class="creators_desc"><%= SESSION_USER.creator_desc %></span>
+                        <span class="creators_desc">
+                            <%= SESSION_USER.creator_desc %>
+                        </span>
                         <!-- <p>5.2M Members 41 Posts</p> -->
-                        <p><%= posts.length %> Posts</p>
+                        <p>
+                            <%= posts.length %> Posts
+                        </p>
                     </div>
                 </div>
                 <div class="post">
@@ -38,29 +42,44 @@
                             <div class="creator_feed left">
                                 <img src="<%= SESSION_USER.creator_img %>">
                                 <div class="creator_info">
-                                    <span class="post_creator_name"><%= SESSION_USER.creator_name %></span>
+                                    <span class="post_creator_name">
+                                        <%= SESSION_USER.creator_name %>
+                                    </span>
                                     <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
                                 </div>
                             </div>
                             <div class="tooltip right">
-                                <i id="tooltip_click" class="material-icons">more_horiz</i>
+                                <i onclick="ToolBarController(event, `<%= i %>`)" id="tooltip_click"
+                                    class="material-icons">more_horiz</i>
+                                <div class="tool_bar" id="tool_bar">
+                                    <a href="/post/edit?craetor=<%= SESSION_USER.creator_name %>&post=<%= posts[i].id %>">
+                                        <span><i class="fa-solid fa-pen tool_icon"></i></span>
+                                        <span>แก้ไข</span>
+                                    </a>
+                                    <a href="">
+                                        <span><i class="fa-solid fa-trash tool_icon"></i></span>
+                                        <span>ลบโพสต์</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <hr>
                         <div class="post_feed">
                             <% if (!posts[i].post_img) { %>
 
-                            <% } else { %>
-                                <div class="post_img_feed">
-                                    <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                                </div>
-                            <% } %>
-                            <div class="post_title_feed">
-                                <span><%= posts[i].post_title %></span>
-                            </div>
-                            <div class="post_desc_feed">
-                                <%- posts[i].post_desc %>
-                            </div>
+                                <% } else { %>
+                                    <div class="post_img_feed">
+                                        <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                                    </div>
+                                    <% } %>
+                                        <div class="post_title_feed">
+                                            <span>
+                                                <%= posts[i].post_title %>
+                                            </span>
+                                        </div>
+                                        <div class="post_desc_feed">
+                                            <%- posts[i].post_desc %>
+                                        </div>
                         </div>
                     </div>
                     <% } %>
@@ -70,12 +89,29 @@
             </div>
         </div>
 
-        <!-- <div class="limit_post">
-            <div class="creator_post">
-                <div class="post_alert">
-                    <h1>ไม่มีเนื้อหา</h1>
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
+
+<script>
+    function ToolBarController(event, index) {
+        let tool_bar = document.querySelectorAll('.tool_bar')[index]; // Use querySelectorAll
+        tool_bar.classList.toggle("open_toolbar");
+        event.stopPropagation();
+    }
+
+    document.body.addEventListener("click", function (event) {
+        let tool_bars = document.querySelectorAll('.tool_bar');
+        let tooltips = document.querySelectorAll('.tooltip');
+        let tooltipIcons = document.querySelectorAll('.material-icons');
+
+        for (let i = 0; i < tool_bars.length; i++) {
+            let tool_bar = tool_bars[i];
+            let tooltip = tooltips[i];
+            let tooltipIcon = tooltipIcons[i];
+
+            if (!tool_bar.contains(event.target) && !tooltipIcon.contains(event.target)) {
+                tool_bar.classList.remove("open_toolbar");
+            }
+        }
+    });
+</script>

@@ -46,6 +46,20 @@ Package.select = async (id_package) => {
 
 };
 
+Package.post_edit = async (id_creator) => {
+
+  const queryString = `SELECT * FROM packages WHERE id_creator = '${id_creator}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 Package.edit = async (data) => {
 
   const { package_name, package_desc, package_price, id_package } = data;

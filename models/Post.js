@@ -100,4 +100,33 @@ Post.feed = async (id_user) => {
 
 };
 
+Post.post_edit_select = async (id_post) => {
+
+  const queryString = `SELECT * FROM posts WHERE id = '${id_post}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Post.post_edit = async (data) => {
+
+  const { post_title, post_desc, permission, id_post } = data;
+  const queryString = `UPDATE posts SET post_title = '${post_title}', post_desc = "${post_desc}", permission = '${permission}' WHERE id = ${id_post}`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Post;

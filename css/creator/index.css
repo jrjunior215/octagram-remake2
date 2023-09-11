@@ -244,7 +244,46 @@ main {
 
 
 .tooltip {
+    position: relative;
     padding: 20px;
+}
+
+.tool_bar {
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: none;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.tool_bar.open_toolbar {
+    display: flex;
+}
+
+.tool_bar span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.tool_bar a {
+    padding: 10px;
+    width: 250px;
+    color: #000000;
+    border-radius: 10px;
+}
+
+.tool_bar a:hover {
+    background-color: #c4c4c4;
+}
+
+.tool_icon {
+    font-size: 20px;
+    padding-right: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -264,10 +303,6 @@ main {
     height: auto;
     cursor: pointer;
     overflow: hidden;
-}
-
-.post_title_feed {
-
 }
 
 .post_title_feed span {
@@ -307,4 +342,13 @@ main {
     background-color: #dfeaf1;
     padding: 12px;
     cursor: pointer;
+}
+
+#tooltip_click {
+    padding: 10px;
+    border-radius: 50%;
+}
+
+#tooltip_click:hover {
+    background-color: #e4dbdb;
 }
