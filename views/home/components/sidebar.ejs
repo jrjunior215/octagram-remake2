@@ -52,18 +52,18 @@
     });
 
     window.onload = async function () {
-        fetch('/member/creator')
+        fetch('/member/navbar')
             .then(response => response.json())
-            .then(memberlist => {
+            .then(membership => {
 
                 let html = '';
 
-                if (memberlist.length > 0) {
-                    for (var count = 0; memberlist.length > count; count++) {
+                if (membership.length > 0) {
+                    for (var count = 0; membership.length > count; count++) {
                         html += '<div class="creator_data">';
-                        html += '<a href="/' + memberlist[count].creator_name + '" class="creator_link">';
-                        html += '<img src=" ' + memberlist[count].img + '">';
-                        html += '<span>' + memberlist[count].creator_name + '</span>';
+                        html += '<a href="/' + membership[count].creator_name + '" class="creator_link">';
+                        html += '<img src=" ' + membership[count].img + '">';
+                        html += '<span>' + membership[count].creator_name + '</span>';
                         html += '</a>';
                         html += '</div>';
                     }

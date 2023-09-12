@@ -154,7 +154,7 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
 app.get('/home', homeController);
 app.get('/search', searchController);
 app.get('/setting/basic', settingController);
-app.get('/member/navbar', memberCreator);
+app.get('/member/navbar', memberListNav);
 
 // SEARCH
 app.get('/search/query', searchAutoCreatorController);

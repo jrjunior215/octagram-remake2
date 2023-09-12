@@ -52,11 +52,12 @@
                                 <i onclick="ToolBarController(event, `<%= i %>`)" id="tooltip_click"
                                     class="material-icons">more_horiz</i>
                                 <div class="tool_bar" id="tool_bar">
-                                    <a href="/post/edit?craetor=<%= SESSION_USER.creator_name %>&post=<%= posts[i].id %>">
+                                    <a
+                                        href="/post/edit?craetor=<%= SESSION_USER.creator_name %>&post=<%= posts[i].id %>">
                                         <span><i class="fa-solid fa-pen tool_icon"></i></span>
                                         <span>แก้ไข</span>
                                     </a>
-                                    <a href="">
+                                    <a href="/post/delete?craetor=<%= SESSION_USER.creator_name %>&post=<%= posts[i].id %>">
                                         <span><i class="fa-solid fa-trash tool_icon"></i></span>
                                         <span>ลบโพสต์</span>
                                     </a>
@@ -114,4 +115,5 @@
             }
         }
     });
+
 </script>

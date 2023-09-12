@@ -446,7 +446,7 @@
     padding: 20px;
 }
 
-.container_pop_up.show_popup {
+.container_pop_up.show_popup_package {
     display: block;
     opacity: 1; 
 }

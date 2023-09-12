@@ -62,7 +62,7 @@ Post.show_check2 = async (id_creator) => {
 
 Post.feed = async (id_user) => {
 
-  const queryString = `SELECT * FROM memberships WHERE id_user = '${id_user} ORDER BY id DESC'`
+  const queryString = `SELECT * FROM memberships WHERE id_user = '${id_user}' ORDER BY id DESC`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {

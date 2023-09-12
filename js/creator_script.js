@@ -20,31 +20,29 @@ document.addEventListener("DOMContentLoaded", function () {
   var XmarkClose_Confirm = document.getElementById("XmarkClose_Confirm");
   var popUpConfirm = document.querySelector(".pop_up_confirm");
 
+  
+const urlParams = new URLSearchParams(window.location.search);
+const id_package = urlParams.get('package');
+
   clickRemoveButton.addEventListener("click", function () {
-    ConfirmPopup.classList.add('show_popup');
+    ConfirmPopup.classList.add('show_popup_package');
   });
 
   YesConfirmPopup.addEventListener("click", function () {
-    // Redirect to the specified URL
-    var id = "<%=packages[0].id%>";
-    window.location.href = "/package/delete?id=" + id;
+    window.location.href = "/package/delete?id=" + id_package;
   });
 
   NoConfirmPopup.addEventListener("click", function () {
-    // Hide the popup
-    ConfirmPopup.classList.remove('show_popup');
+    ConfirmPopup.classList.remove('show_popup_package');
   });
 
   XmarkClose_Confirm.addEventListener("click", function () {
-    // Hide the popup
-    ConfirmPopup.classList.remove('show_popup');
+    ConfirmPopup.classList.remove('show_popup_package');
   });
 
-  // Listen for clicks on the document
   document.addEventListener("click", function (event) {
-    // Check if the target is not within the .pop_up_confirm element
     if (!popUpConfirm.contains(event.target) && event.target !== clickRemoveButton) {
-      ConfirmPopup.classList.remove('show_popup');
+      ConfirmPopup.classList.remove('show_popup_package');
     }
   });
 });
@@ -60,13 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   XmarkClose_Post.addEventListener("click", function () {
-    // Hide the popup
     PostPopup.classList.remove('show_popup');
   });
 
-  // Listen for clicks on the document
   document.addEventListener("click", function (event) {
-    // Check if the target is not within the .pop_up_confirm element
     if (!post_box_choose.contains(event.target) && event.target !== click_post && event.target !== click_post_nav) {
       PostPopup.classList.remove('show_popup');
     }
@@ -85,13 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   XmarkClose_Post.addEventListener("click", function () {
-    // Hide the popup
     PostPopup.classList.remove('show_popup');
   });
 
-  // Listen for clicks on the document
   document.addEventListener("click", function (event) {
-    // Check if the target is not within the .pop_up_confirm element
     if (!post_box_choose.contains(event.target) && event.target !== click_post && event.target !== click_post_nav) {
       PostPopup.classList.remove('show_popup');
     }
