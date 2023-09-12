@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
       res.redirect('/home');
     } else if (result[0].role === "ADMIN") {
       req.session.userData = result[0]
-      res.redirect('/');
+      res.redirect('/dashboard');
     } else if (result[0].role === "CREATOR") {
       const id_user = result[0].id;
       const Creator = await User.creator_login(id_user);

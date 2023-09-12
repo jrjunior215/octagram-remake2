@@ -62,11 +62,9 @@ app.set('view engine', 'ejs');
 // VIEWS
 
 // INDEX PAGE
-
 const indexController = require('./controllers/views/index/indexController');
 
 // AUTH PAGE
-
 const loginController = require('./controllers/views/auth/loginController');
 const registerController = require('./controllers/views/auth/registerController');
 const logoutController = require('./controllers/models/auth/logoutController');
@@ -88,6 +86,9 @@ const memberController = require('./controllers/views/creator/memberController')
 const packageController = require('./controllers/views/creator/package/packageController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 const memberCreator = require('./controllers/models/member/memberCreator');
+
+// ADMIN PAGE
+const adminController = require('./controllers/views/admin/adminController');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -130,6 +131,9 @@ const postText = require('./controllers/models/post/postText');
 // POST EDIT 
 const postEdit = require('./controllers/models/post/edit/postEdit');
 
+// POST DELETE
+const postDelete = require('./controllers/models/post/delete/postDelete'); 
+
 // GET
 
 // INDEX PAGE
@@ -166,6 +170,9 @@ app.get('/package', packageController);
 app.get('/setting/creator', settingCreatorController);
 app.get('/member/creator', memberCreator);
 
+// ADMIN PAGE
+app.get('/dashboard', adminController);
+
 // PACKAGE PAGE
 app.get('/package/create', packageCreateController);
 app.get('/package/preview', packagePreviewController);
@@ -199,8 +206,11 @@ app.get('/package/delete', packageDelete);
 // POST
 app.post('/post/data/create', postText);
 
-// edit
+// POST EDIT
 app.post('/post/edit/data', postEdit);
+
+// POST DELETE
+app.get('/post/delete', postDelete);
 
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);

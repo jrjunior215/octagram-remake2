@@ -129,4 +129,18 @@ Post.post_edit = async (data) => {
 
 };
 
+Post.delete = async (data) => {
+
+  const queryString = `DELETE FROM posts WHERE id='${data}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Post;

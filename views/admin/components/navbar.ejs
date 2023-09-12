@@ -1,0 +1,31 @@
+<header>
+    <div class="logo left">
+        <i id="menu" class="material-icons">menu</i>
+        <a href="/creator" class="container_logo">
+            <img src="/img/icon.png">
+            <span>Octagram | Admin</span>
+        </a>
+    </div>
+
+    <div class="icons right">
+        <div class="container_icons">
+            <div class="profile_pic">
+                <a onclick="MenuController()">
+                    <img src="<%= SESSION_USER.creator_img %>">
+                </a>
+            </div>
+            <div class="menu" id="menu_drop">
+                <div class="profile_user">
+                    <img src="<%= SESSION_USER.creator_img %>">
+                    <span><%= SESSION_USER.creator_name %></span>
+                </div>
+                <hr>
+                <ul>
+                    <!-- <li><a href="/home"><i class="fa-solid fa-face-smile menu_icon"></i>Octagram</a></li> -->
+                    <li><a href="#"><i class="fa-solid fa-gear menu_icon"></i>Setting</a></li>
+                    <li><a href="/logout" class="menu_logout"><i class="fa-solid fa-right-from-bracket menu_icon menu_logout"></i>Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
