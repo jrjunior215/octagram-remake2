@@ -256,7 +256,7 @@
     padding: 20px;
 }
 
-.post_feed p{
+.post_feed p {
     font-family: 'Noto Sans Thai', sans-serif;
     color: #4e4c4c;
 }
@@ -304,7 +304,7 @@
     cursor: pointer;
 }
 
-.header_post_creator  {
+.header_post_creator {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -332,4 +332,59 @@
 .creator_data_no a {
     font-family: 'Noto Sans Thai', sans-serif;
     font-size: 12px;
+}
+
+/* COMMENT */
+
+.comment_post {
+    padding: 20px;
+    width: 100%;
+}
+
+.comment_user_input {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+}
+
+.comment_user_input textarea {
+    color: #000000;
+    font-family: 'Noto Sans Thai', sans-serif;
+    border-radius: 20px;
+    padding: 12px 40px 12px 10px;
+    font-size: 14px;
+    border: 1px solid #dfdfdf;
+    width: 100%;
+    height: 48px;
+    resize: none;
+    max-height: 330px;
+}
+
+.comment_user_input textarea::-webkit-scrollbar {
+    width: 0;
+}
+
+.comment_user_input img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.icon_class {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.sent_icon {
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.sent_icon:hover {
+    background-color: #c4c4c4;
 }

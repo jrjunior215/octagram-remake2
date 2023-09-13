@@ -134,6 +134,9 @@ const postEdit = require('./controllers/models/post/edit/postEdit');
 // POST DELETE
 const postDelete = require('./controllers/models/post/delete/postDelete'); 
 
+// COMMENT
+const commentCreate = require('./controllers/models/comment/commentCreate');
+
 // GET
 
 // INDEX PAGE
@@ -211,6 +214,9 @@ app.post('/post/edit/data', postEdit);
 
 // POST DELETE
 app.get('/post/delete', postDelete);
+
+// COMMENT 
+app.post('/post/comment/create', commentCreate);
 
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);

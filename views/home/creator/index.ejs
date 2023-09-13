@@ -26,11 +26,11 @@
         </div>
         <div class="post">
           <% if (!checks) { %>
-          <a class="btn_sub_creator">สมัคร</a>
-          <% } else { %>
-          <a class="btn_sub_update">อัพเดท</a>
-          <% } %>
-          <i id="tooltip_creator" class="material-icons">more_horiz</i>
+            <a class="btn_sub_creator">สมัคร</a>
+            <% } else { %>
+              <a class="btn_sub_update">อัพเดท</a>
+              <% } %>
+                <i id="tooltip_creator" class="material-icons">more_horiz</i>
         </div>
       </div>
     </div>
@@ -81,66 +81,13 @@
 
           <% } %>
 
-        <% if (posts.length > 0) { %>
-
-            <div class="content_feed_limit">
-              <div class="content_feed">
-                <div class="header_post_creator">
-                  <span>โพสต์ล่าสุดของ <%= creators[0].creator_name %></span>
-                </div>
-                <% for(var i=0; i < posts.length; i++) { %>
-                  <div class="box_feed">
-                    <div class="header_creator_feed">
-                      <div class="creator_feed left">
-                        <img src="<%= creators[0].img %>">
-                        <div class="creator_info">
-                          <span class="post_creator_name">
-                            <%= creators[0].creator_name %>
-                          </span>
-                          <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
-                        </div>
-                      </div>
-                      <div class="tooltip right">
-                        <i id="tooltip_click" class="material-icons">more_horiz</i>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="post_feed">
-                      <% if (!posts[i].post_img) { %>
-
-                        <% } else { %>
-                          <div class="post_img_feed">
-                            <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                          </div>
-                          <% } %>
-                            <div class="post_title_feed">
-                              <span>
-                                <%= posts[i].post_title %>
-                              </span>
-                            </div>
-                            <div class="post_desc_feed">
-                              <%- posts[i].post_desc %>
-                            </div>
-                    </div>
-                  </div>
-
-                  <% } %>
-                    <div class="limit_post">
-                      <span>สิ้นสุดเนื้อหา</span>
-                    </div>
-              </div>
-            </div>
-
-            <% } else { %>
-
-            <% } %>
-
-            <% } else { %>
-
-              <% if (posts.length > 0) { %>
+            <% if (posts.length> 0) { %>
 
               <div class="content_feed_limit">
                 <div class="content_feed">
+                  <div class="header_post_creator">
+                    <span>โพสต์ล่าสุดของ <%= creators[0].creator_name %></span>
+                  </div>
                   <% for(var i=0; i < posts.length; i++) { %>
                     <div class="box_feed">
                       <div class="header_creator_feed">
@@ -176,6 +123,7 @@
                               </div>
                       </div>
                     </div>
+
                     <% } %>
                       <div class="limit_post">
                         <span>สิ้นสุดเนื้อหา</span>
@@ -185,17 +133,108 @@
 
               <% } else { %>
 
-              <div class="content_feed_limit">
-                <div class="content_feed">
-                  <div class="header_post_creator_no">
-                    <span>ไม่มีเนื้อหา</span>
-                  </div>
-                </div>
-              </div>
+                <% } %>
 
-              <% } %>
+                  <% } else { %>
 
-              <% } %>
+                    <% if (posts.length> 0) { %>
+
+                      <div class="content_feed_limit">
+                        <div class="content_feed">
+                          <% for(var i=0; i < posts.length; i++) { %>
+                            <div class="box_feed">
+                              <div class="header_creator_feed">
+                                <div class="creator_feed left">
+                                  <img src="<%= creators[0].img %>">
+                                  <div class="creator_info">
+                                    <span class="post_creator_name">
+                                      <%= creators[0].creator_name %>
+                                    </span>
+                                    <span class="post_time_feed">4 DAYS AGO AT 10:58 AM</span>
+                                  </div>
+                                </div>
+                                <div class="tooltip right">
+                                  <i id="tooltip_click" class="material-icons">more_horiz</i>
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="post_feed">
+                                <% if (!posts[i].post_img) { %>
+
+                                  <% } else { %>
+                                    <div class="post_img_feed">
+                                      <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                                    </div>
+                                    <% } %>
+                                      <div class="post_title_feed">
+                                        <span>
+                                          <%= posts[i].post_title %>
+                                        </span>
+                                      </div>
+                                      <div class="post_desc_feed">
+                                        <%- posts[i].post_desc %>
+                                      </div>
+                              </div>
+                              <hr>
+                              <div class="comment_post">
+                                <div class="comment_user">
+
+                                </div>
+                                <form id="commentForm" action="/post/comment/create" method="POST">
+                                  <div class="comment_user_input">
+                                    <input type="hidden" name="id_post" value="<%= posts[i].id %>" >
+                                    <input type="hidden" name="id_user" value="<%= SESSION_USER.id %>" >
+                                    <input type="hidden" name="callback" value="<%= creators[0].creator_name %>" >
+                                    <img src="<%= SESSION_USER.img %>" alt="profile">
+                                    <textarea id="commentInput" name="comment" placeholder="แสดงความคิดเห็น..."></textarea>
+                                    <div class="icon_class" id="submitIcon">
+                                      <i class="fa-solid fa-paper-plane sent_icon"></i>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                            <% } %>
+                              <div class="limit_post">
+                                <span>สิ้นสุดเนื้อหา</span>
+                              </div>
+                        </div>
+                      </div>
+
+                      <% } else { %>
+
+                        <div class="content_feed_limit">
+                          <div class="content_feed">
+                            <div class="header_post_creator_no">
+                              <span>ไม่มีเนื้อหา</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <% } %>
+
+                          <% } %>
 
   </div>
 </div>
+
+<script>
+  const textarea = document.querySelector("textarea");
+  textarea.addEventListener("keyup", e => {
+    textarea.style.height = "49px";
+    let scHeight = e.target.scrollHeight;
+    textarea.style.height = `${scHeight}px`;
+  });
+
+  document.getElementById('commentInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // Prevent the default behavior (line break in textarea)
+      document.getElementById('commentForm').submit(); // Submit the form
+    }
+  });
+
+  document.getElementById('submitIcon').addEventListener('click', function() {
+    document.getElementById('commentForm').submit();
+  });
+
+</script>
