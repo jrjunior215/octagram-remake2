@@ -1,3 +1,5 @@
+<script src="/js/comments.js"></script>
+
 <div class="content">
     <div class="container_feed">
         <div class="feed">
@@ -10,57 +12,110 @@
                 </div>
             </div>
             <div class="content_feed_home">
-                <% if (posts.length > 0) { %>
-                <% for(var i=0; i < posts.length; i++) { %>
-                <div class="box_feed">
-                    <div class="header_creator_feed">
-                        <div class="creator_feed_home left">
-                            <a class="creator_feed_home_href" href="/<%= posts[i].creator_name %>">
-                                <img src="<%= posts[i].img %>">
-                                <div class="creator_info">
-                                    <span class="post_creator_name">
-                                        <%= posts[i].creator_name %>
-                                    </span>
-                                    <span class="post_time_feed_home">4 DAYS AGO AT 10:58 AM</span>
+                <% if (posts.length> 0) { %>
+                    <% for(var i=0; i < posts.length; i++) { %>
+                        <div class="box_feed">
+                            <div class="header_creator_feed">
+                                <div class="creator_feed_home left">
+                                    <a class="creator_feed_home_href" href="/<%= posts[i].creator_name %>">
+                                        <img src="<%= posts[i].img %>">
+                                        <div class="creator_info">
+                                            <span class="post_creator_name">
+                                                <%= posts[i].creator_name %>
+                                            </span>
+                                            <span class="post_time_feed_home"><%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %></span>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                                <div class="tooltip right">
+                                    <i id="tooltip_click" class="material-icons">more_horiz</i>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="post_feed">
+                                <% if (!posts[i].post_img) { %>
+
+                                    <% } else { %>
+                                        <div class="post_img_feed">
+                                            <img src="<%= posts[i].post_img %>" id="zoomable-image">
+                                        </div>
+                                        <% } %>
+                                            <div class="post_title_feed">
+                                                <span>
+                                                    <%= posts[i].post_title %>
+                                                </span>
+                                            </div>
+                                            <div class="post_desc_feed">
+                                                <%- posts[i].post_desc %>
+                                            </div>
+                            </div>
+                            <div class="comment_user" id="commentPost_<%= posts[i].post_id %>">
+                            </div>
+                            <script>
+                                fetchComments(`<%= posts[i].post_id %>`);
+                            </script>
+                            <hr>
+                            <div class="comment_post">
+                                <form class="commentForm" action="/post/comment/create" method="POST">
+                                    <div class="comment_user_input">
+                                        <input type="hidden" name="role" value="USER">
+                                        <input type="hidden" name="id_post" value="<%= posts[i].post_id %>">
+                                        <input type="hidden" name="id_user" value="<%= SESSION_USER.id %>">
+                                        <input type="hidden" name="callback" value="home">
+                                        <img src="<%= SESSION_USER.img %>" alt="profile">
+                                        <textarea class="commentInput" name="comment"
+                                            placeholder="แสดงความคิดเห็น..."></textarea>
+                                        <div class="icon_class submitIcon">
+                                            <i class="fa-solid fa-paper-plane sent_icon"></i>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="tooltip right">
-                            <i id="tooltip_click" class="material-icons">more_horiz</i>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="post_feed">
-                        <% if (!posts[i].post_img) { %>
+                        <% } %>
+                            <div class="limit_post">
+                                <span>สิ้นสุดเนื้อหา</span>
+                            </div>
 
                             <% } else { %>
-                              <div class="post_img_feed">
-                                <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                              </div>
-                              <% } %>
-                        <div class="post_title_feed">
-                            <span>
-                              <%= posts[i].post_title %>
-                            </span>
-                          </div>
-                          <div class="post_desc_feed">
-                            <%- posts[i].post_desc %>
-                          </div>
-                    </div>
-                </div>
-                <% } %>
-                <div class="limit_post">
-                    <span>สิ้นสุดเนื้อหา</span>
-                </div>
-
-                <% } else { %>
-                <div class="no_post_feed">
-                    <img src="/img/find_creator.png" alt="">
-                    <span>ไม่มีเนื้อหา</span>
-                </div>
-                <% } %>
+                                <div class="no_post_feed">
+                                    <img src="/img/find_creator.png" alt="">
+                                    <span>ไม่มีเนื้อหา</span>
+                                </div>
+                                <% } %>
 
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    // Add the textarea resizing functionality to each comment form textarea
+    document.querySelectorAll('.commentInput').forEach(textarea => {
+        textarea.addEventListener('input', function () {
+            this.style.height = '49px';
+            const scrollHeight = this.scrollHeight;
+            this.style.height = `${scrollHeight}px`;
+        });
+    });
+
+    // Change the event listener for the submit button
+    document.querySelectorAll('.submitIcon').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.closest('.commentForm').submit();
+        });
+    });
+
+    // Change the event listener for the textarea to handle Enter key press
+    document.querySelectorAll('.commentInput').forEach(textarea => {
+        textarea.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                this.closest('.commentForm').submit();
+            }
+        });
+    });
+
+</script>

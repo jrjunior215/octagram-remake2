@@ -82,7 +82,7 @@ Post.feed = async (id_user) => {
                 }
             }
 
-            const postString = `SELECT * FROM posts JOIN creators ON posts.id_creator = creators.id WHERE posts.id_creator IN (${id_creator}) AND (permission IN (${id_package}) OR permission = 'ALL') ORDER BY posts.id DESC`
+            const postString = `SELECT *,posts.id AS post_id FROM posts JOIN creators ON posts.id_creator = creators.id WHERE posts.id_creator IN (${id_creator}) AND (permission IN (${id_package}) OR permission = 'ALL') ORDER BY posts.id DESC`
             dbConnection.execute(postString).then(async ([rows]) => {
                 resolve(rows);
             }).catch(err => {

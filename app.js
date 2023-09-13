@@ -136,6 +136,7 @@ const postDelete = require('./controllers/models/post/delete/postDelete');
 
 // COMMENT
 const commentCreate = require('./controllers/models/comment/commentCreate');
+const commentController = require('./controllers/models/comment/commentController');
 
 // GET
 
@@ -187,9 +188,6 @@ app.get('/post/text', postTextController);
 // POST EDIT
 app.get('/post/edit', textEditController);
 
-// CREATOR PAGE
-app.get('/creator2', postText);
-
 // AUTH
 app.post('/register/user', registerUserController);
 app.post('/login/user', loginUserController);
@@ -217,6 +215,7 @@ app.get('/post/delete', postDelete);
 
 // COMMENT 
 app.post('/post/comment/create', commentCreate);
+app.get('/comments/:postId', commentController);
 
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);

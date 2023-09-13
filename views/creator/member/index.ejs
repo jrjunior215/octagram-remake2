@@ -29,19 +29,20 @@
     fetch('/member/creator')
       .then(response => response.json())
       .then(memberlist => {
-        console.log(memberlist);
 
         let html = '';
 
         if (memberlist.length > 0) {
           for (var count = 0; memberlist.length > count; count++) {
+            const packageDate = new Date(memberlist[count].package_date);
+            const formattedPackageDate = packageDate.toLocaleDateString('th-TH', { day: '2-digit', month: '2-digit', year: 'numeric' });
             html += '<tr>';
             html += '<td>' + (count + 1) + '</td>';
             html += '<td><img src="' + memberlist[count].img + '" alt="user_profile" class="img_member_profile"></td>';
             html += '<td>' + memberlist[count].name + '</td>';
             html += '<td>' + memberlist[count].email + '</td>';
             html += '<td>' + memberlist[count].package_name + '</td>';
-            html += '<td>10/09/2566</td>';
+            html += '<td>' + formattedPackageDate+ '</td>';
             html += '<td>10/09/2566</td>';
             html += '<td>10/09/2566</td>';
             html += '<td>Active</td>';
