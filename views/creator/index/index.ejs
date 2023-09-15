@@ -85,8 +85,9 @@
                                             <%- posts[i].post_desc %>
                                         </div>
                         </div>
-                        <div class="comment_user" id="commentPost_<%= posts[i].id %>">
-                        </div>
+                            <div class="comment_user" id="commentPost_<%= posts[i].id %>">
+
+                            </div>
                         <script>
                             fetchComments(`<%= posts[i].id %>`);
                         </script>

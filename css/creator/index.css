@@ -413,8 +413,9 @@ main {
 }
 
 .comment_post_user_data {
-    width: 100%;
+    width: auto;
     display: flex;
+    position: relative;
 }
 
 .comment_post_user_data img {
@@ -458,22 +459,19 @@ main {
 }
 
 .tooltip_comment {
+    position: relative;
     height: auto;
     margin: auto 5px;
     display: none;
 }
 
-/* .comment_user:hover .tooltip_comment {
-    display: block;
-} */
-
-#tooltip_comment {
+#tooltip_comment_click {
     padding: 5px;
     border-radius: 50%;
     cursor: pointer;
 }
 
-#tooltip_comment:hover {
+#tooltip_comment_click:hover {
     background-color: #e3dddd;
 }
 
@@ -489,6 +487,7 @@ main {
     align-items: center;
     background: linear-gradient(to top, rgb(240, 239, 239), rgba(215, 212, 212, 0));
 }
+
 .readMoreBtn {
     cursor: pointer;
     margin: 10px;
@@ -500,4 +499,32 @@ main {
     margin: 0;
     font-size: 10px;
     margin: 0 10px;
-  }
+}
+
+/* COMMENT EDIT */
+
+.tooltip_comment_bar {
+    top: 30px;
+    right: 0;
+    position: absolute;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    display: none;
+}
+
+.tooltip-content {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 40px 10px 20px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.tooltip-content a {
+    font-size: 15px;
+    color: #000000;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
