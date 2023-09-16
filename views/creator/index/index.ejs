@@ -1,4 +1,4 @@
-<script src="/js/comments.js"></script>
+<script src="/js/comment/comment_creator.js"></script>
 
 <div class="content">
     <div class="creator_page">
@@ -47,7 +47,11 @@
                                     <span class="post_creator_name">
                                         <%= SESSION_USER.creator_name %>
                                     </span>
-                                    <span class="post_time_feed_home"><%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %></span>
+                                    <span class="post_time_feed_home">
+                                        <%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short' ,
+                                            year: 'numeric' , month: 'short' , day: 'numeric' , hour: 'numeric' ,
+                                            minute: 'numeric' }) %>
+                                    </span>
                                 </div>
                             </div>
                             <div class="tooltip right">
@@ -85,11 +89,11 @@
                                             <%- posts[i].post_desc %>
                                         </div>
                         </div>
-                            <div class="comment_user" id="commentPost_<%= posts[i].id %>">
+                        <div class="comment_user" id="commentPost_<%= posts[i].id %>">
 
-                            </div>
+                        </div>
                         <script>
-                            fetchComments(`<%= posts[i].id %>`);
+                            fetchComments(`<%= posts[i].id %>`, `<%= SESSION_USER.creator_id %>`);
                         </script>
                         <hr>
                         <div class="comment_post">
@@ -141,7 +145,6 @@
             }
         }
     });
-
 
     // Add the textarea resizing functionality to each comment form textarea
     document.querySelectorAll('.commentInput').forEach(textarea => {
