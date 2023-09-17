@@ -137,6 +137,8 @@ const postDelete = require('./controllers/models/post/delete/postDelete');
 // COMMENT
 const commentCreate = require('./controllers/models/comment/commentCreate');
 const commentController = require('./controllers/models/comment/commentController');
+const commentEdit = require('./controllers/models/comment/commentEdit');
+const commentDelete = require('./controllers/models/comment/commentDelete');
 
 // GET
 
@@ -215,6 +217,8 @@ app.get('/post/delete', postDelete);
 
 // COMMENT 
 app.post('/post/comment/create', commentCreate);
+app.post('/post/comment/edit', commentEdit);
+app.get('/post/comment/delete', commentDelete)
 app.get('/comments/:postId', commentController);
 
 // CREATOR PAGE

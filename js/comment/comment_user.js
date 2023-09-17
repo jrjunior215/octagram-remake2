@@ -90,7 +90,7 @@ function displayComments(comments, postId, sessionId) {
 function createCommentHTML(comment, formattedDate, sessionId) {
     const userImage = comment.id_creator ? comment.img_creator : comment.img_user;
     const userName = comment.id_creator ? `<span class="comment_creator">${comment.creator_name} <i class="fa-solid fa-user-pen"></i> </span>` : comment.name;
-    let UserID = parseInt(comment.id_creator);
+    let UserID = parseInt(comment.id_user);
     let sessionIdS = parseInt(sessionId);
 
     if (UserID === sessionIdS) {
@@ -100,7 +100,7 @@ function createCommentHTML(comment, formattedDate, sessionId) {
                 <img src="${userImage}" alt="profile">
                 <div class="comment_data">
                     <div class="comment_user_container">
-                        <span class="comment_username">${userName}</span>
+                        <span class="comment_username">${userName} [ คุณ ]</span>
                         <span class="comment_time">${formattedDate}</span>
                     </div>
                     <textarea class="commentEdit auto-resize2" name="comment" readonly>${comment.comment}</textarea>
@@ -108,8 +108,8 @@ function createCommentHTML(comment, formattedDate, sessionId) {
                 <form class="comment_data_edit" action="/post/comment/edit" method="POST">
                     <div class="comment_user_container">
                     <input type="hidden" name="id_comment" value="${comment.id}">
-                    <input type="hidden" name="role" value="CREATOR">
-                    <input type="hidden" name="callback" value="creator">
+                    <input type="hidden" name="role" value="USER">
+                    <input type="hidden" name="callback" value="home">
                     <textarea class="commentEdit auto-resize" name="comment">${comment.comment}</textarea>
                     </form>
                 </div> 
@@ -118,7 +118,7 @@ function createCommentHTML(comment, formattedDate, sessionId) {
                     <div class="tooltip_comment_bar">
                         <div class="tooltip-content">
                             <a class="tooltip-option" id="comment_edit">แก้ไข</a>
-                            <a href="/post/comment/delete?id_comment=${comment.id}&callback=creator&role=CREATOR" class="tooltip-option" id="comment_remove">ลบ</a>
+                            <a href="/post/comment/delete?id_comment=${comment.id}&callback=home&role=USER" class="tooltip-option" id="comment_remove">ลบ</a>
                         </div>
                     </div>
                 </div>

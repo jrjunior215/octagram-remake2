@@ -1,4 +1,4 @@
-<script src="/js/comments.js"></script>
+<script src="/js/comment/comment_user.js"></script>
 
 <div class="content">
     <div class="container_feed">
@@ -52,7 +52,7 @@
                             <div class="comment_user" id="commentPost_<%= posts[i].post_id %>">
                             </div>
                             <script>
-                                fetchComments(`<%= posts[i].post_id %>`);
+                                fetchComments(`<%= posts[i].post_id %>`, `<%= SESSION_USER.id %>`);
                             </script>
                             <hr>
                             <div class="comment_post">

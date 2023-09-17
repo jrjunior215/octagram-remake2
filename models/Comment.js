@@ -48,4 +48,33 @@ Comment.show = async (postId) => {
 
 };
 
+Comment.edit = async (data) => {
+
+  const { id_comment, comment } = data;
+  const queryString = `UPDATE comments SET comment = '${comment}' WHERE id = '${id_comment}';`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Comment.delete = async (id_comment) => {
+
+  const queryString = `DELETE FROM comments WHERE id='${id_comment}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Comment;
