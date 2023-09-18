@@ -61,7 +61,7 @@
                   <div class="package_preview_price">
                     <span>฿ <%=packages[i].package_price%> / เดือน</span>
                   </div>
-                  <a href="">เข้าร่วม</a>
+                  <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>">เข้าร่วม</a>
                   <div class="package_preview_desc">
                     <%-packages[i].package_desc%>
                   </div>
@@ -124,8 +124,12 @@
                                 <%- posts[i].post_desc %>
                               </div>
                       </div>
+                      <div class="comment_user" id="commentPost_<%= posts[i].id %>">
+                      </div>
+                      <script>
+                        fetchComments(`<%= posts[i].id %>`);
+                      </script>
                     </div>
-
                     <% } %>
                       <div class="limit_post">
                         <span>สิ้นสุดเนื้อหา</span>

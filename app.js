@@ -140,6 +140,9 @@ const commentController = require('./controllers/models/comment/commentControlle
 const commentEdit = require('./controllers/models/comment/commentEdit');
 const commentDelete = require('./controllers/models/comment/commentDelete');
 
+// CHECKOUT
+const checkoutController = require('./controllers/views/checkout/checkoutController');
+
 // GET
 
 // INDEX PAGE
@@ -220,6 +223,9 @@ app.post('/post/comment/create', commentCreate);
 app.post('/post/comment/edit', commentEdit);
 app.get('/post/comment/delete', commentDelete)
 app.get('/comments/:postId', commentController);
+
+// CHECKOUT
+app.get('/checkout/:creator_name', checkoutController)
 
 // CREATOR PAGE
 app.get('/:creator_name', creatorPageController);

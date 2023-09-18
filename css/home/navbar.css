@@ -104,6 +104,7 @@ header {
     color: #000;
     font-size: 16px;
     margin-left: 5px;
+    font-family: 'Noto Sans Thai', sans-serif;
 }
 
 .profile_user img{
@@ -125,6 +126,7 @@ header {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     z-index: 1;
     display: none;
+    font-family: 'Noto Sans Thai', sans-serif;
 }
 
 .menu.open_menu {
