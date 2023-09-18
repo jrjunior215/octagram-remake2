@@ -61,7 +61,7 @@
                   <div class="package_preview_price">
                     <span>฿ <%=packages[i].package_price%> / เดือน</span>
                   </div>
-                  <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>">เข้าร่วม</a>
+                  <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">เข้าร่วม</a>
                   <div class="package_preview_desc">
                     <%-packages[i].package_desc%>
                   </div>

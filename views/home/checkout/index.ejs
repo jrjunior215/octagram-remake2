@@ -1,3 +1,61 @@
 <div class="content">
-  
+  <div class="checkout_page">
+    <div class="container_checkout">
+      <div class="container_payment">
+        <div class="payment_header">
+          <h1>การชำระเงิน</h1>
+        </div>
+        <div class="payment_method">
+          <span>เลือกรูปแบบการชำระเงิน</span>
+          <div class="paypal_payment_button">
+            <i class="fa-brands fa-paypal paypal"></i>
+            <span>Paypal</span>
+          </div>
+        </div>
+        <div class="payment_description">
+          <span>การคลิกดำเนินการต่อด้วย PayPal แสดงว่าคุณยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวของ Octagram การสมัครสมาชิก Octagram นี้ต่ออายุโดยอัตโนมัติทุกเดือน และคุณจะได้รับแจ้งล่วงหน้าหากจำนวนเงินต่อเดือนเพิ่มขึ้น ยกเลิกได้ตลอดเวลาในการตั้งค่าสมาชิกของคุณ</span>
+        </div>
+        <div class="container_checkout_btn">
+          <button>ดำเนินการด้วย<span>Paypal</span></button>
+        </div>
+      </div>
+      <div class="cotainer_order">
+        <div class="order_header">
+          <h1>สรุปคำสั่งซื้อ</h1>
+        </div>
+        <div class="order_description">
+          <div class="order_creator">
+            <div class="creator_package_profile">
+              <img src="<%= packages[0].img %>" alt="creator_profile">
+              <div class="order_package_creator">
+                <span class="order_creator_name"><%= packages[0].creator_name %></span>
+                <span class="order_package_name"><%= packages[0].package_name %></span>
+              </div>
+            </div>
+            <div class="creator_package_price">
+              <span><%= packages[0].package_price %> บาท</span>
+            </div>
+          </div>
+          <hr>
+          <div class="order_payment_sum">
+            <div class="order_monthly_price">
+              <span>การชำระเงินรายเดือน</span>
+            </div>
+            <div class="creator_package_price">
+              <span><%= packages[0].package_price %> บาท</span>
+            </div>
+          </div>
+          <hr>
+          <div class="order_payment_sum">
+            <div class="order_total">
+              <span>สรุปรายการทั้งหมด</span>
+            </div>
+            <div class="creator_package_price">
+              <span><%= packages[0].package_price %> บาท</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

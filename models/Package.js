@@ -46,6 +46,20 @@ Package.select = async (id_package) => {
 
 };
 
+Package.select_withcreator = async (id_package) => {
+
+  const queryString = `SELECT * FROM packages JOIN creators ON packages.id_creator = creators.id WHERE packages.id = '${id_package}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 Package.post_edit = async (id_creator) => {
 
   const queryString = `SELECT * FROM packages WHERE id_creator = '${id_creator}'`

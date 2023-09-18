@@ -1,0 +1,196 @@
+.checkout_page {
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container_checkout {
+    width: 70%;
+    height: 100vh;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 20px;
+    display: flex;
+}
+
+.container_payment {
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.payment_header h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.payment_method span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.paypal_payment_button {
+    display: flex;
+}
+.payment_method {
+    width: 100%;
+}
+
+.paypal_payment_button {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #e0dcdc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.paypal_payment_button:hover {
+    border: 1px solid #5796cd;
+}
+
+.paypal {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.paypal_payment_button span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    margin: auto 0;
+    font-size: 18px;
+}
+
+.payment_description {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.payment_description span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    margin: auto 0;
+    font-size: 12px;
+    color: #656567;
+}
+
+.container_checkout_btn {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container_checkout_btn button {
+    width: 100%;
+    font-family: 'Noto Sans Thai', sans-serif;
+    background-color: #0070BB;
+    border: 1px solid #c4c4c4;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin: auto 0;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.container_checkout_btn button:hover {
+    background-color: #3795d4;
+}
+
+.container_checkout_btn button span {
+    font-size: 20px;
+    color: #fff;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.cotainer_order {
+    width: 50%;
+    height: 100%;
+    background-color: #F6F7FA;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order_header h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.order_description {
+    display: flex;
+    flex-direction: column;
+}
+
+.order_creator {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.creator_package_profile {
+    display: flex;
+    height: auto;
+    margin: 20px 0;
+}
+
+.creator_package_profile img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.order_package_creator {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+    margin-left: 10px;
+}
+
+.order_package_creator span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.order_creator_name {
+    font-size: 18px;
+}
+
+.order_package_name {
+    color: #7e7a7a;
+    font-size: 15px;
+}
+
+.creator_package_price span{
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.order_description hr {
+    height: 1px;
+    background-color: #bab1b1;
+    border: none;
+    margin: 0;
+}
+
+.order_payment_sum {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.order_payment_sum span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.order_total span{
+    font-size: 20px;
+}
