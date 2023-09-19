@@ -15,9 +15,10 @@
         <div class="payment_description">
           <span>การคลิกดำเนินการต่อด้วย PayPal แสดงว่าคุณยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวของ Octagram การสมัครสมาชิก Octagram นี้ต่ออายุโดยอัตโนมัติทุกเดือน และคุณจะได้รับแจ้งล่วงหน้าหากจำนวนเงินต่อเดือนเพิ่มขึ้น ยกเลิกได้ตลอดเวลาในการตั้งค่าสมาชิกของคุณ</span>
         </div>
-        <div class="container_checkout_btn">
+        <form action="/paypal/checkout" method="POST" class="container_checkout_btn">
+          <input type="hidden" name="amount" value="<%= packages[0].package_price %>">
           <button>ดำเนินการด้วย<span>Paypal</span></button>
-        </div>
+        </form>
       </div>
       <div class="cotainer_order">
         <div class="order_header">

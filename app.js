@@ -21,7 +21,7 @@ app.use(expressSession({
 }));
 
 app.use("*", (req, res, next) => {
-  SESSION_USER = req.session.userData
+  SESSION_USER = req.session.userData;
   next()
 });
 
@@ -143,14 +143,22 @@ const commentDelete = require('./controllers/models/comment/commentDelete');
 // CHECKOUT
 const checkoutController = require('./controllers/views/checkout/checkoutController');
 
+// PAYPAL
+const paymentRoute = require('./controllers/models/payment/paypal');
+
+// MIDDLEWARE
+const logIn = require('./middleware/logIn');
+const logout = require('./middleware/logOut');
+const logOut = require('./middleware/logOut');
+
 // GET
 
 // INDEX PAGE
-app.get('/', indexController);
+app.get('/', logout, indexController);
 
 // AUTH PAGE
-app.get('/login', loginController);
-app.get('/register', registerController);
+app.get('/login', logout, loginController);
+app.get('/register', logout, registerController);
 app.get('/logout', logoutController);
 
 // GOOGLE AUTH PAGE
@@ -164,71 +172,74 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
 });
 
 // HOME PAGE
-app.get('/home', homeController);
-app.get('/search', searchController);
-app.get('/setting/basic', settingController);
-app.get('/member/navbar', memberListNav);
+app.get('/home', logIn, homeController);
+app.get('/search', logIn, searchController);
+app.get('/setting/basic', logIn, settingController);
+app.get('/member/navbar', logIn, memberListNav);
 
 // SEARCH
-app.get('/search/query', searchAutoCreatorController);
+app.get('/search/query', logIn, searchAutoCreatorController);
 
 // CREATOR PAGE
-app.get('/creator', creatorController);
-app.get('/members', memberController);
-app.get('/package', packageController);
-app.get('/setting/creator', settingCreatorController);
-app.get('/member/creator', memberCreator);
+app.get('/creator', logIn, creatorController);
+app.get('/members', logIn, memberController);
+app.get('/package', logIn, packageController);
+app.get('/setting/creator', logIn, settingCreatorController);
+app.get('/member/creator', logIn, memberCreator);
 
 // ADMIN PAGE
-app.get('/dashboard', adminController);
+app.get('/dashboard', logIn, adminController);
 
 // PACKAGE PAGE
-app.get('/package/create', packageCreateController);
-app.get('/package/preview', packagePreviewController);
-app.get('/package/edit', packageEditController);
+app.get('/package/create', logIn, packageCreateController);
+app.get('/package/preview', logIn, packagePreviewController);
+app.get('/package/edit', logIn, packageEditController);
 
 // POST PAGE
-app.get('/post/text', postTextController); 
+app.get('/post/text', logIn, postTextController); 
 
 // POST EDIT
-app.get('/post/edit', textEditController);
+app.get('/post/edit', logIn, textEditController);
 
 // AUTH
-app.post('/register/user', registerUserController);
+app.post('/register/user', logOut, registerUserController);
 app.post('/login/user', loginUserController);
 
 // PROFILE UPDATE
-app.post('/profile/user/update', profileUser);
+app.post('/profile/user/update', logIn, profileUser);
 app.post('/profile/creator/update', profileCreator);
 
 // NEW CREATOR
-app.post('/creator/create', newCreatorController);
+app.post('/creator/create', logIn, newCreatorController);
 
 // PACKAGE
-app.post('/package/data/create', packageCreate);
-app.post('/package/data/edit', packageEdit);
-app.get('/package/delete', packageDelete);
+app.post('/package/data/create', logIn, packageCreate);
+app.post('/package/data/edit', logIn, packageEdit);
+app.get('/package/delete', logIn, packageDelete);
 
 // POST
-app.post('/post/data/create', postText);
+app.post('/post/data/create', logIn, postText);
 
 // POST EDIT
-app.post('/post/edit/data', postEdit);
+app.post('/post/edit/data', logIn, postEdit);
 
 // POST DELETE
-app.get('/post/delete', postDelete);
+app.get('/post/delete', logIn, postDelete);
+
+// PAYPAL
+app.use('/paypal', paymentRoute);
 
 // COMMENT 
-app.post('/post/comment/create', commentCreate);
-app.post('/post/comment/edit', commentEdit);
-app.get('/post/comment/delete', commentDelete)
-app.get('/comments/:postId', commentController);
+app.post('/post/comment/create', logIn, commentCreate);
+app.post('/post/comment/edit', logIn, commentEdit);
+app.get('/post/comment/delete', logIn, commentDelete)
+app.get('/comments/:postId', logIn, commentController);
 
 // CHECKOUT
-app.get('/checkout/:creator_name', checkoutController)
+app.get('/checkout/:creator_name', logIn, checkoutController)
 
 // CREATOR PAGE
-app.get('/:creator_name', creatorPageController);
+app.get('/:creator_name', logIn, creatorPageController);
 
 // SET POST LISTEN
 
