@@ -144,7 +144,7 @@ const commentDelete = require('./controllers/models/comment/commentDelete');
 const checkoutController = require('./controllers/views/checkout/checkoutController');
 
 // PAYPAL
-const paymentRoute = require('./controllers/models/payment/paypal');
+const paymentRoute = require('./controllers/models/payment/paypal_payment');
 
 // MIDDLEWARE
 const logIn = require('./middleware/logIn');
