@@ -9,7 +9,9 @@ paypal.configure({
 });
 
 router.post('/checkout', (req, res) => {
-    const price = req.body.price;
+    const data = req.body;
+    const { price, name, package_name, creator_name } = data;
+    console.log('Extracted Price:', price);
 
     const billingPlanAttributes = {
         name: 'Monthly Subscription Plan',
@@ -23,8 +25,8 @@ router.post('/checkout', (req, res) => {
                 frequency: 'MONTH',
                 cycles: '0',
                 amount: {
-                    currency: 'USD',
-                    value: price // Monthly subscription amount
+                    currency: 'THB',
+                    value: price
                 }
             }
         ],
@@ -33,17 +35,17 @@ router.post('/checkout', (req, res) => {
             cancel_url: 'http://localhost:4002/paypal/cancel',
             auto_bill_amount: 'YES',
             initial_fail_amount_action: 'CONTINUE'
-        }
+        },
     };
 
     paypal.billingPlan.create(billingPlanAttributes, (error, billingPlan) => {
         if (error) {
             console.error(error);
-            throw error;
+            res.send('Error creating billing plan.');
         } else {
-            const planId = billingPlan.id;
-
-            paypal.billingPlan.update(planId, [
+            console.log('Billing plan created:', billingPlan);
+            const billingPlanId = billingPlan.id;
+            paypal.billingPlan.update(billingPlanId, [
                 {
                     op: 'replace',
                     path: '/',
@@ -54,12 +56,40 @@ router.post('/checkout', (req, res) => {
             ], (error, updatedBillingPlan) => {
                 if (error) {
                     console.error(error);
-                    throw error;
+                    res.send('Error activating billing plan.');
                 } else {
-                    console.log('Plan created and activated successfully');
-                    console.log(updatedBillingPlan);
+                    console.log('Billing plan activated:', updatedBillingPlan);
+                    const futureStartDate = new Date();
+                    futureStartDate.setDate(futureStartDate.getDate() + 1); 
+                    const formattedStartDate = futureStartDate.toISOString();
 
-                    res.send('Plan created and activated successfully');
+                    const billingAgreementAttributes = {
+                        name: 'Your Billing Agreement',
+                        description: 'Description of your billing agreement',
+                        start_date: formattedStartDate,
+                        plan: {
+                            id: billingPlan.id,
+                        },
+                        payer: {
+                            payment_method: 'paypal',
+                        },
+                    };
+
+                    paypal.billingAgreement.create(billingAgreementAttributes, (error, billingAgreement) => {
+                        if (error) {
+                            console.error(error);
+                            console.log(billingAgreementAttributes);
+                            res.send('Error creating billing agreement.');
+                        } else {
+                            console.log('Billing agreement created:', billingAgreement);
+
+                            for (const link of billingAgreement.links) {
+                                if (link.rel === 'approval_url') {
+                                    res.redirect(link.href);
+                                }
+                            }
+                        }
+                    });
                 }
             });
         }
@@ -74,15 +104,20 @@ router.get('/success', (req, res) => {
             console.error(error);
             throw error;
         } else {
-            // Handle successful subscription
             const agreementId = billingAgreement.id;
+            const startDate = billingAgreement.start_date;
+            const nextBillingDate = billingAgreement.agreement_details.next_billing_date;
 
-            // Debugging: Output the agreementId to the console
             console.log('Agreement ID:', agreementId);
+            console.log('Start Date:', startDate);
+            console.log('Next Billing Date:', nextBillingDate);
 
-            // Add your business logic here to handle the successful subscription
-
-            res.send(`Subscription successful! Agreement ID: ${agreementId}`);
+            res.send(`
+                Subscription successful!
+                Agreement ID: ${agreementId}<br>
+                Start Date: ${startDate}<br>
+                Next Billing Date: ${nextBillingDate}
+            `);
         }
     });
 });

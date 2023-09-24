@@ -36,14 +36,14 @@
             การสมัครสมาชิก Octagram นี้ต่ออายุโดยอัตโนมัติทุกเดือน
             และคุณจะได้รับแจ้งล่วงหน้าหากจำนวนเงินต่อเดือนเพิ่มขึ้น ยกเลิกได้ตลอดเวลาในการตั้งค่าสมาชิกของคุณ</span>
         </div>
-        <!-- <form action="/paypal/checkout" method="POST" class="container_checkout_btn">
+        <form action="/paypal/checkout" method="POST" class="container_checkout_btn">
           <input type="hidden" name="name" value="<%= SESSION_USER.name %>">
-          <input type="hidden" name="email" value="<%= SESSION_USER.email %>">
+          <input type="hidden" name="package_name" value="<%= packages[0].package_name %>">
           <input type="hidden" name="creator_name" value="<%= packages[0].creator_name %>">
           <input type="hidden" name="price" value="<%= packages[0].package_price %>">
           <button>ดำเนินการด้วย<span>Paypal</span></button>
-        </form> -->
-        <div id="paypal-button-container"></div>
+        </form>
+        <!-- <div id="paypal-button-container"></div> -->
       </div>
       <div class="cotainer_order">
         <div class="order_header">
