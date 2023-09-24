@@ -9,10 +9,8 @@ paypal.configure({
 });
 
 router.post('/checkout', (req, res) => {
-    const amount = req.body.amount;
-    let port = 4002;
+    const price = req.body.price;
 
-    // Set up billing plan attributes
     const billingPlanAttributes = {
         name: 'Monthly Subscription Plan',
         description: 'Recurring monthly subscription plan',
@@ -25,14 +23,14 @@ router.post('/checkout', (req, res) => {
                 frequency: 'MONTH',
                 cycles: '0',
                 amount: {
-                    currency: 'THB',
-                    value: amount // Monthly subscription amount
+                    currency: 'USD',
+                    value: price // Monthly subscription amount
                 }
             }
         ],
         merchant_preferences: {
-            return_url: `http://localhost:${port}/paypal/success`,
-            cancel_url: `http://localhost:${port}/paypal/cancel`,
+            return_url: 'http://localhost:4002/paypal/success',
+            cancel_url: 'http://localhost:4002/paypal/cancel',
             auto_bill_amount: 'YES',
             initial_fail_amount_action: 'CONTINUE'
         }
@@ -43,45 +41,25 @@ router.post('/checkout', (req, res) => {
             console.error(error);
             throw error;
         } else {
-            // Activate the plan
-            paypal.billingPlan.get(billingPlan.id, (error, billingPlan) => {
+            const planId = billingPlan.id;
+
+            paypal.billingPlan.update(planId, [
+                {
+                    op: 'replace',
+                    path: '/',
+                    value: {
+                        state: 'ACTIVE'
+                    }
+                }
+            ], (error, updatedBillingPlan) => {
                 if (error) {
                     console.error(error);
                     throw error;
                 } else {
-                    billingPlan.state = 'ACTIVE';
-                    paypal.billingPlan.update(billingPlan.id, billingPlan, (error, updatedBillingPlan) => {
-                        if (error) {
-                            console.error(error);
-                            throw error;
-                        } else {
-                            // Create billing agreement
-                            const billingAgreementAttributes = {
-                                name: 'Monthly Subscription Agreement',
-                                description: 'Monthly subscription agreement',
-                                start_date: new Date().toISOString(),
-                                plan: {
-                                    id: billingPlan.id
-                                },
-                                payer: {
-                                    payment_method: 'paypal'
-                                }
-                            };
-    
-                            paypal.billingAgreement.create(billingAgreementAttributes, (error, billingAgreement) => {
-                                if (error) {
-                                    console.error(error);
-                                    throw error;
-                                } else {
-                                    for (let link of billingAgreement.links) {
-                                        if (link.rel === 'approval_url') {
-                                            res.redirect(link.href);
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    });
+                    console.log('Plan created and activated successfully');
+                    console.log(updatedBillingPlan);
+
+                    res.send('Plan created and activated successfully');
                 }
             });
         }
