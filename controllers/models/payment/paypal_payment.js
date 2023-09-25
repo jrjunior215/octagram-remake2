@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const paypal = require('paypal-rest-sdk');
+const moment = require('moment-timezone');
 
 paypal.configure({
     mode: 'sandbox',
@@ -14,8 +15,8 @@ router.post('/checkout', (req, res) => {
     console.log('Extracted Price:', price);
 
     const billingPlanAttributes = {
-        name: 'Monthly Subscription Plan',
-        description: 'Recurring monthly subscription plan',
+        name: package_name,
+        description: `This package name create by ${creator_name} in Octagram`,
         type: 'INFINITE',
         payment_definitions: [
             {
@@ -35,7 +36,7 @@ router.post('/checkout', (req, res) => {
             cancel_url: 'http://localhost:4002/paypal/cancel',
             auto_bill_amount: 'YES',
             initial_fail_amount_action: 'CONTINUE'
-        },
+        },  
     };
 
     paypal.billingPlan.create(billingPlanAttributes, (error, billingPlan) => {
@@ -60,12 +61,11 @@ router.post('/checkout', (req, res) => {
                 } else {
                     console.log('Billing plan activated:', updatedBillingPlan);
                     const futureStartDate = new Date();
-                    futureStartDate.setDate(futureStartDate.getDate() + 1); 
                     const formattedStartDate = futureStartDate.toISOString();
 
                     const billingAgreementAttributes = {
-                        name: 'Your Billing Agreement',
-                        description: 'Description of your billing agreement',
+                        name: `${package_name}`,
+                        description: `User ${name} have purchase package ${package_name} by creator ${creator_name}`,
                         start_date: formattedStartDate,
                         plan: {
                             id: billingPlan.id,
@@ -105,18 +105,24 @@ router.get('/success', (req, res) => {
             throw error;
         } else {
             const agreementId = billingAgreement.id;
-            const startDate = billingAgreement.start_date;
-            const nextBillingDate = billingAgreement.agreement_details.next_billing_date;
+            const startDateUtc = moment(billingAgreement.start_date).utc(); // Assuming the date is in UTC
+
+            // Convert to Thai timezone
+            const startDateThai = startDateUtc.tz('Asia/Bangkok');
+            const endDateThai = startDateThai.clone().add(1, 'month');
+
+            const formattedStartDate = startDateThai.format('YYYY-MM-DDTHH:mm:ss');
+            const formattedEndDate = endDateThai.format('YYYY-MM-DDTHH:mm:ss');
 
             console.log('Agreement ID:', agreementId);
-            console.log('Start Date:', startDate);
-            console.log('Next Billing Date:', nextBillingDate);
+            console.log('Start Date (Thai Timezone):', formattedStartDate);
+            console.log('End Date (Thai Timezone):', formattedEndDate);
 
             res.send(`
                 Subscription successful!
                 Agreement ID: ${agreementId}<br>
-                Start Date: ${startDate}<br>
-                Next Billing Date: ${nextBillingDate}
+                Start Date (Thai Timezone): ${formattedStartDate}<br>
+                End Date (Thai Timezone): ${formattedEndDate}<br>
             `);
         }
     });
