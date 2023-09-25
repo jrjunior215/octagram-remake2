@@ -40,4 +40,6 @@ Member.creator = async (id_creator) => {
   })
 };
 
+
+
 module.exports = Member;

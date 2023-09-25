@@ -38,6 +38,8 @@
         </div>
         <form action="/paypal/checkout" method="POST" class="container_checkout_btn">
           <input type="hidden" name="name" value="<%= SESSION_USER.name %>">
+          <input type="hidden" name="id_user" value="<%= SESSION_USER.id %>">
+          <input type="hidden" name="id_creator" value="<%= packages[0].id_creator %>">
           <input type="hidden" name="package_name" value="<%= packages[0].package_name %>">
           <input type="hidden" name="creator_name" value="<%= packages[0].creator_name %>">
           <input type="hidden" name="price" value="<%= packages[0].package_price %>">

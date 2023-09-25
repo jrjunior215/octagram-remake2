@@ -1,0 +1,11 @@
+<div>
+    <span>agreementId : <%= agreementId %></span>
+    <span>Start Date (Thai Timezone) : <%= formattedStartDate %></span>
+    <span>End Date (Thai Timezone) : <%= formattedEndDate %></span>
+</div>
+
+<script>
+    setTimeout(() => {
+        window.location.href = `/<%= creator_name %>`;
+    }, 3000);
+</script>
