@@ -4,11 +4,11 @@ const path = require('path');
 const expressSession = require('express-session');
 const dbConnection = require('./js/database');
 const passport = require('./js/passport');
+const { SERVER_PORT, SERVER_IP } = require('./js/server_setting');
 
 // SET EXPRESS
 
 const app = express();
-const port = '4002';
 
 // COOKIE SESSION
 
@@ -243,4 +243,4 @@ app.get('/:creator_name', logIn, creatorPageController);
 
 // SET POST LISTEN
 
-app.listen(port, () => console.log("Server is Running on Port " + port + "."));
+app.listen(SERVER_PORT, () => console.log("Server is Running on Port " + SERVER_PORT + " and Server ip : " + SERVER_IP + "."));

@@ -1,11 +1,12 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const dbConnection = require('../js/database');
+const { SERVER_PORT, SERVER_IP } = require('../js/server_setting');
 
 passport.use(new GoogleStrategy({
   clientID: '1060557820848-pve84gfkcp0jkbkauk89hg2b17a8rge2.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: 'http://localhost:4002/auth/google/callback'
+  callbackURL: `http://${SERVER_IP}:${SERVER_PORT}/auth/google/callback`
 }, async (accessToken, refreshToken, profile, done) => {
 
   const user = {

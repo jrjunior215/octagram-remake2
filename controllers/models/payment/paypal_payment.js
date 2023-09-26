@@ -3,6 +3,7 @@ const router = express.Router();
 const paypal = require('paypal-rest-sdk');
 const moment = require('moment-timezone');
 const Member = require('../../../models/Member');
+const { SERVER_PORT, SERVER_IP } = require('../../../js/server_setting');
 
 paypal.configure({
     mode: 'sandbox',
@@ -32,8 +33,8 @@ router.post('/checkout', (req, res) => {
             }
         ],
         merchant_preferences: {
-            return_url: 'http://localhost:4002/paypal/success',
-            cancel_url: 'http://localhost:4002/paypal/cancel',
+            return_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/success`,
+            cancel_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/cancel`,
             auto_bill_amount: 'YES',
             initial_fail_amount_action: 'CONTINUE'
         },
