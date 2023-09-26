@@ -184,7 +184,7 @@
                               <div class="comment_user" id="commentPost_<%= posts[i].id %>">
                               </div>
                               <script>
-                                fetchComments(`<%= posts[i].id %>`);
+                                fetchComments(`<%= posts[i].id %>`, `<%= SESSION_USER.id %>`);
                               </script>
                               <hr>
                               <div class="comment_post">

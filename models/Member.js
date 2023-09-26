@@ -31,7 +31,7 @@ Member.navbar = async (id_user) => {
 };
 
 Member.creator = async (id_creator) => {
-  const queryString = `SELECT * FROM memberships JOIN users ON memberships.id_user = users.id JOIN packages ON memberships.id_package = packages.id WHERE memberships.id_creator = '${id_creator}'`
+  const queryString = `SELECT * FROM memberships JOIN users ON memberships.id_user = users.id JOIN packages ON memberships.id_package = packages.id WHERE memberships.id_creator = '${id_creator}' ORDER BY memberships.id DESC`
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
       resolve(rows);

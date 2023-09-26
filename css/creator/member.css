@@ -84,3 +84,16 @@ td {
 .pagination button {
   margin: 0 5px;
 }
+
+tbody tr td {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.inactive_member { color: red; }
+.active_member { color: green; }
+.suspended_member { color: orange; }
+.expired_member { color: purple; }
+.pending_member { color: blue; }
+.cancelled_member { color: gray; }
+.renewed_member { color: teal; }
+.unknown_member { color: black; }
