@@ -48,7 +48,7 @@ Package.select = async (id_package) => {
 
 Package.select_withcreator = async (id_package) => {
 
-  const queryString = `SELECT * FROM packages JOIN creators ON packages.id_creator = creators.id WHERE packages.id = '${id_package}'`
+  const queryString = `SELECT *,packages.id AS id_package FROM packages JOIN creators ON packages.id_creator = creators.id WHERE packages.id = '${id_package}'`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {

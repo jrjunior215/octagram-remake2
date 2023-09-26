@@ -1,11 +1,21 @@
-<div>
-    <span>agreementId : <%= agreementId %></span>
-    <span>Start Date (Thai Timezone) : <%= formattedStartDate %></span>
-    <span>End Date (Thai Timezone) : <%= formattedEndDate %></span>
+<div class="container_success">
+    <div class="card">
+        <div class="checkmark_cart">
+            <i class="checkmark">✓</i>
+        </div>
+        <h1>การสมัครสมาชิกเรียบร้อย</h1>
+        <div class="order_details">
+            <p class="header_order">คุณได้สมัครสมาชิกกับ <%= creator_name %> เรียบร้อยแล้ว</p>
+            <p>Transaction id : <%= agreementId %></p>
+            <p>วันที่สมัคร : <%= formattedStartDate %></p>
+            <p>วันหมดอายุ : <%= formattedEndDate %></p>
+        </div>
+        <a href="/<%= creator_name %>">ดำเนินการต่อ</a>
+    </div>
 </div>
 
 <script>
     setTimeout(() => {
         window.location.href = `/<%= creator_name %>`;
-    }, 3000);
+    }, 10000);
 </script>

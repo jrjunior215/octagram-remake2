@@ -12,7 +12,7 @@ paypal.configure({
 
 router.post('/checkout', (req, res) => {
     const data = req.body;
-    const { price, name, package_name, creator_name, id_creator, id_user } = data;
+    const { price, name, package_name, creator_name, id_creator, id_user, id_package } = data;
 
     const billingPlanAttributes = {
         name: package_name,
@@ -85,6 +85,7 @@ router.post('/checkout', (req, res) => {
                             req.session.creator_name_pay = creator_name;
                             req.session.id_creator_pay = id_creator;
                             req.session.id_user_pay = id_user;
+                            req.session.id_package_pay = id_package
 
                             for (const link of billingAgreement.links) {
                                 if (link.rel === 'approval_url') {
@@ -99,13 +100,14 @@ router.post('/checkout', (req, res) => {
     });
 });
 
-router.get('/success', (req, res) => {
+router.get('/success', async (req, res) => {
     const token = req.query.token;
     const creator_name = req.session.creator_name_pay;
     const id_creator = req.session.id_creator_pay;
     const id_user = req.session.id_user_pay;
+    const id_package = req.session.id_package_pay;
 
-    paypal.billingAgreement.execute(token, {}, (error, billingAgreement) => {
+    paypal.billingAgreement.execute(token, {}, async (error, billingAgreement) => {
         if (error) {
             console.error(error);
             throw error;
@@ -113,19 +115,20 @@ router.get('/success', (req, res) => {
             const agreementId = billingAgreement.id;
             const startDateUtc = moment(billingAgreement.start_date).utc();
 
-            // Convert to Thai timezone
-
             const startDateThai = startDateUtc.tz('Asia/Bangkok');
             const endDateThai = startDateThai.clone().add(1, 'month');
 
-            const formattedStartDate = startDateThai.format('YYYY-MM-DDTHH:mm:ss');
-            const formattedEndDate = endDateThai.format('YYYY-MM-DDTHH:mm:ss');
+            const formattedStartDate = startDateThai.format('DD/MM/YYYY');
+            const formattedEndDate = endDateThai.format('DD/MM/YYYY');
+
+            const membership = await Member.create(id_creator,id_package,id_user,agreementId);
 
             res.locals.layout = 'home/payment/layout';
             res.render('home/payment/success', { agreementId: agreementId, formattedStartDate: formattedStartDate, formattedEndDate: formattedEndDate, creator_name: creator_name });
 
         }
     });
+
 });
 
 router.get('/cancel', (req, res) => {
