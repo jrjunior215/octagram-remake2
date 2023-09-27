@@ -89,6 +89,10 @@ tbody tr td {
   font-family: 'Noto Sans Thai', sans-serif;
 }
 
+thead tr th {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
 .inactive_member { color: red; }
 .active_member { color: green; }
 .suspended_member { color: orange; }
@@ -97,6 +101,15 @@ tbody tr td {
 .cancelled_member { color: gray; }
 .renewed_member { color: teal; }
 .unknown_member { color: black; }
+
+#tooltip_click {
+  padding: 10px;
+  border-radius: 50%;
+}
+
+#tooltip_click:hover {
+  background-color: #e4dbdb;
+}
 
 #pagination {
   padding: 20px 0;
@@ -122,4 +135,3 @@ tbody tr td {
   color: #fff;
   background-color: #4CAF50;
 }
-

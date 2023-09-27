@@ -89,6 +89,9 @@ const memberCreator = require('./controllers/models/member/memberCreator');
 
 // ADMIN PAGE
 const adminController = require('./controllers/views/admin/adminController');
+const adminMemberController = require('./controllers/views/admin/adminMemberController');
+
+const memberAdmin = require('./controllers/models/member/memberAdmin');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -189,6 +192,9 @@ app.get('/member/creator', logIn, memberCreator);
 
 // ADMIN PAGE
 app.get('/dashboard', logIn, adminController);
+app.get('/admin/members', logIn, adminMemberController);
+
+app.get('/member/admin', logIn, memberAdmin);
 
 // PACKAGE PAGE
 app.get('/package/create', logIn, packageCreateController);

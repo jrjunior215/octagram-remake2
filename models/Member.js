@@ -41,6 +41,17 @@ Member.creator = async (id_creator) => {
   })
 };
 
+Member.admin = async () => {
+  const queryString = `SELECT * FROM users ORDER BY id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
 Member.create = async (id_creator, id_package, id_user, agreementId) => {
   const thaiTimezone = 'Asia/Bangkok';
   const now = moment().tz(thaiTimezone);
