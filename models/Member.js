@@ -1,4 +1,3 @@
-const { query } = require('express');
 const dbConnection = require('../js/database');
 const moment = require('moment-timezone');
 
@@ -41,8 +40,42 @@ Member.creator = async (id_creator) => {
   })
 };
 
+
 Member.admin = async () => {
   const queryString = `SELECT * FROM users ORDER BY id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
+Member.admin_creator = async () => {
+  const queryString = `SELECT * FROM users JOIN creators ON users.id = creators.id_user WHERE users.role = "CREATOR" and creators.status = "1" ORDER BY users.id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
+Member.admin_new_creator = async () => {
+  const queryString = `SELECT * FROM users JOIN creators ON users.id = creators.id_user WHERE users.role = "CREATOR" and creators.status = "0" ORDER BY users.id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
+Member.sub = async (id_user) => {
+  const queryString = `SELECT * FROM memberships JOIN creators ON memberships.id_creator = creators.id JOIN packages ON memberships.id_package = packages.id WHERE memberships.id_user = '${id_user}' ORDER BY memberships.id DESC`
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
       resolve(rows);

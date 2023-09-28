@@ -182,8 +182,22 @@ main {
 .no_post_feed span{
   margin-top: 30px;
   font-family: 'Noto Sans Thai', sans-serif;
-  font-size: 30px;
+  font-size: 20px;
   color: #757677;
+}
+
+.no_post_feed a {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 15px;
+  color: #fff;
+  background-color: #22549F;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+
+.no_post_feed a:hover { 
+  background-color: #446ba5;
 }
 
 .no_post_feed img{

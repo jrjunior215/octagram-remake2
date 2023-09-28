@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
 
   if (role === "USER") {
     res.locals.layout = 'creator/new_creator/layout';
-    res.render('creator/new_creator/index', { title_nav: 'Home | Octagram' })
+    res.render('creator/new_creator/index', { title_nav: 'สมัครเป็นคริเอเตอร์ | Octagram' })
   } else if (role === "CREATOR") {
     const creator_name = SESSION_USER.creator_name;
     const id_creator = SESSION_USER.creator_id;

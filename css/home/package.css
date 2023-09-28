@@ -354,6 +354,7 @@
 }
 
 .package_preview_name span {
+    font-family: 'Noto Sans Thai', sans-serif;
     font-size: 20px;
     color: #524e4e;
 }

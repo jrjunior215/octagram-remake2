@@ -1,0 +1,132 @@
+<div class="content">
+    <div class="limit_member_page">
+        <div class="member_page">
+            <%- include('./navbar.ejs')%>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ลำดับที่</th>
+                            <th>ชื่อหมวดหมู่</th>
+                            <th>ผู้สร้าง</th>
+                            <th>วันที่สร้าง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="member_list_data">
+                    </tbody>
+                </table>
+                <form action="/category/create" method="POST" class="container_category">
+                    <input type="hidden" name="id_admin" value="<%= SESSION_USER.id %>">
+                    <input type="text" name="category_name" placeholder="สร้างหมวดหมู่">
+                    <button><i class="fa-solid fa-share-from-square category_send"></i></button>
+                </form>
+                <div id="pagination">
+                    <button onclick="previousPage()"><</button>
+                    <span id="paginationNumbers"></span>
+                    <button onclick="nextPage()">></button>
+                </div>
+                
+        </div>
+    </div>
+</div>
+
+<script>
+    let category; 
+    const itemsPerPage = 5; 
+    let currentPage = 1;
+
+    function formatDate(dateString) {
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        };
+        return new Date(dateString).toLocaleDateString('en-GB', options);
+    }
+
+    function renderTable(pageNumber, data) {
+        let start = (pageNumber - 1) * itemsPerPage;
+        let end = start + itemsPerPage;
+        let html = '';
+
+        for (var count = start; count < end && count < data.length; count++) {
+            html += '<tr>';
+            html += '<td>' + (count + 1) + '</td>';
+            html += '<td>' + data[count].category_name + '</td>';
+            html += '<td>' + data[count].name + '</td>';
+            html += '<td>' + formatDate(data[count].create_category_date) + '</td>';
+            html += '<td><i id="tooltip_click" class="material-icons">more_horiz</i></td>';
+            html += '</tr>';
+        }
+
+        const member_list_data = $("#member_list_data");
+        member_list_data.empty();
+        member_list_data.append(html);
+    }
+
+    function renderPagination(data) {
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        const paginationNumbers = $("#paginationNumbers");
+        let html = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            html += '<button onclick="goToPage(' + i + ')">' + i + '</button>';
+        }
+
+        paginationNumbers.empty();
+        paginationNumbers.append(html);
+    }
+
+    function previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable(currentPage, category);
+
+            // Remove 'active' class from all pagination buttons
+            $('#paginationNumbers button').removeClass('active');
+
+            // Add 'active' class to the current pagination button
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
+
+    function nextPage() {
+        const totalPages = Math.ceil(category.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable(currentPage, category);
+
+            // Remove 'active' class from all pagination buttons
+            $('#paginationNumbers button').removeClass('active');
+
+            // Add 'active' class to the current pagination button
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
+
+    function goToPage(page) {
+
+        currentPage = page;
+        renderTable(currentPage, category);
+
+        // Remove the 'active' class from all pagination buttons
+        $('#paginationNumbers button').removeClass('active');
+
+        currentPage = page;
+        renderTable(currentPage, category);
+
+        // Add the 'active' class to the current pagination button
+        $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+    }
+
+    window.onload = async function () {
+        const response = await fetch('/category/admin');
+        category = await response.json(); // Assign to global memberlist
+
+        renderTable(1, category);
+        renderPagination(category);
+
+        $('#paginationNumbers button:first').addClass('active');
+    }
+
+
+</script>

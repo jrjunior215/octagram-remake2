@@ -8,5 +8,5 @@ module.exports = async (req, res) => {
     
 
     res.locals.layout = 'home/components/layout';
-    res.render('home/index/index', {title_nav: 'Home | Octagram', posts: post })
+    res.render('home/index/index', {title_nav: 'หน้าหลัก | Octagram', posts: post })
 }

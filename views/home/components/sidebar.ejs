@@ -13,12 +13,12 @@
                     <span>ค้นหาคริเอเตอร์</span>
                 </a>
             </li>
-            <!-- <li>
-                <a href="#" class="nav_link">
-                    <i class="fas fa-envelope"></i>
-                    <span>ข้อความ</span>
+            <li>
+                <a href="/subscribe" class="nav_link">
+                    <i class="fas fa-heart"></i>
+                    <span>การติดตาม</span>
                 </a>
-            </li> -->
+            </li>
             <li>
                 <a href="/setting/basic" class="nav_link">
                     <i class="fas fa-gear"></i>
@@ -55,6 +55,7 @@
         fetch('/member/navbar')
             .then(response => response.json())
             .then(membership => {
+                console.log(membership);
 
                 let html = '';
 

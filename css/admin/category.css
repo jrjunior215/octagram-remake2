@@ -1,0 +1,39 @@
+
+
+.container_category {
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+
+.container_category input {
+  padding: 10px;
+  width: 500px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+  border: 1px solid rgb(210, 206, 206);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.container_category button {
+  padding: 10px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #17d5a2;
+  border: 1px solid rgb(210, 206, 206);
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.container_category button:hover {
+  background-color: #00ffbb;
+}
+
+.category_send {
+  font-size: 18px;
+  color: #fff;
+}

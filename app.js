@@ -72,26 +72,33 @@ const logoutController = require('./controllers/models/auth/logoutController');
 // GOOGLE AUTH PAGE
 const googleController = require('./controllers/models/google_auth/googleController');
 const googleLoginController = require('./controllers/models/google_auth/googleLoginController');
-const googleCallBackController = require('./controllers/models/google_auth/googleCallBackController');
 
 // HOME PAGE
 const homeController = require('./controllers/views/home/homeController');
 const searchController = require('./controllers/views/home/searchController');
 const settingController = require('./controllers/views/home/settingController');
+const subscribeController = require('./controllers/views/home/subscribeController');
+const memberSub = require('./controllers/models/member/memberSub');
 const memberListNav = require('./controllers/models/member/memberListNav');
 
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
 const memberController = require('./controllers/views/creator/memberController');
 const packageController = require('./controllers/views/creator/package/packageController');
+const payoutController = require('./controllers/views/creator/payoutController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 const memberCreator = require('./controllers/models/member/memberCreator');
 
 // ADMIN PAGE
 const adminController = require('./controllers/views/admin/adminController');
 const adminMemberController = require('./controllers/views/admin/adminMemberController');
-
+const adminMemberCreatorController = require('./controllers/views/admin/adminMemberCreatorController');
+const adminCategoryController = require('./controllers/views/admin/adminCategoryController');
 const memberAdmin = require('./controllers/models/member/memberAdmin');
+const memberAdminCreator = require('./controllers/models/member/memberAdminCreator');
+const categoryAdmin = require('./controllers/models/category/categoryAdmin');
+const adminMemberNewCreatorController = require('./controllers/views/admin/adminMemberNewCreatorController');
+const memberAdminNewCreator = require('./controllers/models/member/memberAdminNewCreator');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -149,6 +156,9 @@ const checkoutController = require('./controllers/views/checkout/checkoutControl
 // PAYPAL
 const paymentRoute = require('./controllers/models/payment/paypal_payment');
 
+// CATEGORY
+const categoryCreate = require('./controllers/models/category/categoryCreate');
+
 // MIDDLEWARE
 const logIn = require('./middleware/logIn');
 const logout = require('./middleware/logOut');
@@ -177,7 +187,9 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
 // HOME PAGE
 app.get('/home', logIn, homeController);
 app.get('/search', logIn, searchController);
+app.get('/subscribe', logIn, subscribeController);
 app.get('/setting/basic', logIn, settingController);
+app.get('/member/subscribe', logIn, memberSub);
 app.get('/member/navbar', logIn, memberListNav);
 
 // SEARCH
@@ -187,14 +199,20 @@ app.get('/search/query', logIn, searchAutoCreatorController);
 app.get('/creator', logIn, creatorController);
 app.get('/members', logIn, memberController);
 app.get('/package', logIn, packageController);
+app.get('/payout', logIn, payoutController);
 app.get('/setting/creator', logIn, settingCreatorController);
 app.get('/member/creator', logIn, memberCreator);
 
 // ADMIN PAGE
 app.get('/dashboard', logIn, adminController);
 app.get('/admin/members', logIn, adminMemberController);
-
+app.get('/admin/members/creator', logIn, adminMemberCreatorController);
+app.get('/admin/members/reg_creator', logIn, adminMemberNewCreatorController);
+app.get('/admin/category', logIn, adminCategoryController);
 app.get('/member/admin', logIn, memberAdmin);
+app.get('/member/admin/creator', logIn, memberAdminCreator);
+app.get('/member/admin/reg_creator', logIn, memberAdminNewCreator);
+app.get('/category/admin', logIn, categoryAdmin);
 
 // PACKAGE PAGE
 app.get('/package/create', logIn, packageCreateController);
@@ -240,6 +258,9 @@ app.post('/post/comment/create', logIn, commentCreate);
 app.post('/post/comment/edit', logIn, commentEdit);
 app.get('/post/comment/delete', logIn, commentDelete)
 app.get('/comments/:postId', logIn, commentController);
+
+// CATEGORY
+app.post('/category/create', logIn, categoryCreate);
 
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController)
