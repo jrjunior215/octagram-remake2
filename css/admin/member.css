@@ -135,3 +135,18 @@ thead tr th {
   color: #fff;
   background-color: #4CAF50;
 }
+
+#searchInput {
+  padding: 10px;
+  width: 400px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #fff;
+  border: 1px solid rgb(210, 206, 206);
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.container_serach_member {
+  margin: 20px 0 0 0;
+}

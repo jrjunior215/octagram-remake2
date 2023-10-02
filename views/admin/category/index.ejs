@@ -2,6 +2,11 @@
     <div class="limit_member_page">
         <div class="member_page">
             <%- include('./navbar.ejs')%>
+                <form action="/category/create" method="POST" class="container_category">
+                    <input type="hidden" name="id_admin" value="<%= SESSION_USER.id %>">
+                    <input type="text" name="category_name" placeholder="สร้างหมวดหมู่">
+                    <button><i class="fa-solid fa-download category_send"></i></button>
+                </form>
                 <table>
                     <thead>
                         <tr>
@@ -14,25 +19,39 @@
                     <tbody id="member_list_data">
                     </tbody>
                 </table>
-                <form action="/category/create" method="POST" class="container_category">
-                    <input type="hidden" name="id_admin" value="<%= SESSION_USER.id %>">
-                    <input type="text" name="category_name" placeholder="สร้างหมวดหมู่">
-                    <button><i class="fa-solid fa-share-from-square category_send"></i></button>
-                </form>
-                <div id="pagination">
-                    <button onclick="previousPage()"><</button>
-                    <span id="paginationNumbers"></span>
-                    <button onclick="nextPage()">></button>
+                <div class="container_serach_category">
+                    <input type="text" id="searchInput" onkeyup="searchCategories()" placeholder="ค้นหาหมวดหมู่">
                 </div>
-                
+                <div id="pagination">
+                    <button onclick="previousPage()">
+                        <</button>
+                            <span id="paginationNumbers"></span>
+                            <button onclick="nextPage()">></button>
+                </div>
+
         </div>
     </div>
 </div>
 
 <script>
-    let category; 
-    const itemsPerPage = 5; 
+    let category;
+    const itemsPerPage = 5;
     let currentPage = 1;
+
+    function searchCategories() {
+        const input = document.getElementById("searchInput");
+        const query = input.value.toLowerCase();
+
+        const filteredCategories = category.filter(cat => {
+            return cat.category_name.toLowerCase().includes(query) ||
+                cat.name.toLowerCase().includes(query) ||
+                formatDate(cat.create_category_date).includes(query);
+        });
+
+        currentPage = 1;
+        renderTable(currentPage, filteredCategories);
+        renderPagination(filteredCategories);
+    }
 
     function formatDate(dateString) {
         const options = {

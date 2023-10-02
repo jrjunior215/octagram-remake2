@@ -16,19 +16,38 @@
                     <tbody id="member_list_data">
                     </tbody>
                 </table>
+                <div class="container_serach_member">
+                    <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="ค้นหาผู้ใช้">
+                </div>
                 <div id="pagination">
-                    <button onclick="previousPage()"><</button>
-                    <span id="paginationNumbers"></span>
-                    <button onclick="nextPage()">></button>
+                    <button onclick="previousPage()">
+                        <</button>
+                            <span id="paginationNumbers"></span>
+                            <button onclick="nextPage()">></button>
                 </div>
         </div>
     </div>
 </div>
 
 <script>
-    let memberlist; // Define memberlist globally
-    const itemsPerPage = 5; // Number of items to show per page
+    let memberlist;
+    const itemsPerPage = 5;
     let currentPage = 1;
+
+    function searchUsers() {
+        const input = document.getElementById("searchInput");
+        const query = input.value.toLowerCase();
+
+        const filteredUsers = memberlist.filter(user => {
+            return user.name.toLowerCase().includes(query) ||
+                user.email.toLowerCase().includes(query) ||
+                user.role.toLowerCase().includes(query);
+        });
+
+        currentPage = 1;
+        renderTable(currentPage, filteredUsers);
+        renderPagination(filteredUsers);
+    }
 
     function formatDate(dateString) {
         const options = {

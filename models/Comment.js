@@ -77,4 +77,18 @@ Comment.delete = async (id_comment) => {
 
 };
 
+Comment.delete_post = async (data) => {
+
+  const queryString = `DELETE FROM comments WHERE id_post='${data}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Comment;
