@@ -92,6 +92,58 @@
 </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function (event) {
+      const creatorName = document.querySelector('input[name="creator_name"]').value;
+      const creatorDesc = document.querySelector('input[name="creator_desc"]').value;
+      const fname = document.querySelector('input[name="fname"]').value;
+      const lname = document.querySelector('input[name="lname"]').value;
+      const phone = document.querySelector('input[name="phone"]').value;
+      const birthdate = document.querySelector('input[name="birthdate"]').value;
+      const location = document.querySelector('textarea[name="location"]').value;
+      const explain = document.querySelector('textarea[name="explain"]').value;
+
+      if (!creatorName || !creatorDesc || !fname || !lname || !phone || !birthdate || !location || !explain) {
+        alert("โปรดกรอกข้อมูลให้ครบทุกช่อง");
+        event.preventDefault(); // ป้องกันการ submit ฟอร์ม
+      }
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function (event) {
+      const inputs = form.querySelectorAll('input');
+      inputs.forEach(function (input) {
+        if (!input.value) {
+          input.style.borderColor = 'red';
+        } else {
+          input.style.borderColor = 'black'; // เมื่อมีข้อมูลใน input
+        }
+      });
+
+      const textareas = form.querySelectorAll('textarea:not([name="category"])');
+      textareas.forEach(function (textarea) {
+        if (!textarea.value) {
+          textarea.style.borderColor = 'red';
+        } else {
+          textarea.style.borderColor = 'black'; // เมื่อมีข้อมูลใน textarea
+        }
+      });
+
+      const emptyInputs = form.querySelectorAll('input:invalid');
+      const emptyTextareas = form.querySelectorAll('textarea:invalid');
+
+      if (emptyInputs.length > 0 || emptyTextareas.length > 0) {
+        event.preventDefault(); // ป้องกันการ submit ฟอร์ม
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
   document.getElementById('backButton').addEventListener('click', function () {
     window.history.back();
   });
@@ -135,6 +187,7 @@
     });
   });
 
+  // Handling category selection
   document.addEventListener('DOMContentLoaded', function () {
     const categoryTextarea = document.querySelector('textarea[name="category"]');
     const selectedCategories = new Set();
@@ -142,14 +195,14 @@
     const resultContainer = document.getElementById('category_search');
 
     categoryTextarea.addEventListener('input', function () {
-      const query = this.value.trim(); // ลบช่องว่างหน้า-หลังข้อความ
+      const query = this.value.trim();
 
       if (query) {
         fetch('/category/query?data_query=' + query)
           .then(response => response.json())
           .then(data => {
             if (data.length > 0) {
-              resultContainer.style.display = 'block'; // แสดง ul
+              resultContainer.style.display = 'block';
               resultContainer.innerHTML = '';
 
               const list = document.createElement('ul');
@@ -159,14 +212,16 @@
                 listItem.textContent = item.category_name;
 
                 listItem.addEventListener('click', function () {
-                  if (!selectedCategories.has(item.category_name)) {
+                  const categoryId = item.id;
+                  if (!Array.from(selectedCategories).some(category => category.id === categoryId)) {
                     selectedCategories.add({
                       id: item.id,
                       name: item.category_name
                     });
                     updateCategoryTextarea();
                   }
-                  resultContainer.style.display = 'none'; // ซ่อน ul เมื่อเลือกเสร็จ
+                  categoryTextarea.value = '';
+                  resultContainer.style.display = 'none';
                 });
 
                 list.appendChild(listItem);
@@ -174,24 +229,25 @@
 
               resultContainer.appendChild(list);
             } else {
-              resultContainer.style.display = 'none'; // ซ่อน ul ถ้าไม่มีข้อมูล
+              resultContainer.style.display = 'none';
             }
           })
           .catch(error => console.error('Error:', error));
       } else {
-        resultContainer.style.display = 'none'; // ซ่อน ul ถ้า textarea ไม่มีข้อมูล
+        resultContainer.style.display = 'none';
       }
     });
 
     function removeCategory(category) {
       selectedCategories.delete(category);
       updateCategoryTextarea();
+      renderSelectedCategories();
     }
 
     function updateCategoryTextarea() {
       categoryTextarea.value = '';
       renderSelectedCategories();
-      resultContainer.style.display = 'none'; // ซ่อน UI เมื่อมีการเลือก
+      resultContainer.style.display = 'none';
     }
 
     function renderSelectedCategories() {
@@ -208,7 +264,7 @@
         const removeButton = document.createElement('span');
         removeButton.classList.add('category_remove_button');
         removeButton.textContent = 'x';
-        removeButton.addEventListener('click', () => removeCategory(category.name));
+        removeButton.addEventListener('click', () => removeCategory(category));
 
         categoryItem.appendChild(categoryName);
         categoryItem.appendChild(removeButton);
@@ -216,13 +272,13 @@
 
         const hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
-        hiddenInput.name = 'category_id'; // ตั้งชื่อให้เป็น "category_id"
+        hiddenInput.name = 'id_category';
         hiddenInput.value = category.id;
         selectedContainer.appendChild(hiddenInput);
       });
 
       categoryTextarea.addEventListener('input', function () {
-        resultContainer.style.display = 'block'; // เมื่อเริ่มเขียนใหม่ให้แสดง UI อีกครั้ง
+        resultContainer.style.display = 'block';
         const query = this.value.trim();
 
         if (query) {
@@ -239,7 +295,8 @@
                   listItem.textContent = item.category_name;
 
                   listItem.addEventListener('click', function () {
-                    if (!selectedCategories.has(item.id)) {
+                    const categoryId = item.id;
+                    if (!Array.from(selectedCategories).some(category => category.id === categoryId)) {
                       selectedCategories.add({
                         id: item.id,
                         name: item.category_name
@@ -264,7 +321,6 @@
         }
       });
     }
-
 
   });
 </script>
