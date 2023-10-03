@@ -28,12 +28,10 @@
             <label for="profile-image-upload">
               <img alt="creator_img" src="/img/creator_img.png" id="profile-image1">
             </label>
-            <input name="image" id="profile-image-upload" class="hidden" type="file" onchange="previewFile()" value="/img/creator_img.png">
+            <input name="image" id="profile-image-upload" class="hidden" type="file" onchange="previewFile()"
+              value="/img/creator_img.png">
             <span id="cancel-button" class="hidden" onclick="cancelUpload()">Cancel</span>
           </div>
-        </div>
-        <div class="new_creator_desc">
-          <span></span>
         </div>
         <div class="new_creator_title">
           <h1>ประวัติส่วนตัว</h1>
@@ -64,6 +62,24 @@
         </div>
         <div class="new_creator_desc">
           <span>* ข้อมูลส่วนตัวของคุณจะไม่ถูกนำไปเผยแพร่</span>
+        </div>
+        <div class="new_creator_title">
+          <h1>แนะนำเพจของคุณ</h1>
+        </div>
+        <div class="new_creator_box">
+          <div class="new_creator_grid">
+            <span>คำอธิบาย</span>
+            <textarea type="text" name="explain"></textarea>
+          </div>
+          <div class="new_creator_grid">
+            <span>หมวดหมู่</span>
+            <textarea type="text" name="category" id="categoryTextArea"></textarea>
+            <div id="selectedCategories"></div>
+            <div class="category_search" id="category_search"></div>
+          </div>
+        </div>
+        <div class="new_creator_desc">
+          <span>* ข้อมูลจะถูกนำไปพิจารณา เพื่อให้ได้รับการยืนยัน</span>
         </div>
         <div class="new_creator_save">
           <input type="hidden" name="id_user" value="<%=SESSION_USER.id%>">
@@ -108,11 +124,147 @@
     cancelButton.style.display = 'none'; // Hide the cancel button
   }
 
-  const textarea = document.querySelector("textarea");
-  textarea.addEventListener("keyup", e => {
-    textarea.style.height = "49px";
-    let scHeight = e.target.scrollHeight;
-    textarea.style.height = `${scHeight}px`;
+  document.addEventListener('DOMContentLoaded', function () {
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach(function (textarea) {
+      textarea.addEventListener('input', function () {
+        this.style.height = '49px';
+        this.style.height = this.scrollHeight + 'px';
+
+      });
+    });
   });
 
+  document.addEventListener('DOMContentLoaded', function () {
+    const categoryTextarea = document.querySelector('textarea[name="category"]');
+    const selectedCategories = new Set();
+    const categoryTextArea = document.getElementById('categoryTextArea');
+    const resultContainer = document.getElementById('category_search');
+
+    categoryTextarea.addEventListener('input', function () {
+      const query = this.value.trim(); // ลบช่องว่างหน้า-หลังข้อความ
+
+      if (query) {
+        fetch('/category/query?data_query=' + query)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              resultContainer.style.display = 'block'; // แสดง ul
+              resultContainer.innerHTML = '';
+
+              const list = document.createElement('ul');
+
+              data.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item.category_name;
+
+                listItem.addEventListener('click', function () {
+                  if (!selectedCategories.has(item.category_name)) {
+                    selectedCategories.add({
+                      id: item.id,
+                      name: item.category_name
+                    });
+                    updateCategoryTextarea();
+                  }
+                  resultContainer.style.display = 'none'; // ซ่อน ul เมื่อเลือกเสร็จ
+                });
+
+                list.appendChild(listItem);
+              });
+
+              resultContainer.appendChild(list);
+            } else {
+              resultContainer.style.display = 'none'; // ซ่อน ul ถ้าไม่มีข้อมูล
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      } else {
+        resultContainer.style.display = 'none'; // ซ่อน ul ถ้า textarea ไม่มีข้อมูล
+      }
+    });
+
+    function removeCategory(category) {
+      selectedCategories.delete(category);
+      updateCategoryTextarea();
+    }
+
+    function updateCategoryTextarea() {
+      categoryTextarea.value = '';
+      renderSelectedCategories();
+      resultContainer.style.display = 'none'; // ซ่อน UI เมื่อมีการเลือก
+    }
+
+    function renderSelectedCategories() {
+      const selectedContainer = document.getElementById('selectedCategories');
+      selectedContainer.innerHTML = '';
+
+      selectedCategories.forEach(category => {
+        const categoryItem = document.createElement('div');
+        categoryItem.classList.add('selectedCategory');
+
+        const categoryName = document.createElement('span');
+        categoryName.textContent = category.name;
+
+        const removeButton = document.createElement('span');
+        removeButton.classList.add('category_remove_button');
+        removeButton.textContent = 'x';
+        removeButton.addEventListener('click', () => removeCategory(category.name));
+
+        categoryItem.appendChild(categoryName);
+        categoryItem.appendChild(removeButton);
+        selectedContainer.appendChild(categoryItem);
+
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'category_id'; // ตั้งชื่อให้เป็น "category_id"
+        hiddenInput.value = category.id;
+        selectedContainer.appendChild(hiddenInput);
+      });
+
+      categoryTextarea.addEventListener('input', function () {
+        resultContainer.style.display = 'block'; // เมื่อเริ่มเขียนใหม่ให้แสดง UI อีกครั้ง
+        const query = this.value.trim();
+
+        if (query) {
+          fetch('/category/query?data_query=' + query)
+            .then(response => response.json())
+            .then(data => {
+              if (data.length > 0) {
+                resultContainer.innerHTML = '';
+
+                const list = document.createElement('ul');
+
+                data.forEach(item => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = item.category_name;
+
+                  listItem.addEventListener('click', function () {
+                    if (!selectedCategories.has(item.id)) {
+                      selectedCategories.add({
+                        id: item.id,
+                        name: item.category_name
+                      });
+                      updateCategoryTextarea();
+                    }
+                    categoryTextarea.value = '';
+                    resultContainer.style.display = 'none';
+                  });
+
+                  list.appendChild(listItem);
+                });
+
+                resultContainer.appendChild(list);
+              } else {
+                resultContainer.style.display = 'none';
+              }
+            })
+            .catch(error => console.error('Error:', error));
+        } else {
+          resultContainer.style.display = 'none';
+        }
+      });
+    }
+
+
+  });
 </script>

@@ -20,24 +20,26 @@ module.exports = (req, res) => {
         const data = req.body;
         const { id_user } = data;
 
-        if (!image) {
-            const imageUrl = `/img/creator_img.png`;
-            await Creator.create(data, imageUrl);
-            await User.creator(id_user);
-            await User.relogin(id_user).then(async (result) => {
-                req.session.userData = await result[0]
-            })
-            res.redirect('/creator')
-        } else {
-            const image = req.file.filename;
-            const imageUrl = `/img/profile/creator/${image}`;
-            await Creator.create(data, imageUrl);
-            await User.creator(id_user);
-            await User.relogin(id_user).then(async (result) => {
-                req.session.userData = await result[0]
-            })
-            res.redirect('/creator');
-        }
+        console.log(data);
+
+        // if (!image) {
+        //     const imageUrl = `/img/creator_img.png`;
+        //     await Creator.create(data, imageUrl);
+        //     await User.creator(id_user);
+        //     await User.relogin(id_user).then(async (result) => {
+        //         req.session.userData = await result[0]
+        //     })
+        //     res.redirect('/creator')
+        // } else {
+        //     const image = req.file.filename;
+        //     const imageUrl = `/img/profile/creator/${image}`;
+        //     await Creator.create(data, imageUrl);
+        //     await User.creator(id_user);
+        //     await User.relogin(id_user).then(async (result) => {
+        //         req.session.userData = await result[0]
+        //     })
+        //     res.redirect('/creator');
+        // }
 
     });
 

@@ -22,7 +22,7 @@
 }
 
 .new_creator_title {
-  margin-bottom: 10px;
+  margin: 10px 0;
   width: 100%;
 }
 
@@ -202,3 +202,49 @@ input[type="date"] {
   border-radius: 4px;
   font-size: 14px;
 }
+
+.category_search ul {
+  background-color: #f2f1f1;
+  list-style-type: none;
+  padding: 0;
+  display: inline-block; 
+  padding: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+}
+
+.category_search ul li {
+  padding: 3px;
+  margin: 5px 0;
+  display: block;
+  white-space: nowrap;
+  color: #000000;
+  cursor: pointer;
+}
+
+.category_search ul li:hover {
+  background-color: #dadada;
+  border-radius: 10px;
+}
+
+.selectedCategory {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  background-color: #1e3c7e;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.selectedCategory span {
+  margin-right: 5px;
+}
+
+.category_remove_button {
+  cursor: pointer;
+}
+
+.category_search ul li.selected {
+  background-color: #dadada;
+}
+

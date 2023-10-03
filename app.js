@@ -113,6 +113,7 @@ const textEditController = require('./controllers/views/creator/post/edit/textEd
 
 //SEARCH PAGE
 const searchAutoCreatorController = require('./controllers/models/search/searchAutoCreatorController');
+const searchAutoCategoryController = require('./controllers/models/category/categorySerach');
 
 // MODELS
 
@@ -194,6 +195,7 @@ app.get('/member/navbar', logIn, memberListNav);
 
 // SEARCH
 app.get('/search/query', logIn, searchAutoCreatorController);
+app.get('/category/query', logIn, searchAutoCategoryController);
 
 // CREATOR PAGE
 app.get('/creator', logIn, creatorController);

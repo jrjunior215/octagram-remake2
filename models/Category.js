@@ -31,4 +31,16 @@ Category.admin = async () => {
   })
 };
 
+Category.find = async (data) => {
+  const query = data;
+  const queryString = `SELECT * FROM categories WHERE category_name LIKE '%${query}%'`
+  return new Promise(function (resolve, reject) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+};
+
 module.exports = Category;
