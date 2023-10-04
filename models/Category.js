@@ -58,4 +58,18 @@ Category.add = async (id_category, id_creator) => {
   })
 };
 
+Category.show = async (id_creator) => {
+
+  const queryString = `SELECT * FROM categories_creator JOIN categories ON categories.id = categories_creator.id_category WHERE id_creator = '${id_creator}' ORDER BY categories_creator.id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Category;

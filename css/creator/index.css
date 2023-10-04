@@ -575,3 +575,73 @@ main {
     font-family: 'Noto Sans Thai', sans-serif;
     cursor: pointer;
 }
+
+.content_about_limit {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content_about {
+    margin-top: 2vh;
+    width: 60%;
+    height: auto;
+}
+
+.content_about h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.header_category {
+    display: flex;
+}
+
+.header_category a {
+    height: auto;
+    width: auto;
+    margin: auto 10px;
+    cursor: pointer;
+}
+
+.header_about {
+    display: flex;
+}
+
+.header_about a {
+    height: auto;
+    width: auto;
+    margin: auto 10px;
+    cursor: pointer;
+}
+
+.category_edit {
+    font-size: 25px;
+    color: #666666;
+}
+
+.content_about hr {
+    height: 1px;
+    background-color: #c3bebe;
+    border: none;
+    margin: 0;
+}
+
+.container_about {
+    margin: 20px 0;
+}
+
+.container_category {
+    margin: 20px 0;
+}
+
+.item_cateogry {
+    display: inline-block;
+    margin: 5px 0 0 0;
+    padding: 5px;
+    background-color: #1e3c7e;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 20px;
+}

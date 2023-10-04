@@ -107,4 +107,18 @@ Member.create = async (id_creator, id_package, id_user, agreementId) => {
   });
 };
 
+Member.show = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_creator = '${id_creator}' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Member;

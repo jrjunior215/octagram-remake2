@@ -88,6 +88,7 @@ const packageController = require('./controllers/views/creator/package/packageCo
 const payoutController = require('./controllers/views/creator/payoutController');
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 const memberCreator = require('./controllers/models/member/memberCreator');
+const creatorAboutController = require('./controllers/views/creator/creatorAboutController');
 
 // ADMIN PAGE
 const adminController = require('./controllers/views/admin/adminController');
@@ -204,6 +205,7 @@ app.get('/package', logIn, packageController);
 app.get('/payout', logIn, payoutController);
 app.get('/setting/creator', logIn, settingCreatorController);
 app.get('/member/creator', logIn, memberCreator);
+app.get('/creator/about', logIn, creatorAboutController);
 
 // ADMIN PAGE
 app.get('/dashboard', logIn, adminController);

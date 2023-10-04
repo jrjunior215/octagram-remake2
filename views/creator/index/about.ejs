@@ -1,0 +1,66 @@
+<script src="/js/comment/comment_creator.js"></script>
+
+<div class="content">
+  <div class="creator_page">
+    <div class="bg_creator">
+    </div>
+    <div class="limit_creator_profile">
+      <div class="creator_profile">
+        <div class="creator_content">
+          <img src="<%= SESSION_USER.creator_img %>" alt="">
+          <div class="creator_detail">
+            <span class="creators_name">
+              <%= SESSION_USER.creator_name %>
+            </span>
+            <span class="creators_desc">
+              <%= SESSION_USER.creator_desc %>
+            </span>
+            <p>
+              <%= members.length %> Members <%= posts.length %> Posts
+            </p>
+          </div>
+        </div>
+        <div class="post">
+          <a class="btn_post" id="click_post"><i class="fa-solid fa-pen-to-square fa-lg fas"></i>Create</a>
+          <i id="tooltip_creator" class="material-icons">more_horiz</i>
+        </div>
+      </div>
+    </div>
+    <div class="limit_navbar">
+      <%- include('./navbar.ejs')%>
+    </div>
+
+    <div class="content_about_limit">
+      <div class="content_about">
+        <div class="container_about">
+          <div class="header_about">
+            <h1>เกี่ยวกับฉัน</h1>
+            <a>
+              <i class="fa-solid fa-pen-to-square category_edit"></i>
+            </a>
+          </div>
+          <hr>
+        </div>
+        <div class="container_category">
+          <div class="header_category">
+            <h1>หมวดหมู่</h1>
+            <a>
+              <i class="fa-solid fa-pen-to-square category_edit"></i>
+            </a>
+          </div>
+          <hr>
+          <div class="list_category">
+            <% for(var i=0; i < categories.length; i++) { %>
+              <span class="item_cateogry"><%= categories[i].category_name %></span>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+</script>
