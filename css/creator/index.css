@@ -587,7 +587,7 @@ main {
 .content_about {
     margin-top: 2vh;
     width: 60%;
-    height: auto;
+    height: 100vh;
 }
 
 .content_about h1 {
@@ -638,10 +638,66 @@ main {
 
 .item_cateogry {
     display: inline-block;
-    margin: 5px 0 0 0;
+    margin: 5px 5px 0 0;
     padding: 5px;
     background-color: #1e3c7e;
     color: #ffffff;
     border-radius: 5px;
     font-size: 20px;
+}
+
+.item_cateogry span {
+    margin-right: 5px;
+}
+
+.container_category_search {
+    width: 100%;
+    margin: 20px 0;
+    display: none;
+}
+
+.container_category_search textarea {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #dfdfdf;
+    width: 100%;
+    height: 48px;
+    resize: none;
+    max-height: 330px;
+}
+
+.sumbit_category {
+    margin-top: 10px;
+}
+
+.sumbit_category button {
+    font-size: 15px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #fff;
+    background-color: #2EA44F;
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
+}
+
+.sumbit_category button:hover {
+    background-color: #46945c;
+}
+
+.sumbit_category a {
+    font-size: 15px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #fff;
+    background-color: #e54242;
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.sumbit_category a:hover {
+    background-color: #d17777;
 }

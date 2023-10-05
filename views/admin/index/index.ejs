@@ -1,3 +1,47 @@
 <div class="content">
+  <div class="container_dashboard">
+    <div class="page_dashboard">
+      <div class="header_dashboard">
+        <div class="title_dashboard">
+          <i class="fa-solid fa-gauge icon_dashboard"></i>
+          <h1>Dashboard</h1>
+        </div>
+      </div>
 
+      <div class="header_data_box">
+        <h1>สมาชิก</h1>
+        <hr>
+      </div>
+
+      <div class="header_data_dashboard">
+
+        <a href="/admin/members" class="data_box">
+          <h2>บัญชี</h2>
+          <span class="data_form"><%= users.length %></span>
+          <span class="data_suffix">บัญชี</span>
+        </a>
+        <a href="/admin/members/creator" class="data_box">
+          <h2>คริเอเตอร์</h2>
+          <span class="data_form"><%= creators.length %></span>
+          <span class="data_suffix">คริเอเตอร์</span>
+        </a>
+        <a href="/admin/members/reg_creator" class="data_box">
+          <h2>รอตรวจสอบ</h2>
+          <span class="data_form"><%= creator_regs.length %></span>
+          <span class="data_suffix">บัญชี</span>
+        </a>
+        <a href="" class="data_box">
+          <h2>สมาชิกรายเดือน</h2>
+          <span class="data_form"><%= members.length %></span>
+          <span class="data_suffix">สมาชิก</span>
+        </a>
+
+      </div>
+
+    </div>
+  </div>
 </div>
+
+<script>
+  
+</script>

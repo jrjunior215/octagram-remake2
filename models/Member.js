@@ -121,4 +121,18 @@ Member.show = async (id_creator) => {
 
 };
 
+Member.all = async () => {
+
+  const queryString = `SELECT * FROM memberships`
+
+  return new Promise(function (resolve, reject) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
 module.exports = Member;

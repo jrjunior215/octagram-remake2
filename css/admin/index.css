@@ -21,3 +21,114 @@ main {
     border-left: 1px solid #eee;
     border-top: 1px solid #eee;
 }
+
+.container_dashboard {
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page_dashboard {
+    height: auto;
+    width: 95%;
+    padding: 20px;
+}
+
+.title_dashboard {
+    display: flex;
+    align-items: center;
+}
+
+.title_dashboard h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.icon_dashboard {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.header_data_dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* เรียงจากซ้ายไปขวา */
+}
+
+.data_box {
+    background-color: #fff;
+    border: 1px solid #e9e7e7;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    padding: 15px;
+    width: calc(25% - 20px); /* 4 กล่องในแต่ละแถว (ลบ 20px ออก) */
+    margin: 0 10px; /* เพิ่มระยะห่าง 20px */
+    margin-bottom: 20px; /* เพิ่มระยะห่าง 20px */
+    box-sizing: border-box;
+}
+
+.data_box h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #454444;
+}
+
+.data_box span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.data_box:nth-child(1) {
+    border-bottom: 3px solid #FF5733; /* สีส้ม */
+}
+
+.data_box:nth-child(2) {
+    border-bottom: 3px solid #3498db; /* สีน้ำเงิน */
+}
+
+.data_box:nth-child(3) {
+    border-bottom: 3px solid #e7e13c; /* สีแดง */
+}
+
+.data_box:nth-child(4) {
+    border-bottom: 3px solid #2ecc71; /* สีเขียว */
+}
+
+.data_form {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.data_suffix {
+    color: #c1baba;
+    font-size: 15px;
+}
+
+@media (max-width: 767px) {
+    .header_data_dashboard {
+        flex-direction: row;
+    }
+
+    .data_box {
+        width: calc(100% - 20px); /* กล่องเต็มแถว */
+        margin-right: 0; /* ไม่ต้องมีระยะห่างด้านขวา */
+    }
+}
+
+.header_data_box {
+    margin-top: 20px;
+}
+
+.header_data_box h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.header_data_box hr {
+    height: 1px;
+    background-color: #e5e5e5;
+    border: none;
+    margin: 10px 0;
+}

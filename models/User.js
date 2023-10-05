@@ -139,4 +139,18 @@ User.profileImg = async (data, imageUrl) => {
 
 };
 
+User.all = async () => {
+
+  const queryString = `SELECT * FROM users`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = User;

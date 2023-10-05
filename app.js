@@ -89,6 +89,7 @@ const payoutController = require('./controllers/views/creator/payoutController')
 const settingCreatorController = require('./controllers/views/creator/settingCreatorController');
 const memberCreator = require('./controllers/models/member/memberCreator');
 const creatorAboutController = require('./controllers/views/creator/creatorAboutController');
+const categoryCreator = require('./controllers/models/category/categoryCreator');
 
 // ADMIN PAGE
 const adminController = require('./controllers/views/admin/adminController');
@@ -160,6 +161,7 @@ const paymentRoute = require('./controllers/models/payment/paypal_payment');
 
 // CATEGORY
 const categoryCreate = require('./controllers/models/category/categoryCreate');
+const categoryCreatorEdit = require('./controllers/models/category/categoryCreatorEdit');
 
 // MIDDLEWARE
 const logIn = require('./middleware/logIn');
@@ -206,6 +208,7 @@ app.get('/payout', logIn, payoutController);
 app.get('/setting/creator', logIn, settingCreatorController);
 app.get('/member/creator', logIn, memberCreator);
 app.get('/creator/about', logIn, creatorAboutController);
+app.get('/category/creator', logIn, categoryCreator);
 
 // ADMIN PAGE
 app.get('/dashboard', logIn, adminController);
@@ -265,6 +268,7 @@ app.get('/comments/:postId', logIn, commentController);
 
 // CATEGORY
 app.post('/category/create', logIn, categoryCreate);
+app.post('/category/edit', logIn, categoryCreatorEdit)
 
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController)
