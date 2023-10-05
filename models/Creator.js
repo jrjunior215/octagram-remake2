@@ -4,9 +4,9 @@ const Creator = {};
 
 Creator.create = async (data, imageUrl) => {
 
-    const { id_user, creator_name, creator_desc, fname, lname, phone, birthdate, location } = data;
-    const queryString = `INSERT INTO creators(id_user, creator_name, creator_desc, fname, lname, phone , birthdate, location, img, status) 
-    VALUES('${id_user}','${creator_name}','${creator_desc}','${fname}','${lname}','${phone}','${birthdate}','${location}','${imageUrl}','0')`
+    const { id_user, creator_name, creator_desc, fname, lname, phone, birthdate, location, explain } = data;
+    const queryString = `INSERT INTO creators(id_user, creator_name, creator_desc, fname, lname, phone , birthdate, location, \`explain\`, img, status) 
+    VALUES('${id_user}','${creator_name}','${creator_desc}','${fname}','${lname}','${phone}','${birthdate}','${location}','${explain}','${imageUrl}','0')`
     return new Promise(function (resolve, reject) {
         dbConnection.execute(queryString).then(async ([rows]) => {
             resolve(rows);
@@ -77,6 +77,34 @@ Creator.all_reg = async () => {
 
     const queryString = `SELECT * FROM creators WHERE status = '0'`
 
+    return new Promise(function (resolve, reject) {
+        dbConnection.execute(queryString).then(async ([rows]) => {
+            resolve(rows);
+        }).catch(err => {
+            if (err) throw err;
+        });
+    })
+
+};
+
+Creator.select = async (id_creator) => {
+
+    const queryString = `SELECT * FROM creators WHERE id = '${id_creator}'`
+
+    return new Promise(function (resolve, reject) {
+        dbConnection.execute(queryString).then(async ([rows]) => {
+            resolve(rows);
+        }).catch(err => {
+            if (err) throw err;
+        });
+    })
+
+};
+
+Creator.edit = async (data) => {
+
+    const { id_creator, creator_name, creator_desc, fname, lname, phone, birthdate, location, explain } = data;
+    const queryString = `UPDATE creators SET creator_name = '${creator_name}', creator_desc = '${creator_desc}', fname = '${fname}', lname = '${lname}', phone = '${phone}', birthdate = '${birthdate}', location = '${location}', \`explain\` = '${explain}' WHERE id = ${id_creator}`
     return new Promise(function (resolve, reject) {
         dbConnection.execute(queryString).then(async ([rows]) => {
             resolve(rows);

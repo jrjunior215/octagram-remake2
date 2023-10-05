@@ -1,3 +1,15 @@
+<script>
+    function fetchMembership(id_package) {
+        fetch(`/memberships/${id_package}`)
+            .then(response => response.json())
+            .then(membership => {
+                const packageMemberElement = document.querySelector(`#package_member_${id_package} span`);
+                packageMemberElement.innerText = `${membership.length} คนสมัคร`;
+            })
+            .catch(error => console.error(`Error fetching membership for id_package ${id_package}:`, error));
+    }
+</script>
+
 <div class="content">
     <div class="limit_package_page">
         <div class="package_page">
@@ -8,38 +20,48 @@
                             <span>แพ็กเกจทั้งหมด</span>
                         </div>
                         <div class="package_list_preview right">
-                            <a href="/package/preview?creator=<%= SESSION_USER.creator_name %>" target="_blank">ดูตัวอย่าง<i class="fa-regular fa-note-sticky fa-note"></i></a>
+                            <a href="/package/preview?creator=<%= SESSION_USER.creator_name %>"
+                                target="_blank">ดูตัวอย่าง<i class="fa-regular fa-note-sticky fa-note"></i></a>
                         </div>
                     </div>
                     <div class="package_list">
-                        <% if (packages.length > 0) { %>
+                        <% if (packages.length> 0) { %>
                             <% for(var i=0; i < packages.length; i++) { %>
                                 <div class="package_item">
                                     <div class="edit_package">
-                                        <a href="/package/edit?creator=<%= SESSION_USER.creator_name %>&package=<%=packages[i].id%>">แก้ไข</a>
+                                        <a
+                                            href="/package/edit?creator=<%= SESSION_USER.creator_name %>&package=<%=packages[i].id%>">แก้ไข</a>
                                     </div>
                                     <div class="package_price">
-                                        <span><%=packages[i].package_price%> บาท / เดือน</span>
+                                        <span>
+                                            <%=packages[i].package_price%> บาท / เดือน
+                                        </span>
                                     </div>
-                                    <div class="package_member">
-                                        <span>0 คนสมัคร</span>
+                                    <script>
+                                        fetchMembership(`<%=packages[i].id%>`);
+                                    </script>
+                                    <div id="package_member_<%=packages[i].id%>" class="package_member">
+                                        <span></span>
                                     </div>
                                     <div class="package_name">
-                                        <span><%=packages[i].package_name%></span>
+                                        <span>
+                                            <%=packages[i].package_name%>
+                                        </span>
                                     </div>
                                 </div>
-                            <% } %>
-                        <%} else { %>  
+                                <% } %>
+                                    <%} else { %>
 
-                            <div class="package_no_item">
-                                <div class="package_no_title">
-                                    <span><i class="fa-solid fa-file-circle-xmark fa-mark-x"></i></span>
-                                    <span class="package_no_title_text">ไม่มีแพ็กเกจ</span>
-                                    <span class="package_no_title_desc">กำหนดราคาและอธิบายว่าผู้คนจะได้รับอะไรหากเข้าร่วมเป็นสมาชิกของคุณ</span>
-                                </div>
-                            </div>
+                                        <div class="package_no_item">
+                                            <div class="package_no_title">
+                                                <span><i class="fa-solid fa-file-circle-xmark fa-mark-x"></i></span>
+                                                <span class="package_no_title_text">ไม่มีแพ็กเกจ</span>
+                                                <span
+                                                    class="package_no_title_desc">กำหนดราคาและอธิบายว่าผู้คนจะได้รับอะไรหากเข้าร่วมเป็นสมาชิกของคุณ</span>
+                                            </div>
+                                        </div>
 
-                        <% } %>
+                                        <% } %>
                     </div>
 
                     <div class="package_add">

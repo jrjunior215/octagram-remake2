@@ -20,7 +20,6 @@
                         <span class="creators_desc">
                             <%= SESSION_USER.creator_desc %>
                         </span>
-                        <!-- <p>5.2M Members 41 Posts</p> -->
                         <p>
                             <%= members.length %> Members <%= posts.length %> Posts
                         </p>
@@ -113,10 +112,77 @@
                             </form>
                         </div>
                     </div>
-                    <div class="limit_post">
-                        <span>สิ้นสุดเนื้อหา</span>
-                    </div>
                     <% } %>
+
+                        <% if (posts.length> 0) { %>
+                            <div class="limit_post">
+                                <span>สิ้นสุดเนื้อหา</span>
+                            </div>
+                            <% } else { %>
+                                <% if (SESSION_USER.status===0) { %>
+                                    <div class="container_verify_creator">
+                                        <div class="header_verify_creator">
+                                            <span>รอการยืนยัน</span>
+                                        </div>
+                                        <div class="verify_page">
+                                            <form action="/creator/edit" method="POST">
+                                                <div class="verify_creator_box">
+                                                    <div class="verify_creator_profile">
+                                                        <div class="verify_creator_grid">
+                                                            <span>ชื่อเพจ</span>
+                                                            <input type="text" name="creator_name"
+                                                                value="<%= creators[0].creator_name %>">
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>คำอธิบายเกี่ยวกับเพจของคุณ</span>
+                                                            <input type="text" name="creator_desc"
+                                                                value="<%= creators[0].creator_desc %>">
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>ชื่อจริง</span>
+                                                            <input type="text" name="fname"
+                                                                value="<%= creators[0].fname %>">
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>นามสกุล</span>
+                                                            <input type="text" name="lname"
+                                                                value="<%= creators[0].lname %>">
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>เบอร์โทรศัพท์</span>
+                                                            <input type="text" name="phone"
+                                                                value="<%= creators[0].phone %>">
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>วันเดือนปีเกิด</span>
+                                                            <input type="date" id="dateInput" name="birthdate"
+                                                                value="<%= creators[0].birthdate %>">
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>ที่อยู่ปัจจุบัน</span>
+                                                            <textarea type="text"
+                                                                name="location"><%= creators[0].location %></textarea>
+                                                        </div>
+                                                        <div class="verify_creator_grid">
+                                                            <span>คำอธิบาย (สำหรับนำไปพิจารณาเกี่ยวกับเพจของคุณ)</span>
+                                                            <textarea type="text"
+                                                                name="explain"><%= creators[0].explain %></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="verify_creator_save">
+                                                    <input type="hidden" name="id_creator" value="<%=SESSION_USER.creator_id%>">
+                                                    <button class="btn_save">แก้ไข</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <% } else { %>
+                                        <div class="limit_post">
+                                            <span>สร้างโพสต์</span>
+                                        </div>
+                                        <% } %>
+                                            <% } %>
             </div>
         </div>
 
@@ -124,6 +190,59 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            const creatorName = document.querySelector('input[name="creator_name"]').value;
+            const creatorDesc = document.querySelector('input[name="creator_desc"]').value;
+            const fname = document.querySelector('input[name="fname"]').value;
+            const lname = document.querySelector('input[name="lname"]').value;
+            const phone = document.querySelector('input[name="phone"]').value;
+            const birthdate = document.querySelector('input[name="birthdate"]').value;
+            const location = document.querySelector('textarea[name="location"]').value;
+            const explain = document.querySelector('textarea[name="explain"]').value;
+
+            if (!creatorName || !creatorDesc || !fname || !lname || !phone || !birthdate || !location || !explain) {
+                alert("โปรดกรอกข้อมูลให้ครบทุกช่อง");
+                event.preventDefault(); // ป้องกันการ submit ฟอร์ม
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(function (input) {
+                if (!input.value) {
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = 'black'; // เมื่อมีข้อมูลใน input
+                }
+            });
+
+            const textareas = form.querySelectorAll('textarea:not([name="category"])');
+            textareas.forEach(function (textarea) {
+                if (!textarea.value) {
+                    textarea.style.borderColor = 'red';
+                } else {
+                    textarea.style.borderColor = 'black'; // เมื่อมีข้อมูลใน textarea
+                }
+            });
+
+            const emptyInputs = form.querySelectorAll('input:invalid');
+            const emptyTextareas = form.querySelectorAll('textarea:invalid');
+
+            if (emptyInputs.length > 0 || emptyTextareas.length > 0) {
+                event.preventDefault(); // ป้องกันการ submit ฟอร์ม
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    });
+
     function ToolBarController(event, index) {
         let tool_bar = document.querySelectorAll('.tool_bar')[index]; // Use querySelectorAll
         tool_bar.classList.toggle("open_toolbar");
@@ -147,11 +266,14 @@
     });
 
     // Add the textarea resizing functionality to each comment form textarea
-    document.querySelectorAll('.commentInput').forEach(textarea => {
-        textarea.addEventListener('input', function () {
-            this.style.height = '49px';
-            const scrollHeight = this.scrollHeight;
-            this.style.height = `${scrollHeight}px`;
+    document.addEventListener('DOMContentLoaded', function () {
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(function (textarea) {
+            textarea.addEventListener('input', function () {
+                this.style.height = '49px';
+                this.style.height = this.scrollHeight + 'px';
+
+            });
         });
     });
 

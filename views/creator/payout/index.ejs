@@ -8,7 +8,7 @@
               <div class="header_withdraw">
                 <h1>ยอดเงินของคุณ</h1>
                 <span>฿ 500</span>
-                <p>ของเดือนนี้</p>
+                <p>เวลาปัจจุบัน</p>
               </div>
               <div class="payout_method">
                 <a>เพิ่มวิธีการรับเงิน</a>
@@ -16,7 +16,25 @@
             </div>
           </div>
 
-
       </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // สร้างวัตถุ Date สำหรับวันที่ปัจจุบัน
+    var now = new Date();
+
+    // กำหนดคำแปลงภาษาไทย
+    var months = [
+      'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+      'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+    ];
+
+    // ดึงข้อมูลวันที่และเดือน
+    var formattedDate = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+    // แสดงผลลัพธ์ใน <p>ของเดือนนี้</p>
+    document.querySelector('.header_withdraw p').textContent = formattedDate;
+  });
+</script>

@@ -135,4 +135,18 @@ Member.all = async () => {
 
 };
 
+Member.list = async (id_package) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_package = '${id_package}'`
+
+  return new Promise(function (resolve, reject) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
 module.exports = Member;

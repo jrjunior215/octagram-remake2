@@ -136,7 +136,8 @@ const packageEdit = require('./controllers/models/package/packageEdit');
 const packageDelete = require('./controllers/models/package/packageDelete');
 
 // CREATOR PAGE
-const creatorPageController = require('./controllers/views/home/creator/creatorPageController')
+const creatorPageController = require('./controllers/views/home/creator/creatorPageController');
+const creatorEdit = require('./controllers/models/creator/creatorsEdit');
 
 // POST 
 const postText = require('./controllers/models/post/postText');
@@ -152,6 +153,9 @@ const commentCreate = require('./controllers/models/comment/commentCreate');
 const commentController = require('./controllers/models/comment/commentController');
 const commentEdit = require('./controllers/models/comment/commentEdit');
 const commentDelete = require('./controllers/models/comment/commentDelete');
+
+// MEMBERSHIP
+const memberCreatorList = require('./controllers/models/member/memberCreatorList');
 
 // CHECKOUT
 const checkoutController = require('./controllers/views/checkout/checkoutController');
@@ -242,6 +246,7 @@ app.post('/profile/creator/update', profileCreator);
 
 // NEW CREATOR
 app.post('/creator/create', logIn, newCreatorController);
+app.post('/creator/edit', logIn, creatorEdit)
 
 // PACKAGE
 app.post('/package/data/create', logIn, packageCreate);
@@ -265,6 +270,9 @@ app.post('/post/comment/create', logIn, commentCreate);
 app.post('/post/comment/edit', logIn, commentEdit);
 app.get('/post/comment/delete', logIn, commentDelete)
 app.get('/comments/:postId', logIn, commentController);
+
+// MEMBERSHIP
+app.get('/memberships/:id_package', logIn, memberCreatorList)
 
 // CATEGORY
 app.post('/category/create', logIn, categoryCreate);

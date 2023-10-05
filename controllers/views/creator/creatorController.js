@@ -1,6 +1,7 @@
 const User = require('../../../models/User');
 const Post = require('../../../models/Post');
 const Member = require('../../../models/Member');
+const Creator = require('../../../models/Creator');
 
 module.exports = async (req, res) => {
   const role = SESSION_USER.role;
@@ -15,8 +16,9 @@ module.exports = async (req, res) => {
 
     const post = await Post.show(id_creator);
     const member = await Member.show(id_creator);
+    const creator = await Creator.select(id_creator);
     res.locals.layout = 'creator/components/layout';
-    res.render('creator/index/index', { title_nav: `${creator_name} | Octagram`, posts: post, members: member })
+    res.render('creator/index/index', { title_nav: `${creator_name} | Octagram`, posts: post, members: member, creators: creator })
   }
 
 }
