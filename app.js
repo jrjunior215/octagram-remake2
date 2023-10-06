@@ -101,6 +101,7 @@ const memberAdminCreator = require('./controllers/models/member/memberAdminCreat
 const categoryAdmin = require('./controllers/models/category/categoryAdmin');
 const adminMemberNewCreatorController = require('./controllers/views/admin/adminMemberNewCreatorController');
 const memberAdminNewCreator = require('./controllers/models/member/memberAdminNewCreator');
+const adminMemberCheckController = require('./controllers/views/admin/adminMemberCheckController');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -129,6 +130,8 @@ const profileCreator = require('./controllers/models/profile/profileCreator');
 
 // CREATOR
 const newCreatorController = require('./controllers/models/creator/newCreatorController');
+const creatorConfirm = require('./controllers/models/creator/creatorConfirm');
+const creatorDeny = require('./controllers/models/creator/creatorDeny');
 
 // PACKAGE
 const packageCreate = require('./controllers/models/package/packageCreate');
@@ -224,6 +227,7 @@ app.get('/member/admin', logIn, memberAdmin);
 app.get('/member/admin/creator', logIn, memberAdminCreator);
 app.get('/member/admin/reg_creator', logIn, memberAdminNewCreator);
 app.get('/category/admin', logIn, categoryAdmin);
+app.get('/admin/members/check', logIn, adminMemberCheckController);
 
 // PACKAGE PAGE
 app.get('/package/create', logIn, packageCreateController);
@@ -244,9 +248,11 @@ app.post('/login/user', loginUserController);
 app.post('/profile/user/update', logIn, profileUser);
 app.post('/profile/creator/update', profileCreator);
 
-// NEW CREATOR
+// CREATOR
 app.post('/creator/create', logIn, newCreatorController);
-app.post('/creator/edit', logIn, creatorEdit)
+app.post('/creator/edit', logIn, creatorEdit);
+app.get('/admin/members/confirm', logIn, creatorConfirm);
+app.get('/admin/members/deny', logIn, creatorDeny);
 
 // PACKAGE
 app.post('/package/data/create', logIn, packageCreate);

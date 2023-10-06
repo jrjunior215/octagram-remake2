@@ -1,0 +1,66 @@
+.container_popup {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(10px);;
+  z-index: 9999;
+  display: none;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 30px 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup-title {
+  margin: 20px 0;
+  font-size: 25px;
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.popup-message {
+  font-size: 14px;
+  color: #9c9898;
+  margin-bottom: 50px;
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.popup-close {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'Noto Sans Thai', sans-serif;
+  border-radius: 10px;
+}
+
+.popup-close:hover {
+  background-color: #4c78a7;
+}
+
+.popup-close-x {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 50%;
+}
+
+.popup-close-x:hover {
+  background-color: #c4c4c4;
+}

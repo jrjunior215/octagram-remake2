@@ -153,4 +153,17 @@ User.all = async () => {
 
 };
 
+User.deny = async (id_user) => {
+
+  const queryString = `UPDATE users SET role = 'USER' WHERE id = '${id_user}'`
+  return new Promise(function (resolve, reject) {
+      dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve(rows);
+      }).catch(err => {
+          if (err) throw err;
+      });
+  })
+
+};
+
 module.exports = User;

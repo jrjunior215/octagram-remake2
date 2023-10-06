@@ -18,7 +18,7 @@
               <%= creators[0].creator_name %>
             </span>
             <span class="creators_desc">
-              <%= creators[0].creator_desc %>
+              <%= creators[0].creator_desc.length > 50 ? creators[0].creator_desc.slice(0, 50) + '...' : creators[0].creator_desc %>
             </span>
             <!-- <p>5.2M Members 41 Posts</p> -->
             <p>

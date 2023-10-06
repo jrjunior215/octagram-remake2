@@ -1,0 +1,93 @@
+<div class="content">
+  <div class="container_member_check_page">
+    <div class="member_check_page">
+      <div class="creator_data_box">
+        <div class="profile_creator_check">
+          <div class="creator_img_check">
+            <img src="<%= creators[0].img %>" alt="profile_creator">
+          </div>
+          <div class="creator_title_check">
+            <h1>
+              <%= creators[0].creator_name %>
+            </h1>
+            <span>
+              <%= creators[0].creator_desc %>
+            </span>
+          </div>
+          <div class="creator_data_check">
+            <div class="data_header">
+              <h1>ข้อมูลส่วนตัว</h1>
+            </div>
+            <div class="verify_page">
+              <div class="verify_creator_box">
+                <div class="verify_creator_profile">
+                  <div class="verify_creator_grid">
+                    <span>ชื่อจริง</span>
+                    <input type="text" name="fname" value="<%= creators[0].fname %>" readonly>
+                  </div>
+                  <div class="verify_creator_grid">
+                    <span>นามสกุล</span>
+                    <input type="text" name="lname" value="<%= creators[0].lname %>" readonly>
+                  </div>
+                  <div class="verify_creator_grid">
+                    <span>เบอร์โทรศัพท์</span>
+                    <input type="text" name="phone" value="<%= creators[0].phone %>" readonly>
+                  </div>
+                  <div class="verify_creator_grid">
+                    <span>วันเดือนปีเกิด</span>
+                    <input type="date" id="dateInput" name="birthdate" value="<%= creators[0].birthdate %>" readonly>
+                  </div>
+                  <div class="verify_creator_grid">
+                    <span>ที่อยู่ปัจจุบัน</span>
+                    <textarea type="text" name="location" readonly><%= creators[0].location %></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="center_border"></div>
+        <div class="desc_creator_check">
+          <div class="data_desc_header">
+             <h1>เกี่ยวกับ</h1>
+          </div>
+          <div class="creator_explain">
+            <textarea type="text" name="explain" readonly><%= creators[0].explain %></textarea>
+          </div>
+          <div class="creator_date">
+            <div class="cerate_date">
+              <span class="title_date">วันที่สมัคร</span>
+              <span id="createDate"><%= creators[0].create_date %></span>
+            </div>
+            <div class="cerate_date">
+              <span class="title_date">อัพเดทล่าสุด</span>
+              <span id="updateDate"><%= creators[0].update_date %></span>
+            </div>
+          </div>
+          <div class="creator_check_button">
+            <a href="/admin/members/confirm?id_creator=<%= creators[0].id %>" class="button_check_confirm"><i class="fa-solid fa-check member_icon"></i>ยืนยัน</a>
+            <a href="/admin/members/deny?id_creator=<%= creators[0].id %>&id_user=<%= creators[0].id_user %>" class="button_check_deny"><i class="fa-solid fa-x member_icon"></i>ปฏิเสธ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const createDateElement = document.getElementById('createDate');
+    const updateDateElement = document.getElementById('updateDate');
+
+    const createDateValue = new Date('<%= creators[0].create_date %>');
+    const updateDateValue = new Date('<%= creators[0].update_date %>');
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+    const createDateString = createDateValue.toLocaleDateString('th-TH', options);
+    const updateDateString = updateDateValue.toLocaleDateString('th-TH', options);
+
+    createDateElement.innerText = createDateString;
+    updateDateElement.innerText = updateDateString;
+  });
+</script>

@@ -18,7 +18,7 @@
                             <%= SESSION_USER.creator_name %>
                         </span>
                         <span class="creators_desc">
-                            <%= SESSION_USER.creator_desc %>
+                            <%= SESSION_USER.creator_desc.length > 50 ? SESSION_USER.creator_desc.slice(0, 50) + '...' : SESSION_USER.creator_desc %>
                         </span>
                         <p>
                             <%= members.length %> Members <%= posts.length %> Posts

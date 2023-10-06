@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/creator/new_creator.css">
     <link rel="stylesheet" href="/css/creator/post.css">
     <link rel="stylesheet" href="/css/creator/payout.css">
+    <link rel="stylesheet" href="/css/creator/popup.css">
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- Material Icons -->
@@ -44,6 +45,7 @@
 
 <body>
     <div class="container">
+        <%- include('./verify.ejs')%>
         <%- include('./post.ejs')%>
         <%- include('./popup_delete_package.ejs')%>
         <%- include('./navbar.ejs')%>

@@ -7,13 +7,13 @@
       คุณกำลังสร้างอะไร?</span>
     <div class="grid_post_box">
       <div class="grid_item">
-        <a href="/post/text">
+        <a href="/post/text" class="grid_info checkStatus">
           <i class="fa-solid fa-font fas"></i>
           <span>ข้อความ</span>
         </a>
       </div>
       <div class="grid_item">
-        <a href="/post/image" class="grid_info">
+        <a href="/post/image" class="grid_info checkStatus">
           <i class="fa-regular fa-image fas"></i>
           <span>รูปภาพ</span>
         </a>
@@ -21,3 +21,27 @@
     </div>
   </div>
 </div>
+
+<script>
+document.querySelectorAll('.checkStatus').forEach(function(element) {
+    element.addEventListener('click', function handler(event) {
+        const confirmationPopupStatus = document.getElementById('confirmationPopupStatus');
+        const closePopupXStatus = document.getElementById('closePopupXStatus');
+        const closePopupButtonStatus = document.getElementById('closePopupButtonStatus');
+        const status = '<%= SESSION_USER.status %>';
+
+        if (status === "0") {
+          event.preventDefault();
+            confirmationPopupStatus.style.display = 'block';
+        }
+
+        closePopupXStatus.addEventListener('click', () => {
+            confirmationPopupStatus.style.display = 'none';
+        });
+
+        closePopupButtonStatus.addEventListener('click', () => {
+            confirmationPopupStatus.style.display = 'none';
+        });
+    });
+});
+</script>

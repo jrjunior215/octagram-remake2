@@ -115,4 +115,30 @@ Creator.edit = async (data) => {
 
 };
 
+Creator.confirm = async (id_creator) => {
+
+    const queryString = `UPDATE creators SET status = '1' WHERE id = '${id_creator}'`
+    return new Promise(function (resolve, reject) {
+        dbConnection.execute(queryString).then(async ([rows]) => {
+            resolve(rows);
+        }).catch(err => {
+            if (err) throw err;
+        });
+    })
+
+};
+
+Creator.deny = async (id_creator) => {
+
+    const queryString = `DELETE FROM creators WHERE id = '${id_creator}'`
+    return new Promise(function (resolve, reject) {
+        dbConnection.execute(queryString).then(async ([rows]) => {
+            resolve(rows);
+        }).catch(err => {
+            if (err) throw err;
+        });
+    })
+
+};
+
 module.exports = Creator;

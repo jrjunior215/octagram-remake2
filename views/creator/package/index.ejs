@@ -65,9 +65,31 @@
                     </div>
 
                     <div class="package_add">
-                        <a href="/package/create">เพิ่มแพ็กเกจ</a>
+                        <a href="/package/create" id="checkStatusPack">เพิ่มแพ็กเกจ</a>
                     </div>
                 </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('checkStatusPack').addEventListener('click', function handler(event) {
+        const confirmationPopupStatus = document.getElementById('confirmationPopupStatus');
+        const closePopupXStatus = document.getElementById('closePopupXStatus');
+        const closePopupButtonStatus = document.getElementById('closePopupButtonStatus');
+        const status = `<%= SESSION_USER.status %>`;
+
+        if (status === "0") {
+            event.preventDefault();
+            confirmationPopupStatus.style.display = 'block';
+        }
+
+        closePopupXStatus.addEventListener('click', () => {
+            confirmationPopupStatus.style.display = 'none';
+        });
+
+        closePopupButtonStatus.addEventListener('click', () => {
+            confirmationPopupStatus.style.display = 'none';
+        });
+    });
+</script>

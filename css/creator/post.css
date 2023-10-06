@@ -30,7 +30,6 @@
   justify-content: center;
   position: absolute;
   z-index: 3;
-  background-color: #000000;
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s ease;
   font-family: 'Noto Sans Thai', sans-serif;

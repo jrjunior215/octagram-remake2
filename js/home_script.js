@@ -12,6 +12,8 @@ document.body.addEventListener("click", function(event) {
     }
 });
 
+
+
 async function load_data(query = '') {
 
     let search_content = document.getElementById('search_content');
@@ -24,6 +26,16 @@ async function load_data(query = '') {
         search_content.classList.add("show_content");
         await fetch('/search/query?data_query=' + query + '').then(response => response.json())
             .then(data => {
+                function truncateDescription(description) {
+                    const maxLength = 50; // Set the maximum length for the description
+                
+                    if (description.length > maxLength) {
+                        return description.slice(0, maxLength) + '...';
+                    }
+                
+                    return description;
+                }
+
                 var html = '<ul class="profile_search">';
 
                 if (data.length > 0) {
@@ -33,7 +45,7 @@ async function load_data(query = '') {
                         html += '<img src="' + data[count].img + '" alt="">';
                         html += '<div class="creator_info">';
                         html += '<span class="creator_name">' + data[count].creator_name + '</span>';
-                        html += '<span class="creator_desc">' + data[count].creator_desc + '</span>';
+                        html += '<span class="creator_desc">' + truncateDescription(data[count].creator_desc) + '</span>';
                         html += '</div>';
                         html += '</a>';
                         html += '</li>';

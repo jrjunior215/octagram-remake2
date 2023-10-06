@@ -1,130 +1,164 @@
 <div class="content">
-  <div class="limit_member_page">
-      <div class="member_page">
-          <%- include('./navbar.ejs')%>
-              <table>
-                  <thead>
-                      <tr>
-                          <th>ลำดับที่</th>
-                          <th>รูปโปรไฟล์</th>
-                          <th>ชื่อผู้ใช้</th>
-                          <th>อีเมล</th>
-                          <th>บทบาท</th>
-                          <th>วันที่สร้าง</th>
-                      </tr>
-                  </thead>
-                  <tbody id="member_list_data">
-                  </tbody>
-              </table>
-              <div id="pagination">
-                  <button onclick="previousPage()"><</button>
-                  <span id="paginationNumbers"></span>
-                  <button onclick="nextPage()">></button>
-              </div>
-      </div>
-  </div>
+    <div class="limit_member_page">
+        <div class="member_page">
+            <%- include('./navbar.ejs')%>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ลำดับที่</th>
+                            <th>รูปโปรไฟล์</th>
+                            <th>ชื่อผู้ใช้</th>
+                            <th>อีเมล</th>
+                            <th>บทบาท</th>
+                            <th>วันที่สร้าง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="member_list_data">
+                    </tbody>
+                </table>
+                <div id="pagination">
+                    <button onclick="previousPage()">
+                        <</button>
+                            <span id="paginationNumbers"></span>
+                            <button onclick="nextPage()">></button>
+                </div>
+        </div>
+    </div>
 </div>
 
 <script>
-  let memberlist; // Define memberlist globally
-  const itemsPerPage = 5; // Number of items to show per page
-  let currentPage = 1;
 
-  function formatDate(dateString) {
-      const options = {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit'
-      };
-      return new Date(dateString).toLocaleDateString('en-GB', options);
-  }
+    let memberlist; // Define memberlist globally
+    const itemsPerPage = 5; // Number of items to show per page
+    let currentPage = 1;
 
-  function renderTable(pageNumber, data) {
-      let start = (pageNumber - 1) * itemsPerPage;
-      let end = start + itemsPerPage;
-      let html = '';
+    function formatDate(dateString) {
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        };
+        return new Date(dateString).toLocaleDateString('en-GB', options);
+    }
 
-      for (var count = start; count < end && count < data.length; count++) {
-          html += '<tr>';
-          html += '<td>' + (count + 1) + '</td>';
-          html += '<td><img src="' + data[count].img + '" alt="user_profile" class="img_member_profile" onerror="/img/error_profile.png"></td>';
-          html += '<td>' + data[count].name + '</td>';
-          html += '<td>' + data[count].email + '</td>';
-          html += '<td>' + data[count].role + '</td>';
-          html += '<td>' + formatDate(data[count].date_user) + '</td>';
-          html += '<td><i id="tooltip_click" class="material-icons">more_horiz</i></td>';
-          html += '</tr>';
-      }
+    function renderTable(pageNumber, data) {
+        let start = (pageNumber - 1) * itemsPerPage;
+        let end = start + itemsPerPage;
+        let html = '';
 
-      const member_list_data = $("#member_list_data");
-      member_list_data.empty();
-      member_list_data.append(html);
-  }
+        for (var count = start; count < end && count < data.length; count++) {
+            html += '<tr>';
+            html += '<td>' + (count + 1) + '</td>';
+            html += '<td><img src="' + data[count].img + '" alt="user_profile" class="img_member_profile" onerror="/img/error_profile.png"></td>';
+            html += '<td>' + data[count].name + '</td>';
+            html += '<td>' + data[count].email + '</td>';
+            html += '<td>' + data[count].role + '</td>';
+            html += '<td>' + formatDate(data[count].date_user) + '</td>';
+            html += '<td>';
+            html += '<div class="container_toottip_member">';
+            html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+            html += '<div class="toottip_member">';
+            html += '<a href="/admin/members/check?id_creator=' + data[count].id + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ตรวจสอบ</a>';
+            html += '<a href="/admin/members/confirm?id_creator=' + data[count].id + '"><i class="fa-solid fa-check member_icon"></i>ยืนยัน</a>';
+            html += '<a href="/admin/members/deny?id_creator=' + data[count].id + '&id_user=' + data[count].id_user + '"><i class="fa-solid fa-x member_icon"></i>ปฏิเสธ</a>';
+            html += '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '</tr>';
+        }
 
-  function renderPagination(data) {
-      const totalPages = Math.ceil(data.length / itemsPerPage);
-      const paginationNumbers = $("#paginationNumbers");
-      let html = '';
+        const member_list_data = $("#member_list_data");
+        member_list_data.empty();
+        member_list_data.append(html);
+    }
 
-      for (let i = 1; i <= totalPages; i++) {
-          html += '<button onclick="goToPage(' + i + ')">' + i + '</button>';
-      }
+    function renderPagination(data) {
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        const paginationNumbers = $("#paginationNumbers");
+        let html = '';
 
-      paginationNumbers.empty();
-      paginationNumbers.append(html);
-  }
+        for (let i = 1; i <= totalPages; i++) {
+            html += '<button onclick="goToPage(' + i + ')">' + i + '</button>';
+        }
 
-  function previousPage() {
-      if (currentPage > 1) {
-          currentPage--;
-          renderTable(currentPage, memberlist);
+        paginationNumbers.empty();
+        paginationNumbers.append(html);
+    }
 
-          // Remove 'active' class from all pagination buttons
-          $('#paginationNumbers button').removeClass('active');
+    function previousPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable(currentPage, memberlist);
 
-          // Add 'active' class to the current pagination button
-          $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
-      }
-  }
+            // Remove 'active' class from all pagination buttons
+            $('#paginationNumbers button').removeClass('active');
 
-  function nextPage() {
-      const totalPages = Math.ceil(memberlist.length / itemsPerPage);
-      if (currentPage < totalPages) {
-          currentPage++;
-          renderTable(currentPage, memberlist);
+            // Add 'active' class to the current pagination button
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
 
-          // Remove 'active' class from all pagination buttons
-          $('#paginationNumbers button').removeClass('active');
+    function nextPage() {
+        const totalPages = Math.ceil(memberlist.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable(currentPage, memberlist);
 
-          // Add 'active' class to the current pagination button
-          $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
-      }
-  }
+            // Remove 'active' class from all pagination buttons
+            $('#paginationNumbers button').removeClass('active');
 
-  function goToPage(page) {
+            // Add 'active' class to the current pagination button
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
 
-      currentPage = page;
-      renderTable(currentPage, memberlist);
+    function goToPage(page) {
 
-      // Remove the 'active' class from all pagination buttons
-      $('#paginationNumbers button').removeClass('active');
+        currentPage = page;
+        renderTable(currentPage, memberlist);
 
-      currentPage = page;
-      renderTable(currentPage, memberlist);
+        // Remove the 'active' class from all pagination buttons
+        $('#paginationNumbers button').removeClass('active');
 
-      // Add the 'active' class to the current pagination button
-      $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
-  }
+        currentPage = page;
+        renderTable(currentPage, memberlist);
 
-  window.onload = async function () {
-      const response = await fetch('/member/admin/reg_creator');
-      memberlist = await response.json();
+        // Add the 'active' class to the current pagination button
+        $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+    }
 
-      renderTable(1, memberlist);
-      renderPagination(memberlist);
+    function addTooltipEventListeners() {
+        const tooltips = document.querySelectorAll('.tooltip_click');
 
-      $('#paginationNumbers button:first').addClass('active');
-  }
+        tooltips.forEach(tooltip => {
+            tooltip.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent the click from reaching the document
 
+                const tooltipContainer = tooltip.closest('.container_toottip_member');
+                const tooltipContent = tooltipContainer.querySelector('.toottip_member');
+
+                tooltipContent.classList.toggle('active');
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            const tooltips = document.querySelectorAll('.toottip_member');
+            tooltips.forEach(tooltip => {
+                tooltip.classList.remove('active');
+            });
+        });
+    }
+
+    window.onload = async function () {
+        const response = await fetch('/member/admin/reg_creator');
+        memberlist = await response.json();
+
+        renderTable(1, memberlist);
+        renderPagination(memberlist);
+
+        $('#paginationNumbers button:first').addClass('active');
+
+        addTooltipEventListeners();
+    }
 
 </script>
