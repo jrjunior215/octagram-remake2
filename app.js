@@ -5,6 +5,7 @@ const expressSession = require('express-session');
 const dbConnection = require('./js/database');
 const passport = require('./js/passport');
 const { SERVER_PORT, SERVER_IP } = require('./js/server_setting');
+const cron = require('node-cron');
 
 // SET EXPRESS
 
@@ -57,7 +58,17 @@ app.use(express.json());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// IMPORT CONTROLLER
+// SET WORK TIME 
+const paypalCheck = require('./js/paypal/paypal_check');
+
+cron.schedule('* * * * *', async () => {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  console.log(time);
+
+  await paypalCheck.processPaypalStatus();
+  
+});
 
 // VIEWS
 
@@ -149,7 +160,7 @@ const postText = require('./controllers/models/post/postText');
 const postEdit = require('./controllers/models/post/edit/postEdit');
 
 // POST DELETE
-const postDelete = require('./controllers/models/post/delete/postDelete'); 
+const postDelete = require('./controllers/models/post/delete/postDelete');
 
 // COMMENT
 const commentCreate = require('./controllers/models/comment/commentCreate');
@@ -193,7 +204,7 @@ app.get('/auth/google/callback', passport.authenticate('google', { session: fals
     const data = req.user;
     req.session.userData = data;
     res.redirect('/auth/google/login');
-});
+  });
 
 // HOME PAGE
 app.get('/home', logIn, homeController);
@@ -235,7 +246,7 @@ app.get('/package/preview', logIn, packagePreviewController);
 app.get('/package/edit', logIn, packageEditController);
 
 // POST PAGE
-app.get('/post/text', logIn, postTextController); 
+app.get('/post/text', logIn, postTextController);
 
 // POST EDIT
 app.get('/post/edit', logIn, textEditController);
