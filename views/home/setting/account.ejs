@@ -1,0 +1,79 @@
+<div class="content">
+    <div class="container_page_setting">
+        <div class="container_setting">
+            <div class="setting">
+
+                <%- include('./navbar.ejs')%>
+
+                    <div class="setting_box">
+                        <form action="/profile/user/password" method="POST" class="setting_profile">
+                            <div class="setting_grid">
+                                <span>Old password</span>
+                                <input type="password" name="old_pass">
+                            </div>
+                            <div class="setting_grid">
+                                <span>Password</span>
+                                <input type="password" name="new_pass">
+                            </div>
+                            <div class="setting_grid">
+                                <span>Confirm password</span>
+                                <input type="password" name="con_pass">
+                            </div>
+                            <span id="alert" class="alert_error_span"></span>
+                            <% if (locals.change_error) { %>
+                                <span class="alert_error_span">
+                                    <%= change_error %>
+                                </span>
+                                <% } %>
+                                    <div class="setting_grid">
+                                        <input type="hidden" name="id_user" value="<%= SESSION_USER.id %>">
+                                        <button class="btn_save">Save</button>
+                                    </div>
+                        </form>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('.setting_profile');
+
+        form.addEventListener('submit', function (event) {
+            const oldPass = form.querySelector('input[name="old_pass"]').value;
+            const pass = form.querySelector('input[name="new_pass"]').value;
+            const conPass = form.querySelector('input[name="con_pass"]').value;
+            const alertElement = document.getElementById('alert');
+
+            let inputs = form.querySelectorAll('input[name]:not([type="hidden"])');
+            let allInputsFilled = true;
+
+            if (oldPass.length < 6 || pass.length < 6) {
+                event.preventDefault(); // ยกเลิกการส่ง form
+                alertElement.innerText = '* รหัสผ่านต้องมีความยาวมากกว่า 6 ตัวอักษร *';
+            }
+
+            if (pass !== conPass) {
+                event.preventDefault(); // ยกเลิกการส่ง form
+                alertElement.innerText = '* รหัสผ่านใหม่และรหัสผ่านยืนยันไม่ตรงกัน *';
+            }
+
+            inputs.forEach(function (input) {
+                if (input.value.trim() === '') {
+                    allInputsFilled = false;
+                }
+            });
+
+            if (!allInputsFilled) {
+                event.preventDefault(); // ยกเลิกการส่ง form
+                alertElement.innerText = '* กรุณากรอกข้อมูลให้ครบทุกช่อง *';
+            }
+
+            if (alertElement.innerText.trim() === '') {
+                alertElement.style.display = 'none';
+            }
+        });
+    });
+</script>

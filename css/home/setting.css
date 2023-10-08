@@ -151,3 +151,9 @@
 .new_img {
     display: none;
 }
+
+.alert_error_span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: red;
+    margin-bottom: 20px;
+}

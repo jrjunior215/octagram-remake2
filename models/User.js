@@ -60,6 +60,33 @@ User.login = async (data) => {
 
 };
 
+User.change_pass = async (data) => {
+
+  const { old_pass, new_pass, id_user } = data;
+
+  return new Promise(function (resolve, reject) {
+    const query_user = `SELECT * FROM users WHERE id = '${id_user}'`;
+    dbConnection.execute(query_user).then(async ([rows]) => {
+      await bcrypt.compare(old_pass, rows[0].password).then(async function (result) {
+        if (result === true) {
+          await bcrypt.hash(new_pass, 10).then((hash_pass) => {
+            const query_update_password = `UPDATE users SET password = '${hash_pass}' WHERE id = '${id_user}';`;
+            dbConnection.execute(query_update_password);
+          }).catch(err => {
+            if (err) throw err;
+          });
+          resolve();
+        } else {
+          reject("* รหัสผ่านเก่าของคุณไม่ถูกต้อง *");
+        }
+      }).catch(err => {
+        if (err) throw err;
+      });
+    });
+  });
+
+};
+
 User.creator = async (id_user) => {
 
   const queryString = `UPDATE users SET role = 'CREATOR' WHERE id = ${id_user};`

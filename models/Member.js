@@ -4,7 +4,7 @@ const moment = require('moment-timezone');
 const Member = {};
 
 Member.check = async (id_creator, id_user) => {
-  const queryString = `SELECT * FROM memberships WHERE id_creator = ${id_creator} AND id_user = ${id_user}`
+  const queryString = `SELECT * FROM memberships WHERE id_creator = ${id_creator} AND id_user = ${id_user} AND ` + `status` + ` = '1'`
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
       if (rows.length > 0) {
@@ -19,7 +19,7 @@ Member.check = async (id_creator, id_user) => {
 };
 
 Member.navbar = async (id_user) => {
-  const queryString = `SELECT * FROM memberships JOIN creators ON memberships.id_creator = creators.id WHERE memberships.id_user = '${id_user}'`
+  const queryString = `SELECT *,memberships.status AS member_status FROM memberships JOIN creators ON memberships.id_creator = creators.id WHERE memberships.id_user = '${id_user}' AND ` + `memberships.status` + ` = '1'`
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
       resolve(rows);
@@ -75,7 +75,7 @@ Member.admin_new_creator = async () => {
 };
 
 Member.sub = async (id_user) => {
-  const queryString = `SELECT * FROM memberships JOIN creators ON memberships.id_creator = creators.id JOIN packages ON memberships.id_package = packages.id WHERE memberships.id_user = '${id_user}' ORDER BY memberships.id DESC`
+  const queryString = `SELECT *,memberships.status AS member_status FROM memberships JOIN creators ON memberships.id_creator = creators.id JOIN packages ON memberships.id_package = packages.id WHERE memberships.id_user = '${id_user}' ORDER BY memberships.id DESC`
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
       resolve(rows);

@@ -101,6 +101,7 @@ const settingController = require('./controllers/views/home/settingController');
 const subscribeController = require('./controllers/views/home/subscribeController');
 const memberSub = require('./controllers/models/member/memberSub');
 const memberListNav = require('./controllers/models/member/memberListNav');
+const settingAccountController = require('./controllers/views/home/settingAccountController');
 
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
@@ -144,6 +145,7 @@ const searchAutoCategoryController = require('./controllers/models/category/cate
 // AUTH
 const registerUserController = require('./controllers/models/auth/registerUserController');
 const loginUserController = require('./controllers/models/auth/loginUserController');
+const userPasswordChange = require('./controllers/models/profile/userPasswordChange');
 
 // PROFILE UPDATE
 const profileUser = require('./controllers/models/profile/profileUser');
@@ -223,6 +225,7 @@ app.get('/subscribe', logIn, subscribeController);
 app.get('/setting/basic', logIn, settingController);
 app.get('/member/subscribe', logIn, memberSub);
 app.get('/member/navbar', logIn, memberListNav);
+app.get('/setting/account', logIn, settingAccountController);
 
 // SEARCH
 app.get('/search/query', logIn, searchAutoCreatorController);
@@ -268,6 +271,7 @@ app.post('/login/user', loginUserController);
 // PROFILE UPDATE
 app.post('/profile/user/update', logIn, profileUser);
 app.post('/profile/creator/update', profileCreator);
+app.post('/profile/user/password', logIn, userPasswordChange);
 
 // CREATOR
 app.post('/creator/create', logIn, newCreatorController);
@@ -303,7 +307,7 @@ app.get('/memberships/:id_package', logIn, memberCreatorList)
 
 // CATEGORY
 app.post('/category/create', logIn, categoryCreate);
-app.post('/category/edit', logIn, categoryCreatorEdit)
+app.post('/category/edit', logIn, categoryCreatorEdit);
 
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController)

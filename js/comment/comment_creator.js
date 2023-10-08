@@ -117,8 +117,8 @@ function createCommentHTML(comment, formattedDate, sessionId) {
                     <i class="material-icons" id="tooltip_comment_click">more_horiz</i>
                     <div class="tooltip_comment_bar">
                         <div class="tooltip-content">
-                            <a class="tooltip-option" id="comment_edit">แก้ไข</a>
-                            <a href="/post/comment/delete?id_comment=${comment.id}&callback=creator&role=CREATOR" class="tooltip-option" id="comment_remove">ลบ</a>
+                            <a class="tooltip-option" id="comment_edit"><i class="fa-solid fa-pen tooltip_icon"></i>แก้ไข</a>
+                            <a href="/post/comment/delete?id_comment=${comment.id}&callback=creator&role=CREATOR" class="tooltip-option" id="comment_remove"><i class="fa-solid fa-trash tooltip_icon"></i>ลบ</a>
                         </div>
                     </div>
                 </div>
