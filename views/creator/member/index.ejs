@@ -59,7 +59,7 @@
           html += '<td>' + formatDate(data[count].end_date) + '</td>';
           const status = data[count].status;
           if (status === 0) {
-              html += '<td class="inactive_member">ไม่ได้ใช้งาน</td>';
+              html += '<td class="inactive_member">ยกเลิก</td>';
           } else if (status === 1) {
               html += '<td class="active_member">ใช้งาน</td>';
           } else if (status === 2) {

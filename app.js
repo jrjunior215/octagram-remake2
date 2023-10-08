@@ -60,15 +60,25 @@ app.set('view engine', 'ejs');
 
 // SET WORK TIME 
 const paypalCheck = require('./js/paypal/paypal_check');
+const income = require('./js/income/income');
 
-cron.schedule('* * * * *', async () => {
-  const now = new Date();
-  const time = now.toLocaleTimeString();
-  console.log(time);
+// ทุกๆวันที่ 1 ของทุกเดือน
 
-  await paypalCheck.processPaypalStatus();
-  
+cron.schedule('0 0 1 * *', async () => {
+  await income.processIncome();
 });
+
+// ทุกๆเที่ยงวัน ของทุกวัน
+
+cron.schedule('0 12 * * *', async () => {
+  await paypalCheck.processPaypalStatus();
+});
+
+// cron.schedule('* * * * * *', async () => {
+//   const now = new Date();
+//   const time = now.toLocaleTimeString();
+//   console.log(time);
+// });
 
 // VIEWS
 
