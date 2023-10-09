@@ -133,3 +133,45 @@ tbody tr td {
   background-color: #4CAF50;
 }
 
+.container_toottip_member {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toottip_member {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  top: 80%;
+  right: 40%;
+  z-index: 1;
+  display: none;
+  flex-direction: column;
+  width: auto;
+  padding: 10px;
+}
+
+.toottip_member.active {
+  display: flex;
+}
+
+.toottip_member a {
+  width: 150px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #000000;
+}
+
+.toottip_member a:hover {
+  background-color: #c4c4c4;
+}
+
+.member_icon {
+  margin-right: 10px;
+}

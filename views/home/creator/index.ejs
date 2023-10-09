@@ -20,17 +20,16 @@
             <span class="creators_desc">
               <%= creators[0].creator_desc.length > 50 ? creators[0].creator_desc.slice(0, 50) + '...' : creators[0].creator_desc %>
             </span>
-            <!-- <p>5.2M Members 41 Posts</p> -->
             <p>
-              <%= posts_all.length %> Posts
+              <%= members_all.length %> Members <%= posts_all.length %> Posts
             </p>
           </div>
         </div>
         <div class="post">
           <% if (!checks) { %>
-            <a class="btn_sub_creator">สมัคร</a>
+            <a href="/<%= creators[0].creator_name %>/packages?id_creator=<%= creators[0].id %>" class="btn_sub_creator">สมัคร</a>
             <% } else { %>
-              <a class="btn_sub_update">อัพเดท</a>
+              <a href="/<%= creators[0].creator_name %>/packages?id_creator=<%= creators[0].id %>" class="btn_sub_update">อัพเดท</a>
               <% } %>
                 <i id="tooltip_creator" class="material-icons">more_horiz</i>
         </div>
@@ -43,7 +42,7 @@
 
     <% if (!checks) { %>
 
-      <% if (packages.length> 0) { %>
+      <% if (packages.length > 0) { %>
 
         <div class="limit_package_preview">
           <div class="package_preview_header">

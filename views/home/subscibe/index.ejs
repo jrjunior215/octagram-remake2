@@ -53,28 +53,92 @@
             html += '<td><img src="' + data[count].img + '" alt="user_profile" class="img_member_profile"></td>';
             html += '<td>' + data[count].creator_name + '</td>';
             html += '<td>' + data[count].package_name + '</td>';
-            html += '<td>' + formatDate(data[count].create_date) + '</td>';
+            html += '<td>' + formatDate(data[count].member_create_date) + '</td>';
             html += '<td>' + formatDate(data[count].start_date) + '</td>';
             html += '<td>' + formatDate(data[count].end_date) + '</td>';
             const status = data[count].member_status;
             if (status === 0) {
-                html += '<td class="inactive_member">ไม่ได้ใช้งาน</td>';
+                html += '<td class="inactive_member">ยกเลิก</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                    html += '</td>';
             } else if (status === 1) {
                 html += '<td class="active_member">ใช้งาน</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '<a href="/member/cancel?id_member=' + data[count].id_member + '&id_creator=' + data[count].creator_id + '&trans=' + data[count].tran_id + '"><i class="fa-solid fa-power-off member_icon"></i>ยกเลิก</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             } else if (status === 2) {
-                html += '<td class="suspended_member">ระงับการใช้งาน</td>';
+                html += '<td class="suspended_member">หมดอายุ</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             } else if (status === 3) {
-                html += '<td class="expired_member">หมดอายุ</td>';
+                html += '<td class="expired_member">ระงับการใช้งาน</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             } else if (status === 4) {
                 html += '<td class="pending_member">รอการยืนยัน</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             } else if (status === 5) {
                 html += '<td class="cancelled_member">ยกเลิก</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             } else if (status === 6) {
                 html += '<td class="renewed_member">ต่ออายุ</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             } else {
                 html += '<td class="unknown_member">ไม่ทราบสถานะ</td>';
+                html += '<td>';
+                html += '<div class="container_toottip_member">';
+                html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
+                html += '<div class="toottip_member">';
+                html += '<a href="/' + data[count].creator_name + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ดูหน้าเพจ</a>';
+                html += '</div>';
+                html += '</div>';
+                html += '</td>';
             }
-            html += '<td><i id="tooltip_click" class="material-icons">more_horiz</i></td>';
             html += '</tr>';
         }
 
@@ -123,6 +187,41 @@
         $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
     }
 
+    function addTooltipEventListeners() {
+        const tooltips = document.querySelectorAll('.tooltip_click');
+
+        tooltips.forEach(tooltip => {
+            tooltip.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent the click from reaching the document
+
+                const tooltipContainer = tooltip.closest('.container_toottip_member');
+                const tooltipContent = tooltipContainer.querySelector('.toottip_member');
+
+                const allTooltips = document.querySelectorAll('.toottip_member');
+                allTooltips.forEach(tt => {
+                    if (tt !== tooltipContent) {
+                        tt.classList.remove('active');
+                    }
+                });
+
+                tooltipContent.classList.toggle('active');
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            const tooltips = document.querySelectorAll('.toottip_member');
+            tooltips.forEach(tooltip => {
+                tooltip.classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('.container_toottip_member').forEach(container => {
+            container.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
+        });
+    }
+
     window.onload = async function () {
         const responseSubscribe = await fetch('/member/subscribe');
         const responseNavbar = await fetch('/member/navbar');
@@ -156,5 +255,7 @@
         const memberlist_navbar = $("#memberlist_navbar");
         memberlist_navbar.empty();
         memberlist_navbar.append(html);
+
+        addTooltipEventListeners();
     }
 </script>

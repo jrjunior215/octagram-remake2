@@ -1,0 +1,159 @@
+<div class="content">
+  <div class="creator_page">
+    <div class="bg_creator">
+    </div>
+    <div class="limit_creator_profile">
+      <div class="creator_profile">
+        <div class="creator_content">
+          <img src="<%= creators[0].img %>" alt="">
+          <div class="creator_detail">
+            <span class="creators_name">
+              <%= creators[0].creator_name %>
+            </span>
+            <span class="creators_desc">
+              <%= creators[0].creator_desc.length > 50 ? creators[0].creator_desc.slice(0, 50) + '...' : creators[0].creator_desc %>
+            </span>
+            <p>
+              <%= members_all.length %> Members <%= posts_all.length %> Posts
+            </p>
+          </div>
+        </div>
+        <div class="post">
+          <a href="/<%= creators[0].creator_name %>" class="btn_sub_update">กลับ</a>
+          <i id="tooltip_creator" class="material-icons">more_horiz</i>
+        </div>
+      </div>
+    </div>
+    <div class="limit_navbar">
+      <%- include('./navbar.ejs')%>
+    </div>
+
+    <% if (checks.length > 0) { %>
+
+      <% if (packages.length > 0) { %>
+        <div class="limit_package_preview">
+          <div class="package_preview_header">
+            <span>อัพเกรดแพ็คเกจของคุณ!</span>
+          </div>
+          <div class="package_preview_list">
+            <% if (packages.length > 0) { %>
+              <% for(var i=0; i < packages.length; i++) { %>
+                <% if (packages[i].id === checks[0].id_package) { %>
+                  <div class="package_preview_item_join">
+                    <div class="package_preview_name_join">
+                      <span>
+                        <%=packages[i].package_name%>
+                      </span>
+                    </div>
+                    <div class="package_preview_price_join">
+                      <span>฿ <%=packages[i].package_price%> / เดือน</span>
+                    </div>
+                    <a>เข้าร่วมแล้ว!</a>
+                    <div class="package_preview_desc_join">
+                      <%-packages[i].package_desc%>
+                    </div>
+                  </div>
+                <%} else { %>
+                  <% if (packages[i].package_price < checks[0].package_price) { %>
+                    <div class="package_preview_item_less">
+                      <div class="package_preview_name_less">
+                        <span>
+                          <%=packages[i].package_name%>
+                        </span>
+                      </div>
+                      <div class="package_preview_price_less">
+                        <span>฿ <%=packages[i].package_price%> / เดือน</span>
+                      </div>
+                      <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">แพ็คราคาถูกกว่า</a>
+                      <div class="package_preview_desc_less">
+                        <%-packages[i].package_desc%>
+                      </div>
+                    </div>
+                  <%} else { %>
+                    <div class="package_preview_item_more">
+                      <div class="package_preview_name_more">
+                        <span>
+                          <%=packages[i].package_name%>
+                        </span>
+                      </div>
+                      <div class="package_preview_price_more">
+                        <span>฿ <%=packages[i].package_price%> / เดือน</span>
+                      </div>
+                      <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">แพ็คเก็จดีกว่า</a>
+                      <div class="package_preview_desc_more">
+                        <%-packages[i].package_desc%>
+                      </div>
+                    </div>
+                  <% } %>
+                  
+                <% } %>
+
+              <% } %>
+                
+              <%} else { %>
+                <div class="no-packages-message">No packages available.</div>
+              <% } %>
+          </div>
+        </div>
+
+        <% } else { %>
+
+          <div class="limit_package_preview">
+            <div class="package_preview_header">
+              <span>ยินดีต้อนรับสู่ <%= creators[0].creator_name %></span>
+            </div>
+          </div>
+
+          <% } %>
+
+    <% } else { %>
+
+      <% if (packages.length > 0) { %>
+        <div class="limit_package_preview">
+          <div class="package_preview_header">
+            <span>สมัครเข้าร่วมเป็นสมาชิกกับเรา!</span>
+          </div>
+          <div class="package_preview_list">
+            <% if (packages.length> 0) { %>
+              <% for(var i=0; i < packages.length; i++) { %>
+                <div class="package_preview_item">
+                  <div class="package_preview_name">
+                    <span>
+                      <%=packages[i].package_name%>
+                    </span>
+                  </div>
+                  <div class="package_preview_price">
+                    <span>฿ <%=packages[i].package_price%> / เดือน</span>
+                  </div>
+                  <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">เข้าร่วม</a>
+                  <div class="package_preview_desc">
+                    <%-packages[i].package_desc%>
+                  </div>
+                </div>
+                <% } %>
+                  <%} else { %>
+                    <div class="no-packages-message">No packages available.</div>
+                    <% } %>
+          </div>
+        </div>
+
+        <% } else { %>
+
+          <div class="limit_package_preview">
+            <div class="package_preview_header">
+              <span>ยินดีต้อนรับสู่ <%= creators[0].creator_name %></span>
+            </div>
+          </div>
+
+          <% } %>
+
+    <% } %>
+
+  </div>
+</div>
+
+<script>
+
+  
+  
+</script>

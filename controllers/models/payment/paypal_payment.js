@@ -4,12 +4,9 @@ const paypal = require('paypal-rest-sdk');
 const moment = require('moment-timezone');
 const Member = require('../../../models/Member');
 const { SERVER_PORT, SERVER_IP } = require('../../../js/server_setting');
+const paypalConfig = require('../../../js/paypal/paypal_config');
 
-paypal.configure({
-    mode: 'sandbox',
-    client_id: 'AaYqnuLBvj1k_-E1zW4jJPNKOPT9qa4GD-i8unxXx9HtRGUIQVo9QTgyu0Kb9XQp1JwAqmBUtMmt_HuG',
-    client_secret: 'EBOYNOX3wS1F_uflOaeae93iqsGgoruucM9-ygilyPjmqhwWFKJu7VtOil23WRFLhcFImXrZ9B643tL-'
-});
+paypal.configure(paypalConfig);
 
 router.post('/checkout', (req, res) => {
     const data = req.body;
@@ -122,7 +119,7 @@ router.get('/success', async (req, res) => {
             const formattedStartDate = startDateThai.format('DD/MM/YYYY');
             const formattedEndDate = endDateThai.format('DD/MM/YYYY');
 
-            const membership = await Member.create(id_creator,id_package,id_user,agreementId);
+            await Member.create(id_creator,id_package,id_user,agreementId);
 
             res.locals.layout = 'home/payment/layout';
             res.render('home/payment/success', { agreementId: agreementId, formattedStartDate: formattedStartDate, formattedEndDate: formattedEndDate, creator_name: creator_name });

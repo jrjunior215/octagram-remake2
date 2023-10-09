@@ -394,6 +394,181 @@
     background-color: #3e6eb6;
 }
 
+/* JOIN PACKAGE */
+
+.package_preview_item_join {
+    margin: 0 10px;
+    margin-top: 4vh;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-height: 500px;
+}
+
+.package_preview_name_join span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 20px;
+    color: #524e4e;
+}
+
+.package_preview_price_join {
+    margin: 5px 0 10px 0;
+}
+
+.package_preview_price_join span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.package_preview_desc_join {
+    margin: 10px 0 5px 0;
+}
+
+.package_preview_desc_join span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+}
+
+.package_preview_item_join a {
+    padding: 8px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    background-color: #6e82a1;
+    color: #fff;
+    border-radius: 10px;
+    cursor: default;
+    border: 1px #6d6d6d;
+    width: 100%;
+    text-align: center;
+}
+
+/* LESS THAN PACKAGE */
+
+.package_preview_item_less {
+    margin: 0 10px;
+    margin-top: 4vh;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-height: 500px;
+}
+
+.package_preview_name_less span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 20px;
+    color: #524e4e;
+}
+
+.package_preview_price_less {
+    margin: 5px 0 10px 0;
+}
+
+.package_preview_price_less span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.package_preview_desc_less {
+    margin: 10px 0 5px 0;
+}
+
+.package_preview_desc_less span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+}
+
+.package_preview_item_less a {
+    padding: 8px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    background-color: #918f8f;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px #6d6d6d;
+    width: 100%;
+    text-align: center;
+}
+
+.package_preview_item_less a:hover {
+    background-color: rgb(68, 67, 67);
+}
+
+
+/* MORE THAN PACKAGE */
+
+.package_preview_item_more {
+    margin: 0 10px;
+    margin-top: 4vh;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-height: 500px;
+}
+
+.package_preview_name_more span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 20px;
+    color: #524e4e;
+}
+
+.package_preview_price_more {
+    margin: 5px 0 10px 0;
+}
+
+.package_preview_price_more span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.package_preview_desc_more {
+    margin: 10px 0 5px 0;
+}
+
+.package_preview_desc_more span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+}
+
+.package_preview_item_more a {
+    padding: 8px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    background-color: #df3e3e;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px #6d6d6d;
+    width: 100%;
+    text-align: center;
+}
+
+.package_preview_item_more a:hover {
+    background-color: rgb(200, 62, 62)
+}
+
+
 /* Remove the default list styles */
 .package_preview_desc ul {
     list-style-type: none;

@@ -62,6 +62,10 @@ app.set('view engine', 'ejs');
 const paypalCheck = require('./js/paypal/paypal_check');
 const income = require('./js/income/income');
 
+// ทำงานหลังจาก run
+
+paypalCheck.processPaypalStatus();
+
 // ทุกๆวันที่ 1 ของทุกเดือน
 
 cron.schedule('0 0 1 * *', async () => {
@@ -71,6 +75,9 @@ cron.schedule('0 0 1 * *', async () => {
 // ทุกๆเที่ยงวัน ของทุกวัน
 
 cron.schedule('0 12 * * *', async () => {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  console.log(time);
   await paypalCheck.processPaypalStatus();
 });
 
@@ -102,6 +109,7 @@ const subscribeController = require('./controllers/views/home/subscribeControlle
 const memberSub = require('./controllers/models/member/memberSub');
 const memberListNav = require('./controllers/models/member/memberListNav');
 const settingAccountController = require('./controllers/views/home/settingAccountController');
+const creatorPackageController = require('./controllers/views/home/creator/creatorPackageController');
 
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
@@ -182,6 +190,7 @@ const commentDelete = require('./controllers/models/comment/commentDelete');
 
 // MEMBERSHIP
 const memberCreatorList = require('./controllers/models/member/memberCreatorList');
+const memberCancel = require('./controllers/models/member/memberCancel');
 
 // CHECKOUT
 const checkoutController = require('./controllers/views/checkout/checkoutController');
@@ -303,7 +312,8 @@ app.get('/post/comment/delete', logIn, commentDelete)
 app.get('/comments/:postId', logIn, commentController);
 
 // MEMBERSHIP
-app.get('/memberships/:id_package', logIn, memberCreatorList)
+app.get('/memberships/:id_package', logIn, memberCreatorList);
+app.get('/member/cancel', logIn, memberCancel);
 
 // CATEGORY
 app.post('/category/create', logIn, categoryCreate);
@@ -314,6 +324,7 @@ app.get('/checkout/:creator_name', logIn, checkoutController)
 
 // CREATOR PAGE
 app.get('/:creator_name', logIn, creatorPageController);
+app.get('/:creator_name/packages', logIn, creatorPackageController);
 
 // SET POST LISTEN
 
