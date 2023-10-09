@@ -189,3 +189,27 @@
 .creator_desc {
   font-size: 11px;
 }
+
+.search_list_category {
+  width: 100%;
+  margin: 30px 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; 
+}
+
+.list_item_cateogry {
+  font-size: 14px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  border: 1px solid #adaaaa;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+.list_item_cateogry:hover {
+  background-color: #c4c4c4;
+}

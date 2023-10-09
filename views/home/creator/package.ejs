@@ -64,7 +64,7 @@
                       <div class="package_preview_price_less">
                         <span>฿ <%=packages[i].package_price%> / เดือน</span>
                       </div>
-                      <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">แพ็คราคาถูกกว่า</a>
+                      <a href="/checkout/reorder_wores/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">แพ็คราคาถูกกว่า</a>
                       <div class="package_preview_desc_less">
                         <%-packages[i].package_desc%>
                       </div>
@@ -79,7 +79,7 @@
                       <div class="package_preview_price_more">
                         <span>฿ <%=packages[i].package_price%> / เดือน</span>
                       </div>
-                      <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">แพ็คเก็จดีกว่า</a>
+                      <a href="/checkout/reorder_better/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">แพ็คเก็จดีกว่า</a>
                       <div class="package_preview_desc_more">
                         <%-packages[i].package_desc%>
                       </div>

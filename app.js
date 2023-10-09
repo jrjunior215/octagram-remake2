@@ -110,6 +110,7 @@ const memberSub = require('./controllers/models/member/memberSub');
 const memberListNav = require('./controllers/models/member/memberListNav');
 const settingAccountController = require('./controllers/views/home/settingAccountController');
 const creatorPackageController = require('./controllers/views/home/creator/creatorPackageController');
+const creatorAboutUserController = require('./controllers/views/home/creator/creatorAboutController');
 
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
@@ -194,6 +195,8 @@ const memberCancel = require('./controllers/models/member/memberCancel');
 
 // CHECKOUT
 const checkoutController = require('./controllers/views/checkout/checkoutController');
+const reorderBetter = require('./controllers/models/reorder/reoderBetter');
+const reorderWores = require('./controllers/models/reorder/reoderWores');
 
 // PAYPAL
 const paymentRoute = require('./controllers/models/payment/paypal_payment');
@@ -321,10 +324,14 @@ app.post('/category/edit', logIn, categoryCreatorEdit);
 
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController)
+app.get('/checkout/reorder_wores/:creator_name', logIn, reorderWores)
+app.get('/checkout/reorder_better/:creator_name', logIn, reorderBetter)
 
 // CREATOR PAGE
 app.get('/:creator_name', logIn, creatorPageController);
 app.get('/:creator_name/packages', logIn, creatorPackageController);
+app.get('/:creator_name/about', logIn, creatorAboutUserController);
+
 
 // SET POST LISTEN
 

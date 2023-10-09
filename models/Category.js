@@ -72,6 +72,20 @@ Category.show = async (id_creator) => {
 
 };
 
+Category.list = async () => {
+
+  const queryString = `SELECT * FROM categories`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 Category.reset = async (id_creator) => {
 
   const queryString = `DELETE FROM categories_creator WHERE id_creator = '${id_creator}'`
