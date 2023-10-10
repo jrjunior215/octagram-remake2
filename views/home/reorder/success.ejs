@@ -1,0 +1,20 @@
+<div class="container_success">
+    <div class="card">
+        <div class="checkmark_cart">
+            <i class="checkmark">✓</i>
+        </div>
+        <h1>สมัครแพ็กเกจใหม่เรียบร้อย</h1>
+        <div class="order_details">
+            <p class="header_order">คุณได้สมัครสมาชิกกับ <%= members[0].creator_name %> เรียบร้อยแล้ว</p>
+            <p>วันที่สมัคร : <%= members[0].member_create_date %></p>
+            <p>วันหมดอายุ : <%= members[0].end_date %></p>
+        </div>
+        <a href="/<%= members[0].creator_name %>">ดำเนินการต่อ</a>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        window.location.href = `/<%= members[0].creator_name %>`;
+    }, 10000);
+</script>

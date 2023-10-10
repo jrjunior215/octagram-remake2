@@ -13,11 +13,11 @@
           </div>
         </div>
         <div class="payment_description">
-          <span>การคลิกดำเนินการต่อด้วย PayPal แสดงว่าคุณยอมรับข้อกำหนดการใช้งานและนโยบายความเป็นส่วนตัวของ Octagram
-            การสมัครสมาชิก Octagram นี้ต่ออายุโดยอัตโนมัติทุกเดือน
-            และคุณจะได้รับแจ้งล่วงหน้าหากจำนวนเงินต่อเดือนเพิ่มขึ้น ยกเลิกได้ตลอดเวลาในการตั้งค่าสมาชิกของคุณ</span>
+          <span>การคลิกยืนยันขอให้ทราบว่าหากท่านเลือกซื้อแพ็กเกจนี้ ทางเราไม่สามารถทำการคืนเงินให้กับท่านได้ในแพ็กเกจก่อนหน้าและระบบจะเริ่มเรียกเก็บเงินในราคานี้ต่อไปในทุกๆ รอบการเรียกเก็บเงินครั้งต่อไปที่ท่านได้เลือกเป็นรายเดือน</span>
         </div>
-        <form action="/paypal/checkout" method="POST" class="container_checkout_btn">
+        <form action="/paypal/reoder/better" method="POST" class="container_checkout_btn">
+          <input type="hidden" name="id_member" value="<%= members[0].id %>">
+          <input type="hidden" name="tran_id" value="<%= members[0].tran_id %>">
           <input type="hidden" name="name" value="<%= SESSION_USER.name %>">
           <input type="hidden" name="id_user" value="<%= SESSION_USER.id %>">
           <input type="hidden" name="id_creator" value="<%= packages[0].id_creator %>">
@@ -25,9 +25,9 @@
           <input type="hidden" name="package_name" value="<%= packages[0].package_name %>">
           <input type="hidden" name="creator_name" value="<%= packages[0].creator_name %>">
           <input type="hidden" name="price" value="<%= packages[0].package_price %>">
+          <input type="hidden" name="total_price" value="<%= packages[0].package_price - members[0].package_price  %>">
           <button>ดำเนินการด้วย<span>Paypal</span></button>
         </form>
-        <!-- <div id="paypal-button-container"></div> -->
       </div>
       <div class="cotainer_order">
         <div class="order_header">
@@ -53,13 +53,23 @@
             </div>
           </div>
           <hr>
-          <div class="order_payment_sum">
+          <div class="order_payment_sum_two">
             <div class="order_monthly_price">
-              <span>การชำระเงินรายเดือน</span>
+              <span>การชำระเงินรายเดือนครั้งต่อไป</span>
             </div>
             <div class="creator_package_price">
               <span>
                 <%= packages[0].package_price %> บาท
+              </span>
+            </div>
+          </div>
+          <div class="order_payment_sum_two">
+            <div class="order_monthly_price">
+              <span>แพ็คเก็จที่สมัคร</span>
+            </div>
+            <div class="creator_package_price">
+              <span>
+               - <%= members[0].package_price %> บาท
               </span>
             </div>
           </div>
@@ -70,7 +80,7 @@
             </div>
             <div class="creator_package_price">
               <span>
-                <%= packages[0].package_price %> บาท
+                <%= packages[0].package_price - members[0].package_price %>  บาท
               </span>
             </div>
           </div>

@@ -69,6 +69,9 @@ paypalCheck.processPaypalStatus();
 // ทุกๆวันที่ 1 ของทุกเดือน
 
 cron.schedule('0 0 1 * *', async () => {
+  const now = new Date();
+  const time = now.toLocaleTimeString();
+  console.log(time);
   await income.processIncome();
 });
 
@@ -323,9 +326,9 @@ app.post('/category/create', logIn, categoryCreate);
 app.post('/category/edit', logIn, categoryCreatorEdit);
 
 // CHECKOUT
-app.get('/checkout/:creator_name', logIn, checkoutController)
-app.get('/checkout/reorder_wores/:creator_name', logIn, reorderWores)
-app.get('/checkout/reorder_better/:creator_name', logIn, reorderBetter)
+app.get('/checkout/:creator_name', logIn, checkoutController);
+app.get('/checkout/reorder_wores/:creator_name', logIn, reorderWores);
+app.get('/checkout/reorder_better/:creator_name', logIn, reorderBetter);
 
 // CREATOR PAGE
 app.get('/:creator_name', logIn, creatorPageController);

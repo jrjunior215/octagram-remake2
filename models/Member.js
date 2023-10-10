@@ -185,4 +185,67 @@ Member.cancel = async (id_member) => {
 
 };
 
+Member.reoder_price = async (id_member, id_package) => {
+
+  const queryString = `UPDATE memberships SET id_package = '${id_package}' WHERE id = '${id_member}';`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Member.select = async (id_member) => {
+  const queryString = `SELECT *,memberships.status AS member_status,memberships.id AS id_member,creators.id AS creator_id, memberships.create_date AS member_create_date FROM memberships JOIN creators ON memberships.id_creator = creators.id JOIN packages ON memberships.id_package = packages.id WHERE memberships.id = '${id_member}' ORDER BY memberships.id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
+Member.delete = async (id_member) => {
+  const queryString = `DELETE FROM memberships WHERE id = '${id_member}';`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
+Member.reoder = async (id_creator, id_package, id_user, agreementId, nextBillingDateThaiTime, lastPaymentDateThaiTime, startDateThaiTime) => {
+
+  return new Promise(function (resolve, reject) {
+    const queryFind = `SELECT * FROM memberships WHERE id_creator = '${id_creator}' AND id_user = '${id_user}'`
+    dbConnection.execute(queryFind).then(async ([rows]) => {
+      if (rows.length > 0) {
+        const queryUpdate = `UPDATE memberships SET id_package = '${id_package}', tran_id = '${agreementId}', status = '1', create_date = '${startDateThaiTime}', start_date = '${lastPaymentDateThaiTime}', end_date = '${nextBillingDateThaiTime}' WHERE id_creator = '${id_creator}' AND id_user = '${id_user}'`
+        dbConnection.execute(queryUpdate).then(async ([rows]) => {
+          resolve();
+        }).catch(err => {
+          if (err) throw err;
+        });
+      } else {
+        const queryString = `
+        INSERT INTO memberships(id_creator, id_user, id_package, tran_id, status, create_date, start_date, end_date) 
+        VALUES('${id_creator}','${id_user}','${id_package}','${agreementId}','1','${startDateThaiTime}','${lastPaymentDateThaiTime}','${nextBillingDateThaiTime}')
+      `;
+        dbConnection.execute(queryString).then(async ([rows]) => {
+          resolve();
+        }).catch(err => {
+          if (err) throw err;
+        });
+      }
+    });
+  });
+};
+
 module.exports = Member;
