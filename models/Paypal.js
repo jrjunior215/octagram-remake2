@@ -29,4 +29,18 @@ Paypal.update = async (tran_id, status) => {
 
 };
 
+Paypal.updat_date = async (tran_id, status, currentDateTimestamp, currentDatePlusOneMonth) => {
+
+  const queryString = `UPDATE memberships SET status = "${status}", start_date = "${currentDateTimestamp}", end_date = "${currentDatePlusOneMonth}" WHERE tran_id = '${tran_id}';`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Paypal;
