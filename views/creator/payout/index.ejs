@@ -1,40 +1,90 @@
 <div class="content">
   <div class="limit_payout_page">
-      <div class="payout_page">
-          <%- include('./navbar.ejs')%>
+    <div class="payout_page">
+      <%- include('./navbar.ejs')%>
 
-          <div class="container_payout">
-            <div class="container_withdraw">
-              <div class="header_withdraw">
-                <h1>ยอดเงินของคุณ</h1>
-                <span>฿ 500</span>
-                <p>เวลาปัจจุบัน</p>
+        <div class="container_payout">
+          <div class="container_withdraw">
+            <div class="header_withdraw">
+              <h1>ยอดเงินของคุณ</h1>
+              <span>฿ 500</span>
+              <div class="container_month">
+                <p class="header_month">รายได้ของเดือน</p>
+                <p id="new_id">เวลาปัจจุบัน</p>
               </div>
-              <div class="payout_method">
-                <a>เพิ่มวิธีการรับเงิน</a>
-              </div>
+            </div>
+            <div class="payout_method">
+              <a>เพิ่มวิธีการรับเงิน</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container_card">
+          <div class="container_credit_icon">
+            <div class="credit_icon">
+              <img src="/img/blank_credit.png" alt="credit_pic">
+            </div>
+            <div class="creadit_header">
+              <h1>เพิ่มบัตรเครดิตของคุณ</h1>
+            </div>
+          </div>
+          <div class="credit_input">
+            <span>เลขบัตรเครดิต</span>
+            <input type="text" name="card_number">
+          </div>
+          <div class="credit_detail">
+            <div class="credit_input_holder">
+              <span>ชื่อผู้ถือบัตรเครดิต</span>
+              <input type="text" name="card_holder">
+            </div>
+            <div class="credit_input_date">
+              <span>วันหมดอายุ</span>
+              <input type="text" name="card_date">
+            </div>
+            <div class="credit_input_csv">
+              <span>CSV</span>
+              <input type="text" name="card_csv">
+            </div>
+          </div>
+        </div>
+
+        <div class="container_payout_list">
+
+          <div class="payout_box">
+            <div class="payout_result">
+              <i class="fa-solid fa-user-plus icon_data_payout"></i>
             </div>
           </div>
 
-      </div>
+        </div>
+
+    </div>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // สร้างวัตถุ Date สำหรับวันที่ปัจจุบัน
+  document.addEventListener('DOMContentLoaded', function () {
     var now = new Date();
-
-    // กำหนดคำแปลงภาษาไทย
     var months = [
       'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
       'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ];
+    var formattedDate = months[now.getMonth()];
 
-    // ดึงข้อมูลวันที่และเดือน
-    var formattedDate = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    // Select the element by its id "new_id"
+    var elementWithNewId = document.querySelector('#new_id');
 
-    // แสดงผลลัพธ์ใน <p>ของเดือนนี้</p>
-    document.querySelector('.header_withdraw p').textContent = formattedDate;
+    // Update the content of the selected element
+    elementWithNewId.textContent = formattedDate;
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+  var payoutMethod = document.querySelector('.payout_method a');
+  var containerCard = document.querySelector('.container_card');
+
+  payoutMethod.addEventListener('click', function() {
+    containerCard.style.display = 'block';
+  });
+});
+
 </script>

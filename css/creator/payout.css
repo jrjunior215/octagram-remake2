@@ -108,3 +108,175 @@
 .payout_method a:hover{
   background-color: #DBDBDB;
 }
+
+.container_month {
+  display: flex;
+}
+
+.header_month {
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.container_card {
+  margin: 20px 0;
+  width: 100%;
+  height: auto;
+  padding: 50px;
+  background-color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+  overflow: hidden;
+  transform-origin: top;
+  animation: dropdown 0.5s forwards;
+  display: none;
+}
+
+@keyframes dropdown {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.container_credit_icon {
+  display: flex;
+  justify-content: space-between;
+}
+
+.credit_icon img {
+  width: auto;
+  height: 300px;
+  object-fit: cover;
+}
+
+.creadit_header {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+.creadit_header h1 {
+  font-family: 'Noto Sans Thai', sans-serif;
+  height: auto;
+}
+
+.credit_input{
+  margin-top: 10px;
+}
+
+.credit_input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.credit_input span {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 24px;
+}
+
+.credit_input input {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 19px;
+  border-radius: 6px;
+  line-height: 1.5;
+  padding: 15px;
+  transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+  border: 2px solid #dee1e2;
+  color: rgb(14, 14, 16);
+  background: #dee1e2;
+  display: block;
+}
+
+.credit_input input:hover {
+  border-color: #ccc;
+}
+
+.credit_input input:focus {
+  border-color: #9147ff;
+  background: #fff;
+}
+
+.credit_detail span {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 24px;
+}
+
+.credit_detail input {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 19px;
+  border-radius: 6px;
+  line-height: 1.5;
+  padding: 15px;
+  transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+  border: 2px solid #dee1e2;
+  color: rgb(14, 14, 16);
+  background: #dee1e2;
+  display: block;
+  margin-right: 20px;
+}
+
+.credit_detail input:hover {
+  border-color: #ccc;
+}
+
+.credit_detail input:focus {
+  border-color: #9147ff;
+  background: #fff;
+}
+
+.credit_detail {
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+}
+
+.credit_input_holder {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.credit_input_date {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.credit_input_csv {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.container_payout_list {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.payout_box {
+  width: 30%;
+  height: auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+}
+
+.icon_data_payout {
+  font-size: 50px;
+}
