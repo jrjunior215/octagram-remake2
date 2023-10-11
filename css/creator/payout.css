@@ -96,7 +96,7 @@
   margin: auto 0;
 }
 
-.payout_method a{
+.payout_method a {
   font-family: 'Noto Sans Thai', sans-serif;
   padding: 10px 20px;
   color: #000;
@@ -105,7 +105,7 @@
   border-radius: 5px;
 }
 
-.payout_method a:hover{
+.payout_method a:hover {
   background-color: #DBDBDB;
 }
 
@@ -136,6 +136,7 @@
   from {
     transform: scaleY(0);
   }
+
   to {
     transform: scaleY(1);
   }
@@ -167,10 +168,6 @@
   height: auto;
 }
 
-.credit_input{
-  margin-top: 10px;
-}
-
 .credit_input {
   width: 100%;
   display: flex;
@@ -180,7 +177,7 @@
 
 .credit_input span {
   font-family: 'Noto Sans Thai', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .credit_input input {
@@ -277,6 +274,137 @@
   border-radius: 10px;
 }
 
+.payout_header_result {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payout_header_result h4 {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
 .icon_data_payout {
-  font-size: 50px;
+  font-size: 20px;
+}
+
+.payout_topic_result {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  height: auto;
+  margin: 30px 0 0 0;
+}
+
+.payout_topic_result h1 {
+  font-size: 70px;
+}
+
+.payout_header_data {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.payout_header_data h1 {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.payout_page hr {
+  height: 1px;
+  background-color: #e5e5e5;
+  border: none;
+  margin: 20px 0;
+}
+
+.container_card button {
+  background-color: #81ea4c;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 10px;
+}
+
+.container_card button:hover,
+.container_card button:focus {
+  background-color: #afd48b;
+}
+
+.container_card a {
+  background-color: #ea4c4c;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 10px;
+}
+
+.container_card a:hover,
+.container_card a:focus {
+  background-color: #d59595;
+}
+
+.tootlip_month_payout {
+  margin: auto 0;
+}
+
+.tootlip_month_payout label {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 19px;
+}
+
+.tootlip_month_payout option,.tootlip_month_payout select {
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-size: 19px;
+}
+
+.tootlip_month_payout select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  font-size: 16px;
+  color: #000;
+  width: 220px;
+  height: 40px;
+  border: none;
+  background-color: #fff;
+  padding: 0 10px;
 }

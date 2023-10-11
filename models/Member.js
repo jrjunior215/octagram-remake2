@@ -171,6 +171,20 @@ Member.list = async (id_package) => {
 
 };
 
+Member.list_creator = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_creator = '${id_creator}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 Member.cancel = async (id_member) => {
 
   const queryString = `UPDATE memberships SET status = '0' WHERE id = '${id_member}';`

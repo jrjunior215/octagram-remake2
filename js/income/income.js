@@ -1,8 +1,7 @@
 const Income = require('../../models/Income');
 
 async function processIncome() {
-  const memberships = await Income.select();
-
+  const memberships = await Income.list();
   const creatorIncomeMap = new Map();
 
   let totalDeduction = 0;

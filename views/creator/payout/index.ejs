@@ -7,84 +7,252 @@
           <div class="container_withdraw">
             <div class="header_withdraw">
               <h1>ยอดเงินของคุณ</h1>
-              <span>฿ 500</span>
+              <span id="total_income_this_month">
+              </span>
               <div class="container_month">
                 <p class="header_month">รายได้ของเดือน</p>
                 <p id="new_id">เวลาปัจจุบัน</p>
               </div>
             </div>
             <div class="payout_method">
-              <a>เพิ่มวิธีการรับเงิน</a>
+              <% if (credits.length> 0) { %>
+                <div class="credit_edit">
+                  <a>แก้ไขบัญชี</a>
+                </div>
+                <% } else { %>
+                  <a>เพิ่มวิธีการรับเงิน</a>
+                  <% } %>
             </div>
           </div>
         </div>
 
-        <div class="container_card">
-          <div class="container_credit_icon">
-            <div class="credit_icon">
-              <img src="/img/blank_credit.png" alt="credit_pic">
+        <% if (credits.length> 0) { %>
+          <form class="container_card" method="POST" action="/credit/edit">
+            <div class="container_credit_icon">
+              <div class="credit_icon">
+                <img src="/img/blank_credit.png" alt="credit_pic">
+              </div>
+              <div class="creadit_header">
+                <h1>แก้ไขบัญชีธนาคาร</h1>
+              </div>
             </div>
-            <div class="creadit_header">
-              <h1>เพิ่มบัตรเครดิตของคุณ</h1>
+            <div class="credit_input">
+              <span>เลขบัญชี</span>
+              <input type="text" name="card_number" value="<%= credits[0].card_number %>" required>
             </div>
-          </div>
-          <div class="credit_input">
-            <span>เลขบัตรเครดิต</span>
-            <input type="text" name="card_number">
-          </div>
-          <div class="credit_detail">
-            <div class="credit_input_holder">
-              <span>ชื่อผู้ถือบัตรเครดิต</span>
-              <input type="text" name="card_holder">
+            <div class="credit_input">
+              <span>ชื่อบัญชี</span>
+              <input type="text" name="card_holder" value="<%= credits[0].card_holder %>" required>
             </div>
-            <div class="credit_input_date">
-              <span>วันหมดอายุ</span>
-              <input type="text" name="card_date">
+            <div class="credit_input">
+              <span>ชื่อธนาคาร</span>
+              <input type="text" name="card_bank" value="<%= credits[0].card_bank %>" required>
             </div>
-            <div class="credit_input_csv">
-              <span>CSV</span>
-              <input type="text" name="card_csv">
-            </div>
-          </div>
-        </div>
+            <input type="hidden" name="id_creator" value="<%= SESSION_USER.creator_id %>">
+            <button>แก้ไข</button>
+            <a>ยกเลิก</a>
+          </form>
+          <% } else { %>
+            <form class="container_card" method="POST" action="/credit/create">
+              <div class="container_credit_icon">
+                <div class="credit_icon">
+                  <img src="/img/blank_credit.png" alt="credit_pic">
+                </div>
+                <div class="creadit_header">
+                  <h1>เพิ่มบัญชีธนาคาร</h1>
+                </div>
+              </div>
+              <div class="credit_input">
+                <span>เลขบัญชี</span>
+                <input type="text" name="card_number" placeholder="กรุณากรอกเลขบัญชี" required>
+              </div>
+              <div class="credit_input">
+                <span>ชื่อบัญชี</span>
+                <input type="text" name="card_holder" placeholder="กรุณากรอกชื่อบัญชี" required>
+              </div>
+              <div class="credit_input">
+                <span>ชื่อธนาคาร</span>
+                <input type="text" name="card_bank" placeholder="กรุณากรอกชื่อธนาคาร" required>
+              </div>
+              <input type="hidden" name="id_creator" value="<%= SESSION_USER.creator_id %>">
+              <button>เพิ่ม</button>
+              <a>ยกเลิก</a>
+            </form>
+            <% } %>
 
-        <div class="container_payout_list">
+              <div class="payout_header_data">
+                <h1>รายงานยอด</h1>
+                <div class="tootlip_month_payout">
+                  <label for="month_select">เดือน</label>
+                  <select id="month_select">
+                    <option value="1">มกราคม</option>
+                    <option value="2">กุมภาพันธ์</option>
+                    <option value="3">มีนาคม</option>
+                    <option value="4">เมษายน</option>
+                    <option value="5">พฤษภาคม</option>
+                    <option value="6">มิถุนายน</option>
+                    <option value="7">กรกฎาคม</option>
+                    <option value="8">สิงหาคม</option>
+                    <option value="9">กันยายน</option>
+                    <option value="10">ตุลาคม</option>
+                    <option value="11">พฤศจิกายน</option>
+                    <option value="12">ธันวาคม</option>
+                  </select>
+                </div>
+              </div>
+              <hr>
+              <div class="container_payout_list">
 
-          <div class="payout_box">
-            <div class="payout_result">
-              <i class="fa-solid fa-user-plus icon_data_payout"></i>
-            </div>
-          </div>
+                <div class="payout_box">
+                  <div class="payout_header_result">
+                    <h4>สมาชิกที่สมัคร</h4>
+                    <i class="fa-solid fa-user-plus icon_data_payout"></i>
+                  </div>
+                  <div class="payout_topic_result">
+                    <h1 id="member_sub">0</h1>
+                    <span>คน</span>
+                  </div>
+                </div>
+                <div class="payout_box">
+                  <div class="payout_header_result">
+                    <h4>สมาชิกที่ยกเลิก</h4>
+                    <i class="fa-solid fa-user-minus icon_data_payout"></i>
+                  </div>
+                  <div class="payout_topic_result">
+                    <h1 id="member_unsub">0</h1>
+                    <span>คน</span>
+                  </div>
+                </div>
+                <div class="payout_box">
+                  <div class="payout_header_result">
+                    <h4>รายได้</h4>
+                    <i class="fa-solid fa-sack-dollar icon_data_payout"></i>
+                  </div>
+                  <div class="payout_topic_result">
+                    <h1 id="member_income"></h1>
+                  </div>
+                </div>
 
-        </div>
+              </div>
 
     </div>
   </div>
 </div>
 
 <script>
+
   document.addEventListener('DOMContentLoaded', function () {
+    var payoutMethod = document.querySelector('.payout_method a');
+    var containerCard = document.querySelector('.container_card');
+    var cancelButton = document.querySelector('.container_card a');
+
+    payoutMethod.addEventListener('click', function () {
+      containerCard.style.display = 'block';
+    });
+
+    cancelButton.addEventListener('click', function (event) {
+      event.preventDefault(); // ป้องกันการโหลดหน้าใหม่เมื่อคลิกลิงก์
+
+      var containerCard = document.querySelector('.container_card');
+      containerCard.style.display = 'none';
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var monthSelect = document.getElementById('month_select');
     var now = new Date();
-    var months = [
-      'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-      'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-    ];
-    var formattedDate = months[now.getMonth()];
+    var currentMonth = now.getMonth() + 1;
 
-    // Select the element by its id "new_id"
-    var elementWithNewId = document.querySelector('#new_id');
-
-    // Update the content of the selected element
-    elementWithNewId.textContent = formattedDate;
+    monthSelect.value = currentMonth;
   });
 
-  document.addEventListener('DOMContentLoaded', function() {
-  var payoutMethod = document.querySelector('.payout_method a');
-  var containerCard = document.querySelector('.container_card');
 
-  payoutMethod.addEventListener('click', function() {
-    containerCard.style.display = 'block';
+  document.addEventListener('DOMContentLoaded', function () {
+    var monthSelect = document.getElementById('month_select');
+
+    monthSelect.addEventListener('change', async function () {
+      var selectedMonth = monthSelect.value;
+      const responseIncome = await fetch('/income/creator');
+      const responseMember = await fetch('/member/creator/payout');
+      const incomes = await responseIncome.json();
+      const members = await responseMember.json();
+
+      const memberSubCount = members.filter(member => {
+        const createDate = new Date(member.create_date);
+        const createMonth = createDate.getMonth() + 1;
+        return createMonth == selectedMonth && member.status == 1;
+      }).length;
+
+      const memberUnsubCount = members.filter(member => {
+        const createDate = new Date(member.create_date);
+        const createMonth = createDate.getMonth() + 1;
+        return createMonth == selectedMonth && member.status == 0;
+      }).length;
+
+      const totalIncomeThisMonth = incomes.reduce((acc, income) => {
+        const incomeDate = new Date(income.date_income);
+        const incomeMonth = incomeDate.getMonth() + 1;
+
+        if (incomeMonth == selectedMonth) {
+          acc += income.total_income;
+        }
+
+        return acc;
+      }, 0);
+
+      const memberSubElement = document.getElementById('member_sub');
+      const memberUnsubElement = document.getElementById('member_unsub');
+      const totalIncomeElement = document.getElementById('member_income');
+
+      memberSubElement.textContent = memberSubCount.toString();
+      memberUnsubElement.textContent = memberUnsubCount.toString();
+      totalIncomeElement.textContent = `${totalIncomeThisMonth.toFixed(2)}`;
+    });
   });
-});
+
+
+  window.onload = async function () {
+    const responseIncome = await fetch('/income/creator');
+    const responseMember = await fetch('/member/creator/payout');
+    const incomes = await responseIncome.json();
+    const members = await responseMember.json();
+
+    const now = new Date();
+    const currentMonth = now.getMonth() + 1;
+
+    const totalIncomeThisMonth = incomes.reduce((acc, income) => {
+      const incomeDate = new Date(income.date_income);
+      const incomeMonth = incomeDate.getMonth() + 1;
+
+      if (incomeMonth === currentMonth) {
+        acc += income.total_income;
+      }
+
+      return acc;
+    }, 0);
+
+    const totalIncomeSpan = document.getElementById('total_income_this_month');
+    totalIncomeSpan.textContent = `฿ ${totalIncomeThisMonth.toFixed(2)}`;
+
+    const memberSubCount = members.filter(member => {
+      const createDate = new Date(member.create_date);
+      const createMonth = createDate.getMonth() + 1;
+      return createMonth === currentMonth && member.status === 1;
+    }).length;
+
+    const memberUnsubCount = members.filter(member => {
+      const createDate = new Date(member.create_date);
+      const createMonth = createDate.getMonth() + 1;
+      return createMonth === currentMonth && member.status === 0;
+    }).length;
+
+    const memberSubElement = document.getElementById('member_sub');
+    const memberUnsubElement = document.getElementById('member_unsub');
+    memberSubElement.textContent = memberSubCount.toString();
+    memberUnsubElement.textContent = memberUnsubCount.toString();
+
+    const totalIncomeElement = document.getElementById('member_income');
+    totalIncomeElement.textContent = `${totalIncomeThisMonth.toFixed(2)}`;
+  }
 
 </script>

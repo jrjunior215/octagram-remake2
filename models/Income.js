@@ -2,7 +2,7 @@ const dbConnection = require('../js/database');
 
 const Income = {};
 
-Income.select = async () => {
+Income.list = async () => {
   const queryString = `SELECT memberships.*, packages.package_name, packages.package_desc, packages.package_price, packages.package_date
   FROM memberships
   JOIN packages ON memberships.id_package = packages.id WHERE status = '1';`;
@@ -40,7 +40,7 @@ Income.create_octagram = async (totalDeduction) => {
   })
 };
 
-Income.select = async (id_creator) => {
+Income.select_creator = async (id_creator) => {
 
   const queryString = `SELECT * FROM creators_income WHERE id_creator = '${id_creator}'`
   return new Promise(function (resolve, reject) {
@@ -50,6 +50,7 @@ Income.select = async (id_creator) => {
       if (err) throw err;
     });
   })
+  
 };
 
 module.exports = Income;

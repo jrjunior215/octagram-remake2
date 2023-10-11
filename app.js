@@ -69,18 +69,12 @@ paypalCheck.processPaypalStatus();
 // ทุกๆวันที่ 1 ของทุกเดือน
 
 cron.schedule('0 0 1 * *', async () => {
-  const now = new Date();
-  const time = now.toLocaleTimeString();
-  console.log(time);
   await income.processIncome();
 });
 
 // ทุกๆเที่ยงวัน ของทุกวัน
 
 cron.schedule('0 12 * * *', async () => {
-  const now = new Date();
-  const time = now.toLocaleTimeString();
-  console.log(time);
   await paypalCheck.processPaypalStatus();
 });
 
@@ -144,6 +138,7 @@ const packageEditController = require('./controllers/views/creator/package/packa
 
 // POST PAGE
 const postTextController = require('./controllers/views/creator/post/postTextController');
+const postImageController = require('./controllers/views/creator/post/postImageController');
 
 // POST EDIT
 const textEditController = require('./controllers/views/creator/post/edit/textEditController');
@@ -179,6 +174,7 @@ const creatorEdit = require('./controllers/models/creator/creatorsEdit');
 
 // POST 
 const postText = require('./controllers/models/post/postText');
+const postImage = require('./controllers/models/post/postImage');
 
 // POST EDIT 
 const postEdit = require('./controllers/models/post/edit/postEdit');
@@ -195,6 +191,7 @@ const commentDelete = require('./controllers/models/comment/commentDelete');
 // MEMBERSHIP
 const memberCreatorList = require('./controllers/models/member/memberCreatorList');
 const memberCancel = require('./controllers/models/member/memberCancel');
+const memberCreatorPayout = require('./controllers/models/member/memberCreatorPayout');
 
 // CHECKOUT
 const checkoutController = require('./controllers/views/checkout/checkoutController');
@@ -204,6 +201,14 @@ const reorderWores = require('./controllers/models/reorder/reoderWores');
 // PAYPAL
 const paymentRoute = require('./controllers/models/payment/paypal_payment');
 
+// INCOME
+const IncomeCreator = require('./controllers/models/income/IncomeCreator');
+
+// CREDIT
+const creditCreate = require('./controllers/models/credit/creditCreate');
+const creditEdit = require('./controllers/models/credit/creditEdit');
+
+
 // CATEGORY
 const categoryCreate = require('./controllers/models/category/categoryCreate');
 const categoryCreatorEdit = require('./controllers/models/category/categoryCreatorEdit');
@@ -212,6 +217,7 @@ const categoryCreatorEdit = require('./controllers/models/category/categoryCreat
 const logIn = require('./middleware/logIn');
 const logout = require('./middleware/logOut');
 const logOut = require('./middleware/logOut');
+const { log } = require('console');
 
 // GET
 
@@ -275,6 +281,7 @@ app.get('/package/edit', logIn, packageEditController);
 
 // POST PAGE
 app.get('/post/text', logIn, postTextController);
+app.get('/post/image', logIn, postImageController);
 
 // POST EDIT
 app.get('/post/edit', logIn, textEditController);
@@ -301,6 +308,7 @@ app.get('/package/delete', logIn, packageDelete);
 
 // POST
 app.post('/post/data/create', logIn, postText);
+app.post('/post/img/create', logIn, postImage);
 
 // POST EDIT
 app.post('/post/edit/data', logIn, postEdit);
@@ -311,6 +319,12 @@ app.get('/post/delete', logIn, postDelete);
 // PAYPAL
 app.use('/paypal', paymentRoute);
 
+// INCOME
+app.get('/income/creator', logIn, IncomeCreator);
+
+// CREDIT
+app.post('/credit/create', logIn, creditCreate);
+app.post('/credit/edit', logIn, creditEdit);
 // COMMENT 
 app.post('/post/comment/create', logIn, commentCreate);
 app.post('/post/comment/edit', logIn, commentEdit);
@@ -320,6 +334,7 @@ app.get('/comments/:postId', logIn, commentController);
 // MEMBERSHIP
 app.get('/memberships/:id_package', logIn, memberCreatorList);
 app.get('/member/cancel', logIn, memberCancel);
+app.get('/member/creator/payout', logIn, memberCreatorPayout);
 
 // CATEGORY
 app.post('/category/create', logIn, categoryCreate);
