@@ -108,6 +108,7 @@ const memberListNav = require('./controllers/models/member/memberListNav');
 const settingAccountController = require('./controllers/views/home/settingAccountController');
 const creatorPackageController = require('./controllers/views/home/creator/creatorPackageController');
 const creatorAboutUserController = require('./controllers/views/home/creator/creatorAboutController');
+const searchCategoryController = require('./controllers/views/home/searchCategoryController');
 
 // CREATOR PAGE
 const creatorController = require('./controllers/views/creator/creatorController');
@@ -182,6 +183,9 @@ const postEdit = require('./controllers/models/post/edit/postEdit');
 // POST DELETE
 const postDelete = require('./controllers/models/post/delete/postDelete');
 
+// POST LIST
+const PostImageList = require('./controllers/models/post/PostImageList');
+
 // COMMENT
 const commentCreate = require('./controllers/models/comment/commentCreate');
 const commentController = require('./controllers/models/comment/commentController');
@@ -247,6 +251,7 @@ app.get('/setting/basic', logIn, settingController);
 app.get('/member/subscribe', logIn, memberSub);
 app.get('/member/navbar', logIn, memberListNav);
 app.get('/setting/account', logIn, settingAccountController);
+app.get('/search/category', logIn, searchCategoryController);
 
 // SEARCH
 app.get('/search/query', logIn, searchAutoCreatorController);
@@ -315,6 +320,9 @@ app.post('/post/edit/data', logIn, postEdit);
 
 // POST DELETE
 app.get('/post/delete', logIn, postDelete);
+
+// POST SELECT
+app.get('/post/img/list', logIn, PostImageList);
 
 // PAYPAL
 app.use('/paypal', paymentRoute);

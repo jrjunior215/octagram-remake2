@@ -565,3 +565,29 @@
 .tooltip_icon {
     margin-right: 10px;
 }
+
+/* รูป */
+
+.post_image_show {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .post_image_show img {
+    max-width: 100%;
+    max-height: 120px;
+    object-fit: contain;
+    background-color: #f4f4f4;
+    margin: 5px;
+    object-fit: contain;
+  }
+  
+  .post_image_show img:first-child {
+    width: 100%;
+    max-height: 600px;
+    order: -1;
+  }
+  

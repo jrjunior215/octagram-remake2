@@ -15,29 +15,28 @@ const upload = multer({ storage });
 module.exports = async (req, res) => {
     const middleware = upload.array('images');
     middleware(req, res, async (err) => {
-        if (err) {
-            console.error('Error uploading files:', err);
-            return res.status(500).json({ error: 'File upload failed' });
+        const image = req.files; 
+        const data = req.body;
+
+        if (data.permission.includes('ALL')) {
+            data.permission = ['ALL'];
+        } else {
+            data.permission = data.permission;
         }
 
-        const images = req.files;
+        if (!image || !image.length) { 
+            await Post.text(data);
+            res.redirect('/creator');
+        } else {
+            const postId = await Post.text(data);
 
-        if (!images || images.length === 0) {
-            return res.status(400).json({ error: 'No images uploaded' });
+            for (const img of image) {
+                const imageUrl = `/img/post/${img.filename}`;
+                await Post.image(postId, imageUrl);
+            }
+
+            res.redirect('/creator');
         }
-
-        try {
-            // Process the uploaded images here
-            // For example, you can save the file paths to your database
-
-            const imagePaths = images.map(image => `/img/post/${image.filename}`);
-            // Assuming you have a Post model and a function to save it
-            await Post.create({ images: imagePaths, ...req.body });
-
-            return res.status(200).json({ message: 'Images uploaded successfully' });
-        } catch (error) {
-            console.error('Error processing images:', error);
-            return res.status(500).json({ error: 'Image processing failed' });
-        }
+        
     });
 }

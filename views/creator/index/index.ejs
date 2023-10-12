@@ -1,14 +1,46 @@
 <script src="/js/comment/comment_creator.js"></script>
+<script>
+    async function fetchImagePost(id_post) {
+        const response = await fetch(`/post/img/list?id_post=${id_post}`);
+        const posts_image = await response.json();
+
+        const imageShow = document.getElementById(`image_show_${id_post}`);
+        if (posts_image.length > 0) {
+            posts_image.forEach(imageData => {
+                const img = document.createElement('img');
+                img.src = imageData.post_img;
+                img.alt = 'Post Image';
+                img.addEventListener('click', function () {
+                    expandImage(imageData.post_img);
+                });
+
+                imageShow.appendChild(img);
+            });
+        }
+    }
+
+    function expandImage(imageUrl) {
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="${imageUrl}" alt="Expanded Image">
+        </div>
+    `;
+        document.body.appendChild(modal);
+
+        const closeModal = modal.querySelector('.close-modal');
+        closeModal.addEventListener('click', function () {
+            modal.remove();
+        });
+    }
+</script>
 
 <div class="content">
     <div class="creator_page">
         <div class="bg_creator">
         </div>
-        <!-- <div class="bg_creator_img">
-            <div class="bg_image">
-                <img src="/img/bg.jpg" alt="">
-            </div>
-        </div> -->
         <div class="limit_creator_profile">
             <div class="creator_profile">
                 <div class="creator_content">
@@ -18,7 +50,8 @@
                             <%= SESSION_USER.creator_name %>
                         </span>
                         <span class="creators_desc">
-                            <%= SESSION_USER.creator_desc.length > 50 ? SESSION_USER.creator_desc.slice(0, 50) + '...' : SESSION_USER.creator_desc %>
+                            <%= SESSION_USER.creator_desc.length> 50 ? SESSION_USER.creator_desc.slice(0, 50) + '...' :
+                                SESSION_USER.creator_desc %>
                         </span>
                         <p>
                             <%= members.length %> Members <%= posts.length %> Posts
@@ -72,21 +105,20 @@
                         </div>
                         <hr>
                         <div class="post_feed">
-                            <% if (!posts[i].post_img) { %>
-
-                                <% } else { %>
-                                    <div class="post_img_feed">
-                                        <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                                    </div>
-                                    <% } %>
-                                        <div class="post_title_feed">
-                                            <span>
-                                                <%= posts[i].post_title %>
-                                            </span>
-                                        </div>
-                                        <div class="post_desc_feed">
-                                            <%- posts[i].post_desc %>
-                                        </div>
+                            <div class="container_post_image">
+                                <script>
+                                    fetchImagePost(`<%= posts[i].id %>`);
+                                </script>
+                                <div class="post_image_show" id="image_show_<%= posts[i].id %>"></div>
+                            </div>
+                            <div class="post_title_feed">
+                                <span>
+                                    <%= posts[i].post_title %>
+                                </span>
+                            </div>
+                            <div class="post_desc_feed">
+                                <%- posts[i].post_desc %>
+                            </div>
                         </div>
                         <div class="comment_user" id="commentPost_<%= posts[i].id %>">
 
@@ -171,7 +203,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="verify_creator_save">
-                                                    <input type="hidden" name="id_creator" value="<%=SESSION_USER.creator_id%>">
+                                                    <input type="hidden" name="id_creator"
+                                                        value="<%=SESSION_USER.creator_id%>">
                                                     <button class="btn_save">แก้ไข</button>
                                                 </div>
                                             </form>
@@ -294,5 +327,6 @@
             }
         });
     });
+
 
 </script>

@@ -20,7 +20,8 @@
             <div class="input_image_button">
               <label for="imageUpload" class="icon_container">
                 <span><i class="fa-regular fa-image img_icon"></i></span>
-                <input type="file" name="images" id="imageUpload" accept=".png, .jpeg" multiple style="display:none;">
+                <input type="file" name="images" id="imageUpload" accept=".png, .jpeg, .jpg" multiple
+                  style="display:none;">
               </label>
             </div>
           </div>
@@ -100,14 +101,8 @@
       var file = files[i];
       var ext = file.name.split('.').pop().toLowerCase();
 
-      if (ext !== 'png' && ext !== 'jpeg') {
-        alert("โปรดเลือกเฉพาะไฟล์ที่มีนามสกุล .png หรือ .jpeg");
-        this.value = null; // ล้างค่าที่เลือก
-        return;
-      }
-
-      if (existingImages.length + files.length > 10) {
-        alert("คุณสามารถเลือกได้ไม่เกิน 10 รูปภาพ");
+      if (ext !== 'png' && ext !== 'jpeg' && ext !== 'jpg') {
+        alert("โปรดเลือกเฉพาะไฟล์ที่มีนามสกุล .png, .jpeg หรือ .jpg");
         this.value = null; // ล้างค่าที่เลือก
         return;
       }

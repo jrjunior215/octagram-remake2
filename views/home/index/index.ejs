@@ -1,4 +1,41 @@
 <script src="/js/comment/comment_user.js"></script>
+<script>
+    async function fetchImagePost(id_post) {
+        const response = await fetch(`/post/img/list?id_post=${id_post}`);
+        const posts_image = await response.json();
+
+        const imageShow = document.getElementById(`image_show_${id_post}`);
+        if (posts_image.length > 0) {
+            posts_image.forEach(imageData => {
+                const img = document.createElement('img');
+                img.src = imageData.post_img;
+                img.alt = 'Post Image';
+                img.addEventListener('click', function () {
+                    expandImage(imageData.post_img);
+                });
+
+                imageShow.appendChild(img);
+            });
+        }
+    }
+
+    function expandImage(imageUrl) {
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="${imageUrl}" alt="Expanded Image">
+        </div>
+    `;
+        document.body.appendChild(modal);
+
+        const closeModal = modal.querySelector('.close-modal');
+        closeModal.addEventListener('click', function () {
+            modal.remove();
+        });
+    }
+</script>
 
 <div class="content">
     <div class="container_feed">
@@ -23,7 +60,11 @@
                                             <span class="post_creator_name">
                                                 <%= posts[i].creator_name %>
                                             </span>
-                                            <span class="post_time_feed_home"><%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %></span>
+                                            <span class="post_time_feed_home">
+                                                <%= new Date(posts[i].post_date).toLocaleString('en-US', {
+                                                    weekday: 'short' , year: 'numeric' , month: 'short' , day: 'numeric'
+                                                    , hour: 'numeric' , minute: 'numeric' }) %>
+                                            </span>
                                         </div>
                                     </a>
                                 </div>
@@ -33,21 +74,20 @@
                             </div>
                             <hr>
                             <div class="post_feed">
-                                <% if (!posts[i].post_img) { %>
-
-                                    <% } else { %>
-                                        <div class="post_img_feed">
-                                            <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                                        </div>
-                                        <% } %>
-                                            <div class="post_title_feed">
-                                                <span>
-                                                    <%= posts[i].post_title %>
-                                                </span>
-                                            </div>
-                                            <div class="post_desc_feed">
-                                                <%- posts[i].post_desc %>
-                                            </div>
+                                <div class="container_post_image">
+                                    <script>
+                                        fetchImagePost(`<%= posts[i].post_id %>`);
+                                    </script>
+                                    <div class="post_image_show" id="image_show_<%= posts[i].post_id %>"></div>
+                                </div>
+                                <div class="post_title_feed">
+                                    <span>
+                                        <%= posts[i].post_title %>
+                                    </span>
+                                </div>
+                                <div class="post_desc_feed">
+                                    <%- posts[i].post_desc %>
+                                </div>
                             </div>
                             <div class="comment_user" id="commentPost_<%= posts[i].post_id %>">
                             </div>

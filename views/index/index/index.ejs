@@ -1,0 +1,25 @@
+<div class="nav_container"></div>
+<div class="container_octagram">
+  <div class="container_bg">
+    <div class="container_box">
+      <div class="container_text">
+        <h1>OCTAGRAM</h1>
+        <p>Octagram ให้ความสำคัญกับผู้สร้างเนื้อหา ให้มีเครื่องมือที่จำเป็นสำหรับการเชื่อมต่อกับแฟนๆ อย่างน่าเชื่อถือ
+          พัฒนาชุมชนของเราและสร้างธุรกิจที่ยั่งยืน</p>
+        <ul>
+          <li><a href="/login" class="btn_reg">เริ่มต้น?</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class=container_announce>
+  <div class="creator_list" id="creatorList">
+    <% for(var i=0; i < creator.length; i++) { %>
+      <a href="/<%= creator[i].creator_name %>/look" class="creator_box">
+        <img src="<%= creator[i].img %>" alt="creator_profile">
+      </a>
+      <% } %>
+  </div>
+</div>

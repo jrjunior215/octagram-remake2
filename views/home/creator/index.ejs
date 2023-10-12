@@ -1,4 +1,41 @@
 <script src="/js/comment/comment_user.js"></script>
+<script>
+  async function fetchImagePost(id_post) {
+    const response = await fetch(`/post/img/list?id_post=${id_post}`);
+    const posts_image = await response.json();
+
+    const imageShow = document.getElementById(`image_show_${id_post}`);
+    if (posts_image.length > 0) {
+      posts_image.forEach(imageData => {
+        const img = document.createElement('img');
+        img.src = imageData.post_img;
+        img.alt = 'Post Image';
+        img.addEventListener('click', function () {
+          expandImage(imageData.post_img);
+        });
+
+        imageShow.appendChild(img);
+      });
+    }
+  }
+
+  function expandImage(imageUrl) {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+      <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <img src="${imageUrl}" alt="Expanded Image">
+      </div>
+  `;
+    document.body.appendChild(modal);
+
+    const closeModal = modal.querySelector('.close-modal');
+    closeModal.addEventListener('click', function () {
+      modal.remove();
+    });
+  }
+</script>
 
 <div class="content">
   <div class="creator_page">
@@ -13,7 +50,8 @@
               <%= creators[0].creator_name %>
             </span>
             <span class="creators_desc">
-              <%= creators[0].creator_desc.length > 50 ? creators[0].creator_desc.slice(0, 50) + '...' : creators[0].creator_desc %>
+              <%= creators[0].creator_desc.length> 50 ? creators[0].creator_desc.slice(0, 50) + '...' :
+                creators[0].creator_desc %>
             </span>
             <p>
               <%= members_all.length %> Members <%= posts_all.length %> Posts
@@ -22,9 +60,11 @@
         </div>
         <div class="post">
           <% if (!checks) { %>
-            <a href="/<%= creators[0].creator_name %>/packages?id_creator=<%= creators[0].id %>" class="btn_sub_creator">สมัคร</a>
+            <a href="/<%= creators[0].creator_name %>/packages?id_creator=<%= creators[0].id %>"
+              class="btn_sub_creator">สมัคร</a>
             <% } else { %>
-              <a href="/<%= creators[0].creator_name %>/packages?id_creator=<%= creators[0].id %>" class="btn_sub_update">อัพเดท</a>
+              <a href="/<%= creators[0].creator_name %>/packages?id_creator=<%= creators[0].id %>"
+                class="btn_sub_update">อัพเดท</a>
               <% } %>
                 <i id="tooltip_creator" class="material-icons">more_horiz</i>
         </div>
@@ -37,7 +77,7 @@
 
     <% if (!checks) { %>
 
-      <% if (packages.length > 0) { %>
+      <% if (packages.length> 0) { %>
 
         <div class="limit_package_preview">
           <div class="package_preview_header">
@@ -55,7 +95,8 @@
                   <div class="package_preview_price">
                     <span>฿ <%=packages[i].package_price%> / เดือน</span>
                   </div>
-                  <a href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">เข้าร่วม</a>
+                  <a
+                    href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">เข้าร่วม</a>
                   <div class="package_preview_desc">
                     <%-packages[i].package_desc%>
                   </div>
@@ -93,7 +134,11 @@
                             <span class="post_creator_name">
                               <%= creators[0].creator_name %>
                             </span>
-                            <span class="post_time_feed_home"><%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %></span>
+                            <span class="post_time_feed_home">
+                              <%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short' ,
+                                year: 'numeric' , month: 'short' , day: 'numeric' , hour: 'numeric' , minute: 'numeric'
+                                }) %>
+                            </span>
                           </div>
                         </div>
                         <div class="tooltip right">
@@ -102,21 +147,20 @@
                       </div>
                       <hr>
                       <div class="post_feed">
-                        <% if (!posts[i].post_img) { %>
-
-                          <% } else { %>
-                            <div class="post_img_feed">
-                              <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                            </div>
-                            <% } %>
-                              <div class="post_title_feed">
-                                <span>
-                                  <%= posts[i].post_title %>
-                                </span>
-                              </div>
-                              <div class="post_desc_feed">
-                                <%- posts[i].post_desc %>
-                              </div>
+                        <div class="container_post_image">
+                          <script>
+                            fetchImagePost(`<%= posts[i].id %>`);
+                          </script>
+                          <div class="post_image_show" id="image_show_<%= posts[i].id %>"></div>
+                        </div>
+                        <div class="post_title_feed">
+                          <span>
+                            <%= posts[i].post_title %>
+                          </span>
+                        </div>
+                        <div class="post_desc_feed">
+                          <%- posts[i].post_desc %>
+                        </div>
                       </div>
                       <div class="comment_user" id="commentPost_<%= posts[i].id %>">
                       </div>
@@ -150,7 +194,11 @@
                                     <span class="post_creator_name">
                                       <%= creators[0].creator_name %>
                                     </span>
-                                    <span class="post_time_feed_home"><%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %></span>
+                                    <span class="post_time_feed_home">
+                                      <%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short' ,
+                                        year: 'numeric' , month: 'short' , day: 'numeric' , hour: 'numeric' ,
+                                        minute: 'numeric' }) %>
+                                    </span>
                                   </div>
                                 </div>
                                 <div class="tooltip right">
@@ -159,21 +207,20 @@
                               </div>
                               <hr>
                               <div class="post_feed">
-                                <% if (!posts[i].post_img) { %>
-
-                                  <% } else { %>
-                                    <div class="post_img_feed">
-                                      <img src="<%= posts[i].post_img %>" id="zoomable-image">
-                                    </div>
-                                    <% } %>
-                                      <div class="post_title_feed">
-                                        <span>
-                                          <%= posts[i].post_title %>
-                                        </span>
-                                      </div>
-                                      <div class="post_desc_feed">
-                                        <%- posts[i].post_desc %>
-                                      </div>
+                                <div class="container_post_image">
+                                  <script>
+                                    fetchImagePost(`<%= posts[i].id %>`);
+                                  </script>
+                                  <div class="post_image_show" id="image_show_<%= posts[i].id %>"></div>
+                                </div>
+                                  <div class="post_title_feed">
+                                    <span>
+                                      <%= posts[i].post_title %>
+                                    </span>
+                                  </div>
+                                  <div class="post_desc_feed">
+                                    <%- posts[i].post_desc %>
+                                  </div>
                               </div>
                               <div class="comment_user" id="commentPost_<%= posts[i].id %>">
                               </div>
@@ -250,5 +297,5 @@
       }
     });
   });
-  
+
 </script>

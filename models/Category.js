@@ -100,4 +100,18 @@ Category.reset = async (id_creator) => {
 
 };
 
+Category.creator_list = async (id_category) => {
+
+  const queryString = `SELECT * FROM categories_creator JOIN creators ON categories_creator.id_creator = creators.id WHERE id_category = '${id_category}' `
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Category;

@@ -16,8 +16,28 @@
                         <span>รายละเอียด</span>
                         <textarea name="post_desc" id="textEditor"><%- posts[0].post_desc %></textarea>
                     </div>
+                    <!-- <div class="setting_grid">
+                        <div class="input_image_button">
+                            <label for="imageUpload" class="icon_container">
+                                <span><i class="fa-regular fa-image img_icon"></i></span>
+                                <input type="file" name="images" id="imageUpload" accept=".png, .jpeg, .jpg" multiple
+                                    style="display:none;">
+                            </label>
+                        </div>
+                    </div>
                     <div class="setting_grid">
-                        <a href="/post/image"><i class="fa-solid fa-camera fas_camera"></i></a>
+                        <div class="input_image_show" id="imagePreview">
+
+                        </div>
+                    </div> -->
+                    <div class="input_image_show" id="imagePreview">
+                        <% if (!posts_img) { %>
+
+                        <% } else { %>
+                            <% for(var i=0; i < posts_img.length; i++) { %>
+                                <img src="<%= posts_img[i].post_img %>" alt="image">
+                            <% } %>
+                        <% } %>
                     </div>
                     <div class="setting_grid">
                         <span>กำหนดสิทธิ์ในการเข้าถึงให้สมาชิกของคุณมองเห็นโพสต์</span>
@@ -99,5 +119,49 @@
             }
         });
     }
+
+    document.getElementById('imageUpload').addEventListener('change', function () {
+        var files = this.files;
+        var imagePreview = document.getElementById('imagePreview');
+        var existingImages = imagePreview.getElementsByTagName('img');
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var ext = file.name.split('.').pop().toLowerCase();
+
+            if (ext !== 'png' && ext !== 'jpeg' && ext !== 'jpg') {
+                alert("โปรดเลือกเฉพาะไฟล์ที่มีนามสกุล .png, .jpeg หรือ .jpg");
+                this.value = null; // ล้างค่าที่เลือก
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var imgContainer = document.createElement('div');
+                imgContainer.classList.add('imageContainer'); // เพิ่มคลาสเพื่อให้สามารถจัดการรูปได้
+
+                var img = document.createElement('img');
+                img.src = e.target.result;
+
+                imgContainer.appendChild(img);
+
+                var closeButton = document.createElement('button');
+                closeButton.classList.add('closeButton');
+                closeButton.innerHTML = 'x';
+
+                closeButton.addEventListener('click', function () {
+                    imgContainer.remove(); // ลบรูปที่ถูกคลิก
+                });
+
+                imgContainer.appendChild(closeButton);
+
+                imagePreview.appendChild(imgContainer);
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+
 
 </script>

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@600&display=swap');
 
 /*----------- Index -----------*/
 
@@ -6,7 +9,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 700px;
+  height: 80vh;
+  object-fit: cover;
+  background: url('/img/background_main.jpg') no-repeat center center fixed;
+  background-size: cover;
   background-color: #eee;
 }
 
@@ -17,7 +23,6 @@
   height: 300px;
   box-shadow: 2px;
   text-align: center;
-  /* background-color: #eee; */
 }
 
 .container_text {
@@ -28,19 +33,40 @@
   font-family: Montserrat-Bold;
   font-size: 110px;
   font-weight: 900;
+  -webkit-background-clip: text;
+  color: #ffffff;
+  animation: bounce 2s infinite;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 
 .container_text p {
   padding-top: 6px;
   padding-bottom: 30px;
   font-size: 15px;
   font-weight: 200;
-  color: rgb(82, 82, 82);
+  color: #4f4d4d;
+  /* สีข้อความทั่วไป */
+  font-family: 'Noto Sans Thai', sans-serif;
 }
 
 .btn_reg {
   background-color: #f54141;
+  /* สีปุ่ม */
   color: #fff;
+  /* สีข้อความบนปุ่ม */
   padding: 13px 25px;
   width: 300px;
   border: none;
@@ -49,13 +75,49 @@
   font-weight: 700;
   cursor: pointer;
   transition: .5s;
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.nav_container {
+  width: 100%;
+  height: 75px;
+  background-color: #c4c4c4;
+  backdrop-filter: blur(10px);
 }
 
 .container_announce {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 900px;
-  background-color: hsl(0, 88%, 77%);
+  height: 100vh;
+  background: rgb(110,89,128);
+  background: linear-gradient(113deg, rgba(110,89,128,1) 0%, rgba(229,223,231,1) 60%);
+  
+}
+
+.creator_list {
+  display: flex;
+  overflow: hidden; 
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse; 
+}
+
+
+.creator_box {
+  height: 400px;
+  width: 320px;
+  background-color: #4f4d4d;
+  margin: 20px;
+  overflow: hidden; 
+}
+
+.creator_box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
 }

@@ -17,10 +17,40 @@ Post.show = async (id_creator) => {
 };
 
 Post.text = async (data) => {
-
   const { post_title, post_desc, permission, id_creator } = data;
-  const queryString = `INSERT INTO posts(id_creator, post_title, post_desc, permission) 
-  VALUES("${id_creator}", "${post_title}", '${post_desc}', "${permission}")`
+  const queryString = `
+    INSERT INTO posts(id_creator, post_title, post_desc, permission) 
+    VALUES("${id_creator}", "${post_title}", '${post_desc}', "${permission}")
+  `;
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      const postId = rows.insertId;  // ดึง id ที่เพิ่มล่าสุด
+      resolve(postId);  // ส่งค่า id กลับ
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
+Post.image = async (postId, imageUrl) => {
+
+  const queryString = `INSERT INTO posts_img(id_post, post_img) 
+  VALUES("${postId}", "${imageUrl}")`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Post.image_list = async (id_post) => {
+
+  const queryString = `SELECT * FROM posts_img WHERE id_post = '${id_post}'`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
@@ -132,6 +162,20 @@ Post.post_edit = async (data) => {
 Post.delete = async (data) => {
 
   const queryString = `DELETE FROM posts WHERE id='${data}'`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Post.delete_image = async (data) => {
+
+  const queryString = `DELETE FROM posts_img WHERE id_post = '${data}'`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {

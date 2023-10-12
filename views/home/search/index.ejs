@@ -20,9 +20,9 @@
 
             <div class="search_list_category">
                 <% for(var i=0; i < categories.length; i++) { %>
-                    <span class="list_item_cateogry">
+                    <a href="/search/category?name=<%= categories[i].category_name %>&id_category=<%= categories[i].id %>" class="list_item_cateogry">
                         <%= categories[i].category_name %>
-                    </span>
+                    </a>
                     <% } %>
             </div>
         </div>

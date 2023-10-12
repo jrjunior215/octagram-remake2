@@ -1,0 +1,79 @@
+<div class="content">
+    <div class="container_search">
+        <div class="limit_search">
+            <div class="header_search">
+                <i class="fa-solid fa-magnifying-glass search_icons"></i>
+                <span>ค้นหาครีเอเตอร์ของคุณ</span>
+            </div>
+            <div class="search_input">
+                <div class="search_input_limiter">
+                    <i class="fa-solid fa-magnifying-glass search_icons_input"></i>
+                    <input class="search_text" type="text" name="search" id="autosearch"
+                        placeholder="<%= placeholder %>" autocomplete="off">
+                    <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
+                </div>
+            </div>
+
+            <div class="search_content_limit">
+                <div class="search_content" id="search_content">
+                </div>
+            </div>
+
+            <div class="search_list_category">
+                <% for(var i=0; i < categories.length; i++) { %>
+                    <a href="/search/category?name=<%= categories[i].category_name %>&id_category=<%= categories[i].id %>"
+                        class="list_item_cateogry">
+                        <%= categories[i].category_name %>
+                    </a>
+                    <% } %>
+            </div>
+            <div class="container_creator_category">
+                <h1>
+                    <%= placeholder %>
+                </h1>
+                <div class="creator_cate_list">
+                    <% for(var i=0; i < cate_creator.length; i++) { %>
+                        <a href="/<%= cate_creator[i].creator_name %>" class="creator_cate_box">
+                            <div class="creator_cate_img">
+                                <img src="<%= cate_creator[i].img %>" alt="creator_profile">
+                            </div>
+                            <div class="creator_cate_info">
+                                <span class="creator_name_cate"><%= cate_creator[i].creator_name %></span>
+                                <span class="creator_desc_cate"><%=cate_creator[i].creator_desc.length > 50 ? cate_creator[i].creator_desc.slice(0, 50) + '...' : cate_creator[i].creator_desc %></span>
+                            </div>
+                        </a>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function clearSearchInput() {
+        var searchInput = document.getElementById("autosearch");
+        var clearIcon = document.querySelector(".x_icon");
+        var search_content = document.getElementById("search_content");
+        search_content.classList.remove("show_content");
+        searchInput.value = ""; // Clear the input value
+        clearIcon.style.display = "none";
+    }
+
+    function toggleClearIcon() {
+        var searchInput = document.getElementById("autosearch");
+        var clearIcon = document.querySelector(".x_icon");
+
+        if (searchInput.value.trim() !== "") {
+            clearIcon.style.display = "inline";
+        } else {
+            clearIcon.style.display = "none";
+        }
+    }
+
+    // Call toggleClearIcon initially and add input event listener
+    toggleClearIcon();
+    document.getElementById("autosearch").addEventListener("input", toggleClearIcon);
+
+
+</script>
