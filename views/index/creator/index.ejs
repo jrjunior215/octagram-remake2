@@ -1,0 +1,38 @@
+<!-- <div class="nav_container"></div> -->
+<div class="container_octagram">
+  <div class="container_creator">
+    <div class="search_input">
+      <div class="search_input_limiter">
+        <i class="fa-solid fa-magnifying-glass search_icons_input"></i>
+        <input class="search_text" type="text" name="search" id="autosearch" autocomplete="off">
+        <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function clearSearchInput() {
+      var searchInput = document.getElementById("autosearch");
+      var clearIcon = document.querySelector(".x_icon");
+      var search_content = document.getElementById("search_content");
+      search_content.classList.remove("show_content");
+      searchInput.value = ""; // Clear the input value
+      clearIcon.style.display = "none";
+  }
+
+  function toggleClearIcon() {
+      var searchInput = document.getElementById("autosearch");
+      var clearIcon = document.querySelector(".x_icon");
+
+      if (searchInput.value.trim() !== "") {
+          clearIcon.style.display = "inline";
+      } else {
+          clearIcon.style.display = "none";
+      }
+  }
+  
+  toggleClearIcon();
+  document.getElementById("autosearch").addEventListener("input", toggleClearIcon);
+</script>

@@ -1,0 +1,282 @@
+.container_search {
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_search span {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.limit_search {
+  position: relative;
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.header_search {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3vh;
+}
+
+.header_search span {
+  font-size: 30px;
+  margin: 10px;
+}
+
+.search_icons {
+  font-size: 50px;
+}
+
+.search_input {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search_input_limiter {
+  width: 90%;
+  height: auto;
+  position: relative;
+}
+
+/* .search_input .x_icon {
+    display: none;
+} */
+
+.x_icon {
+  font-size: 18px;
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  height: 90%;
+  cursor: pointer;
+  color: #666666;
+  padding: 10px;
+  border-radius: 15px;
+  background: #e6e6e6;
+}
+
+.x_icon:hover {
+  font-weight: 700px;
+  color: #202020;
+}
+
+.search_icons_input {
+  font-size: 21px;
+  position: absolute;
+  top: 11px;
+  left: 15px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  color: #666666;
+}
+
+.search_text {
+  font-family: Poppins-Medium;
+  font-size: 15px;
+  color: #666666;
+  height: 45px;
+  background: #e6e6e6;
+  border-radius: 20px;
+  padding: 0 15px 0 50px;
+  border: 1px;
+  width: 100%;
+}
+
+/* Search Content */
+.search_content_limit {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.search_content {
+  display: none;
+  position: absolute;
+  margin-top: 10px;
+  width: 84%;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.search_content.show_content {
+  display: block;
+}
+
+.profile_search {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.search_result {
+  position: relative;
+  margin: 3px;
+  height: 60px;
+  width: 95%;
+}
+
+.center_data {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nodata {
+  font-size: 21px;
+}
+
+.search_result a {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  border: 0px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.search_result a:hover {
+  background-color: #dfdfdf;
+}
+
+.search_result img {
+  margin-left: 10px;
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.search_result span {
+  margin-left: 13px;
+}
+
+.creator_info {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.creator_name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #202020;
+}
+
+.creator_desc {
+  font-size: 11px;
+}
+
+.search_list_category {
+  width: 100%;
+  margin: 30px 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search_list_category a {
+  color: #202020;
+}
+
+.list_item_cateogry {
+  font-size: 14px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  border: 1px solid #adaaaa;
+  padding: 5px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+.list_item_cateogry:hover {
+  background-color: #c4c4c4;
+}
+
+.container_creator_category {
+  width: 100%;
+  margin: 30px 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.creator_cate_list {
+  width: 80%;
+  height: auto;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+}
+
+.creator_cate_box {
+  padding: 5px;
+  border-radius: 20px;
+  margin: 2px 0;
+  display: flex;
+}
+
+.creator_cate_box:hover {
+  background-color: #e8e3e3;
+}
+
+.creator_cate_img {
+  height: 100%;
+  margin: auto 0;
+}
+
+.creator_cate_img img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.creator_cate_info {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 20px;
+  height: 100%;
+}
+
+.creator_cate_info span {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.creator_name_cate {
+  font-size: 15px;
+  color: #000;
+}
+
+.creator_desc_cate {
+  font-size: 10px;
+  color: #8f8a8a;
+}

@@ -88,6 +88,7 @@ cron.schedule('0 12 * * *', async () => {
 
 // INDEX PAGE
 const indexController = require('./controllers/views/index/indexController');
+const creatorHomeController = require('./controllers/views/index/creatorPageController');
 
 // AUTH PAGE
 const loginController = require('./controllers/views/auth/loginController');
@@ -227,7 +228,7 @@ const { log } = require('console');
 
 // INDEX PAGE
 app.get('/', logout, indexController);
-
+app.get('/creator/page', logout, creatorHomeController)
 // AUTH PAGE
 app.get('/login', logout, loginController);
 app.get('/register', logout, registerController);

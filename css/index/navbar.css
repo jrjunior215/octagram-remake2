@@ -29,11 +29,11 @@ nav a {
     position: fixed;
     top: 0;
     z-index: 1;
-    background-color: #ffffff;
+    background: linear-gradient(transparent 0%, transparent 100%);
     color: #000000;
     padding: 15px;
     width: 100%;
-    border-bottom: 1px solid rgb(196, 196, 196);
+    backdrop-filter: blur(10px); 
 }
 
 .navbar_container {
@@ -55,7 +55,8 @@ nav a {
 
 .nav_links li a {
     font-family: 'Noto Sans Thai', sans-serif;
-    color: #000000;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .nav_icon {

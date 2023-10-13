@@ -1,4 +1,4 @@
-<div class="nav_container"></div>
+<!-- <div class="nav_container"></div> -->
 <div class="container_octagram">
   <div class="container_bg">
     <div class="container_box">
@@ -17,9 +17,15 @@
 <div class=container_announce>
   <div class="creator_list" id="creatorList">
     <% for(var i=0; i < creator.length; i++) { %>
-      <a href="/<%= creator[i].creator_name %>/look" class="creator_box">
-        <img src="<%= creator[i].img %>" alt="creator_profile">
-      </a>
+      <div class="container_creator_nav">
+        <div class="creator_content">
+          <h1><%= creator[i].creator_name %></h1>
+          <h2><i class="fa-solid fa-right-long"></i></h2>
+        </div>
+        <a href="/<%= creator[i].creator_name %>/look" class="creator_box">
+          <img src="<%= creator[i].img %>" alt="creator_profile">
+        </a>
+      </div>
       <% } %>
   </div>
 </div>

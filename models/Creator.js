@@ -73,6 +73,21 @@ Creator.all = async () => {
 
 };
 
+Creator.all_index = async () => {
+
+    const queryString = `SELECT * FROM creators LIMIT 7`
+
+    return new Promise(function (resolve, reject) {
+        dbConnection.execute(queryString).then(async ([rows]) => {
+            resolve(rows);
+        }).catch(err => {
+            if (err) throw err;
+        });
+    })
+
+};
+
+
 Creator.all_reg = async () => {
 
     const queryString = `SELECT * FROM creators WHERE status = '0'`
