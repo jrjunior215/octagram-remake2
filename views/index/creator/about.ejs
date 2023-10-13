@@ -1,0 +1,242 @@
+<div class="content">
+  <div class="creator_page">
+    <div class="bg_creator">
+    </div>
+    <div class="limit_creator_profile">
+      <div class="creator_profile">
+        <div class="creator_content">
+          <img src="<%= SESSION_USER.creator_img %>" alt="">
+          <div class="creator_detail">
+            <span class="creators_name">
+              <%= SESSION_USER.creator_name %>
+            </span>
+            <span class="creators_desc">
+              <%= SESSION_USER.creator_desc.length > 50 ? SESSION_USER.creator_desc.slice(0, 50) + '...' : SESSION_USER.creator_desc %>
+            </span>
+            <p>
+              <%= members.length %> Members <%= posts.length %> Posts
+            </p>
+          </div>
+        </div>
+        <div class="post">
+          <a class="btn_post" id="click_post"><i class="fa-solid fa-pen-to-square fa-lg fas"></i>Create</a>
+          <i id="tooltip_creator" class="material-icons">more_horiz</i>
+        </div>
+      </div>
+    </div>
+    <div class="limit_navbar">
+      <%- include('./navbar.ejs')%>
+    </div>
+
+    <div class="content_about_limit">
+      <div class="content_about">
+        <div class="container_category">
+          <div class="header_category">
+            <h1>หมวดหมู่</h1>
+            <a id="category_edit">
+              <i class="fa-solid fa-pen-to-square category_edit"></i>
+            </a>
+          </div>
+          <hr>
+          <div class="list_category">
+            <% for(var i=0; i < categories.length; i++) { %>
+              <span class="item_cateogry">
+                <%= categories[i].category_name %>
+              </span>
+              <% } %>
+          </div>
+          <form class="container_category_search" method="POST" action="/category/edit">
+            <textarea type="text" name="category" id="categoryTextArea"></textarea>
+            <div id="selectedCategories"></div>
+            <div class="category_search" id="category_search"></div>
+            <input type="hidden" value="<%= SESSION_USER.creator_id %>" name="id_creator">
+            <div class="sumbit_category">
+              <button><i class="fa-solid fa-check"></i></button>
+              <a href=""><i class="fa-solid fa-x"></i></a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const categoryEditLink = document.getElementById('category_edit');
+    const listCategory = document.querySelector('.list_category');
+    const containerCategorySearch = document.querySelector('.container_category_search');
+    let isListCategoryVisible = true; // เพิ่มตัวแปร flag
+
+    categoryEditLink.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      if (isListCategoryVisible) {
+        listCategory.style.display = 'none';
+        containerCategorySearch.style.display = 'block';
+      } else {
+        listCategory.style.display = 'block';
+        containerCategorySearch.style.display = 'none';
+      }
+
+      isListCategoryVisible = !isListCategoryVisible; // สลับค่า flag
+    });
+  });
+  
+  // Handling category selection
+  document.addEventListener('DOMContentLoaded', function () {
+    const categoryTextarea = document.querySelector('textarea[name="category"]');
+    const selectedCategories = new Set();
+    const categoryTextArea = document.getElementById('categoryTextArea');
+    const resultContainer = document.getElementById('category_search');
+
+    window.onload = function () {
+      // เรียกใช้ fetch เพื่อดึงข้อมูล category จากเซิร์ฟเวอร์
+      fetch(`/category/creator?creator_id=<%= SESSION_USER.creator_id %>`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          data.forEach(item => {
+            selectedCategories.add({
+              id: item.id,
+              name: item.category_name
+            });
+            updateCategoryTextarea();
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    };
+
+    categoryTextarea.addEventListener('input', function () {
+      const query = this.value.trim();
+
+      if (query) {
+        fetch('/category/query?data_query=' + query)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              resultContainer.style.display = 'block';
+              resultContainer.innerHTML = '';
+
+              const list = document.createElement('ul');
+
+              data.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item.category_name;
+
+                listItem.addEventListener('click', function () {
+                  const categoryId = item.id;
+                  if (!Array.from(selectedCategories).some(category => category.id === categoryId)) {
+                    selectedCategories.add({
+                      id: item.id,
+                      name: item.category_name
+                    });
+                    updateCategoryTextarea();
+                  }
+                  categoryTextarea.value = '';
+                  resultContainer.style.display = 'none';
+                });
+
+                list.appendChild(listItem);
+              });
+
+              resultContainer.appendChild(list);
+            } else {
+              resultContainer.style.display = 'none';
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      } else {
+        resultContainer.style.display = 'none';
+      }
+    });
+
+    function removeCategory(category) {
+      selectedCategories.delete(category);
+      updateCategoryTextarea();
+      renderSelectedCategories();
+    }
+
+    function updateCategoryTextarea() {
+      categoryTextarea.value = '';
+      renderSelectedCategories();
+      resultContainer.style.display = 'none';
+    }
+
+    function renderSelectedCategories() {
+      const selectedContainer = document.getElementById('selectedCategories');
+      selectedContainer.innerHTML = '';
+
+      selectedCategories.forEach(category => {
+        const categoryItem = document.createElement('div');
+        categoryItem.classList.add('item_cateogry');
+
+        const categoryName = document.createElement('span');
+        categoryName.textContent = category.name;
+
+        const removeButton = document.createElement('span');
+        removeButton.classList.add('category_remove_button');
+        removeButton.textContent = 'x';
+        removeButton.addEventListener('click', () => removeCategory(category));
+
+        categoryItem.appendChild(categoryName);
+        categoryItem.appendChild(removeButton);
+        selectedContainer.appendChild(categoryItem);
+
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'id_category';
+        hiddenInput.value = category.id;
+        selectedContainer.appendChild(hiddenInput);
+      });
+
+      categoryTextarea.addEventListener('input', function () {
+        resultContainer.style.display = 'block';
+        const query = this.value.trim();
+
+        if (query) {
+          fetch('/category/query?data_query=' + query)
+            .then(response => response.json())
+            .then(data => {
+              if (data.length > 0) {
+                resultContainer.innerHTML = '';
+
+                const list = document.createElement('ul');
+
+                data.forEach(item => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = item.category_name;
+
+                  listItem.addEventListener('click', function () {
+                    const categoryId = item.id;
+                    if (!Array.from(selectedCategories).some(category => category.id === categoryId)) {
+                      selectedCategories.add({
+                        id: item.id,
+                        name: item.category_name
+                      });
+                      updateCategoryTextarea();
+                    }
+                    categoryTextarea.value = '';
+                    resultContainer.style.display = 'none';
+                  });
+
+                  list.appendChild(listItem);
+                });
+
+                resultContainer.appendChild(list);
+              } else {
+                resultContainer.style.display = 'none';
+              }
+            })
+            .catch(error => console.error('Error:', error));
+        } else {
+          resultContainer.style.display = 'none';
+        }
+      });
+    }
+
+  });
+
+</script>

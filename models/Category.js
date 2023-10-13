@@ -21,7 +21,7 @@ Category.create = async (data) => {
 };
 
 Category.admin = async () => {
-  const queryString = `SELECT * FROM categories JOIN users ON categories.id_admin = users.id ORDER BY categories.id DESC`
+  const queryString = `SELECT *,categories.id AS id_category FROM categories JOIN users ON categories.id_admin = users.id ORDER BY categories.id DESC`
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {
       resolve(rows);
@@ -103,6 +103,36 @@ Category.reset = async (id_creator) => {
 Category.creator_list = async (id_category) => {
 
   const queryString = `SELECT * FROM categories_creator JOIN creators ON categories_creator.id_creator = creators.id WHERE id_category = '${id_category}' `
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Category.edit = async (data) => {
+
+  const { category_name_edit, id_category } = data;
+
+  const queryString = `UPDATE categories SET category_name = '${category_name_edit}' WHERE id = '${id_category}';`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Category.delete = async (id_creator) => {
+
+  const queryString = `DELETE FROM categories WHERE id = '${id_creator}'`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {

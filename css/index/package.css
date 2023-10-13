@@ -1,0 +1,517 @@
+.limit_package_page {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.limit_package_page span {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.package_page {
+    margin-top: 3vh;
+    width: 60%;
+    height: auto;
+}
+
+.package_title {
+    width: 100%;
+}
+
+.package_title h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.nav_setting.active {
+    color: #000000;
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 2px solid #c4c4c4;
+}
+
+.package_page nav {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.package_page ul {
+    display: flex;
+}
+
+.package_page ul li {
+    margin-right: 20px;
+}
+
+.package_page ul li a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    border-radius: 0;
+}
+
+.package_list_box {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px;
+}
+
+.package_list_header {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.package_list_title span {
+    font-size: 25px;
+}
+
+.package_list_preview a {
+    border-radius: 10px;
+    border: 1px solid #d2cece;
+    padding: 10px;
+    color: #8a8282;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 15px;
+}
+
+.fa-note {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.package_item {
+    border-radius: 5px;
+    border: 1px solid #d2cece;
+    padding: 10px 10px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.package_price span {
+    color: #454545;
+    font-size: 20px;
+}
+
+.package_member span {
+    color: #cac6c6;
+}
+
+.package_name {
+    margin-top: 10px;
+}
+
+.package_name span {
+    font-size: 13px;
+    color: #646060;
+}
+
+.edit_package {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.edit_package a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #345dbe;
+    text-decoration: underline;
+}
+
+.package_add {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.package_add a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    background-color: #345dbe;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.package_add a:hover {
+    background-color: #1947b3;
+}
+
+.package_create_header {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.package_create_title span {
+    font-size: 25px;
+}
+
+.package_create_preview a {
+    border-radius: 10px;
+    border: 1px solid #d2cece;
+    padding: 10px;
+    color: #8a8282;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 15px;
+}
+
+.fa-note {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.package_creator_box {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.package_creator_box span {
+    font-size: 15px;
+}
+
+.package_creator_box input {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #dfdfdf;
+    width: 100%;
+}
+
+.package_creator_box textarea {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #dfdfdf;
+    width: 100%;
+}
+
+.btn_submit button {
+    font-family: 'Noto Sans Thai', sans-serif;
+    border: 1px;
+    background-color: #345dbe;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn_submit button:hover {
+    background-color: #1947b3;
+}
+
+.btn_goback_package {
+    font-family: 'Noto Sans Thai', sans-serif;
+    border: 1px;
+    background-color: #cbcccf;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #312f2f;
+    cursor: pointer;
+}
+
+.btn_goback_package:hover {
+    background-color: #babcc1
+}
+
+.price-input {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.price-input input[type="number"]::-webkit-inner-spin-button,
+.price-input input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.price-input input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+    appearance: textfield;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: right;
+    padding: 10px;
+}
+
+.price-input:before {
+    content: '฿';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.price-input input[type="number"]::after {
+    content: '.00';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.package_no_item {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.package_no_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.fa-mark-x {
+    margin-bottom: 10px;
+    font-size: 50px;
+}
+
+.package_no_title_text {
+    font-size: 30px;
+}
+
+.package_no_title_desc {
+    color: #b1adad;
+    font-size: 15px;
+}
+
+.btn_sub {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 15px;
+    padding: 13px;
+    background-color: #22549F;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px #6d6d6d;
+}
+
+.limit_package_preview {
+    margin-top: 5vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.package_preview_header {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.package_preview_header span {
+    font-size: 30px;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.package_preview_list {
+    display: flex;
+    flex-wrap: wrap;
+    /* Add this property to wrap items to a new line */
+    justify-content: center;
+}
+
+.package_preview_item {
+    margin: 0 10px;
+    margin-top: 4vh;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    width: 500px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    min-height: 500px;
+}
+
+.package_preview_name span {
+    font-size: 20px;
+    color: #524e4e;
+}
+
+.package_preview_price {
+    margin: 5px 0 10px 0;
+}
+
+.package_preview_price span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.package_preview_desc {
+    margin: 10px 0 5px 0;
+}
+
+.package_preview_desc span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+}
+
+.package_preview_item a {
+    padding: 8px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    background-color: #22549F;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px #6d6d6d;
+    width: 100%;
+    text-align: center;
+}
+
+.package_preview_item a:hover {
+    background-color: #3e6eb6;
+}
+
+/* Remove the default list styles */
+.package_preview_desc ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the list items */
+.package_preview_desc li {
+    position: relative;
+    margin-left: 30px;
+    line-height: 1.5;
+    padding-left: 5px;
+}
+
+.package_preview_desc li::before {
+    content: "•";
+    position: absolute;
+    left: -20px;
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.container_pop_up {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 3;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    transition: opacity 0.3s ease; 
+}
+
+.pop_up{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(1px);
+}
+
+.pop_up_confirm {
+    position: relative;
+    width: auto;
+    height: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 20px;
+}
+
+.container_pop_up.show_popup_package {
+    display: block;
+    opacity: 1; 
+}
+
+.header_popup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_popup_title span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 21px;
+}
+
+.pop_up_confirm hr {
+    padding: 0;
+}
+
+.content_popup span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 15px;
+    color: #6d6d6d;
+}
+
+.option_popup button{
+    font-family: 'Noto Sans Thai', sans-serif;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 5px 10px;
+    border: 1px solid #e4dede;
+    color: #fff;
+    cursor: pointer;
+}
+
+.close_popup {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%; 
+}
+
+.close_popup:hover {
+ color: #3b3b3b;
+ background-color: #c4c4c4;
+}
+
+.yes_popup {
+    background-color: #1A56DB;
+}
+
+.yes_popup:hover {
+    background-color: #3e71dd;
+}
+
+.no_popup {
+    background-color: #E02424;
+}
+
+.no_popup:hover {
+    background-color: #db5b5b;
+}
+
+.no-packages-message span{
+    font-size: 20px;
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #5c5858;
+}

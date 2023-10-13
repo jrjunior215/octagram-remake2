@@ -53,4 +53,17 @@ Income.select_creator = async (id_creator) => {
   
 };
 
+Income.octagram = async () => {
+
+  const queryString = `SELECT * FROM octagram_income`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+  
+};
+
 module.exports = Income;

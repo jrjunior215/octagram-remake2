@@ -2,6 +2,25 @@
     <div class="limit_member_page">
         <div class="member_page">
             <%- include('./navbar.ejs')%>
+            <div class="header_data_member">
+
+                <a href="/admin/members" class="data_box">
+                  <h2>บัญชี</h2>
+                  <span class="data_form"><%= users.length %></span>
+                  <span class="data_suffix">บัญชี</span>
+                </a>
+                <a href="/admin/members/creator" class="data_box">
+                  <h2>คริเอเตอร์</h2>
+                  <span class="data_form"><%= creators.length %></span>
+                  <span class="data_suffix">คริเอเตอร์</span>
+                </a>
+                <a href="/admin/members/reg_creator" class="data_box">
+                  <h2>รอตรวจสอบ</h2>
+                  <span class="data_form"><%= creator_regs.length %></span>
+                  <span class="data_suffix">บัญชี</span>
+                </a>
+
+            </div>
                 <table>
                     <thead>
                         <tr>

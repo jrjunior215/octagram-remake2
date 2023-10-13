@@ -88,7 +88,11 @@ cron.schedule('0 12 * * *', async () => {
 
 // INDEX PAGE
 const indexController = require('./controllers/views/index/indexController');
-const creatorHomeController = require('./controllers/views/index/creatorPageController');
+const indexPageController = require('./controllers/views/index/indexPageController');
+const indexCategoryController = require('./controllers/views/index/indexCategoryController');
+const indexsearchCategoryController  = require('./controllers/views/index/searchCategoryController');
+const IndexCreator = require('./controllers/views/index/IndexCreator');
+
 
 // AUTH PAGE
 const loginController = require('./controllers/views/auth/loginController');
@@ -120,6 +124,7 @@ const settingCreatorController = require('./controllers/views/creator/settingCre
 const memberCreator = require('./controllers/models/member/memberCreator');
 const creatorAboutController = require('./controllers/views/creator/creatorAboutController');
 const categoryCreator = require('./controllers/models/category/categoryCreator');
+const adminSettingController = require('./controllers/views/admin/adminSettingController');
 
 // ADMIN PAGE
 const adminController = require('./controllers/views/admin/adminController');
@@ -132,6 +137,7 @@ const categoryAdmin = require('./controllers/models/category/categoryAdmin');
 const adminMemberNewCreatorController = require('./controllers/views/admin/adminMemberNewCreatorController');
 const memberAdminNewCreator = require('./controllers/models/member/memberAdminNewCreator');
 const adminMemberCheckController = require('./controllers/views/admin/adminMemberCheckController');
+const adminsettingAccountController = require('./controllers/views/admin/adminsettingAccountController');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -155,9 +161,11 @@ const searchAutoCategoryController = require('./controllers/models/category/cate
 const registerUserController = require('./controllers/models/auth/registerUserController');
 const loginUserController = require('./controllers/models/auth/loginUserController');
 const userPasswordChange = require('./controllers/models/profile/userPasswordChange');
+const adminPasswordChange = require('./controllers/models/profile/adminPasswordChange');
 
 // PROFILE UPDATE
 const profileUser = require('./controllers/models/profile/profileUser');
+const profileAdmin = require('./controllers/models/profile/profileAdmin');
 const profileCreator = require('./controllers/models/profile/profileCreator');
 
 // CREATOR
@@ -208,15 +216,17 @@ const paymentRoute = require('./controllers/models/payment/paypal_payment');
 
 // INCOME
 const IncomeCreator = require('./controllers/models/income/IncomeCreator');
+const IncomeOctagram = require('./controllers/models/income/incomeOctagram');
 
 // CREDIT
 const creditCreate = require('./controllers/models/credit/creditCreate');
 const creditEdit = require('./controllers/models/credit/creditEdit');
 
-
 // CATEGORY
 const categoryCreate = require('./controllers/models/category/categoryCreate');
 const categoryCreatorEdit = require('./controllers/models/category/categoryCreatorEdit');
+const categoryAdminEdit = require('./controllers/models/category/categoryAdminEdit');
+const categoryAdminDelete = require('./controllers/models/category/categoryAdminDelete');
 
 // MIDDLEWARE
 const logIn = require('./middleware/logIn');
@@ -228,7 +238,10 @@ const { log } = require('console');
 
 // INDEX PAGE
 app.get('/', logout, indexController);
-app.get('/creator/page', logout, creatorHomeController)
+app.get('/creator/page', logout, indexPageController);
+app.get('/category/page', logout, indexCategoryController);
+app.get('/category/name', logout, indexsearchCategoryController);
+
 // AUTH PAGE
 app.get('/login', logout, loginController);
 app.get('/register', logout, registerController);
@@ -255,7 +268,7 @@ app.get('/setting/account', logIn, settingAccountController);
 app.get('/search/category', logIn, searchCategoryController);
 
 // SEARCH
-app.get('/search/query', logIn, searchAutoCreatorController);
+app.get('/search/query', searchAutoCreatorController);
 app.get('/category/query', logIn, searchAutoCategoryController);
 
 // CREATOR PAGE
@@ -267,6 +280,8 @@ app.get('/setting/creator', logIn, settingCreatorController);
 app.get('/member/creator', logIn, memberCreator);
 app.get('/creator/about', logIn, creatorAboutController);
 app.get('/category/creator', logIn, categoryCreator);
+app.get('/admin/setting', logIn, adminSettingController);
+app.get('/admin/setting/account', logIn, adminsettingAccountController);
 
 // ADMIN PAGE
 app.get('/dashboard', logIn, adminController);
@@ -298,8 +313,10 @@ app.post('/login/user', loginUserController);
 
 // PROFILE UPDATE
 app.post('/profile/user/update', logIn, profileUser);
+app.post('/profile/admin/update', logIn, profileAdmin);
 app.post('/profile/creator/update', profileCreator);
 app.post('/profile/user/password', logIn, userPasswordChange);
+app.post('/profile/admin/password', logIn, adminPasswordChange);
 
 // CREATOR
 app.post('/creator/create', logIn, newCreatorController);
@@ -323,22 +340,24 @@ app.post('/post/edit/data', logIn, postEdit);
 app.get('/post/delete', logIn, postDelete);
 
 // POST SELECT
-app.get('/post/img/list', logIn, PostImageList);
+app.get('/post/img/list', PostImageList);
 
 // PAYPAL
 app.use('/paypal', paymentRoute);
 
 // INCOME
 app.get('/income/creator', logIn, IncomeCreator);
+app.get('/income/octagram', logIn, IncomeOctagram);
 
 // CREDIT
 app.post('/credit/create', logIn, creditCreate);
 app.post('/credit/edit', logIn, creditEdit);
+
 // COMMENT 
 app.post('/post/comment/create', logIn, commentCreate);
 app.post('/post/comment/edit', logIn, commentEdit);
 app.get('/post/comment/delete', logIn, commentDelete)
-app.get('/comments/:postId', logIn, commentController);
+app.get('/comments/:postId', commentController);
 
 // MEMBERSHIP
 app.get('/memberships/:id_package', logIn, memberCreatorList);
@@ -346,8 +365,10 @@ app.get('/member/cancel', logIn, memberCancel);
 app.get('/member/creator/payout', logIn, memberCreatorPayout);
 
 // CATEGORY
-app.post('/category/create', logIn, categoryCreate);
+app.post('/admin/category/create', logIn, categoryCreate);
 app.post('/category/edit', logIn, categoryCreatorEdit);
+app.post('/admin/category/edit', logIn, categoryAdminEdit);
+app.get('/admin/category/delete', logIn, categoryAdminDelete);
 
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController);
@@ -358,6 +379,7 @@ app.get('/checkout/reorder_better/:creator_name', logIn, reorderBetter);
 app.get('/:creator_name', logIn, creatorPageController);
 app.get('/:creator_name/packages', logIn, creatorPackageController);
 app.get('/:creator_name/about', logIn, creatorAboutUserController);
+app.get('/:creator_name/look', logout, IndexCreator);
 
 
 // SET POST LISTEN

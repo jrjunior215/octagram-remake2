@@ -1,0 +1,157 @@
+<script src="/js/comment/comment_creator.js"></script>
+<script>
+    async function fetchImagePost(id_post) {
+        const response = await fetch(`/post/img/list?id_post=${id_post}`);
+        const posts_image = await response.json();
+
+        const imageShow = document.getElementById(`image_show_${id_post}`);
+        if (posts_image.length > 0) {
+            posts_image.forEach(imageData => {
+                const img = document.createElement('img');
+                img.src = imageData.post_img;
+                img.alt = 'Post Image';
+                img.addEventListener('click', function () {
+                    expandImage(imageData.post_img);
+                });
+
+                imageShow.appendChild(img);
+            });
+        }
+    }
+
+    function expandImage(imageUrl) {
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="${imageUrl}" alt="Expanded Image">
+        </div>
+    `;
+        document.body.appendChild(modal);
+
+        const closeModal = modal.querySelector('.close-modal');
+        closeModal.addEventListener('click', function () {
+            modal.remove();
+        });
+    }
+</script>
+
+<div class="content">
+    <div class="creator_page">
+        <div class="bg_creator">
+        </div>
+        <div class="limit_creator_profile">
+            <div class="creator_profile">
+                <div class="creator_content_page">
+                    <img src="<%= creators[0].img %>" alt="img">
+                    <div class="creator_detail">
+                        <span class="creators_name">
+                            <%= creators[0].creator_name %>
+                        </span>
+                        <span class="creators_desc">
+                            <%= creators[0].creator_desc.length> 50 ? creators[0].creator_desc.slice(0, 50) + '...' :
+                            creators[0].creator_desc %>
+                        </span>
+                        <p>
+                            <%= members_all.length %> Members <%= posts_all.length %> Posts
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="limit_navbar">
+            <%- include('./navbar.ejs')%>
+        </div>
+
+        <% if (packages.length> 0) { %>
+
+            <div class="limit_package_preview">
+              <div class="package_preview_header">
+                <span>สมัครเข้าร่วมเป็นสมาชิกกับเรา!</span>
+              </div>
+              <div class="package_preview_list">
+                <% if (packages.length> 0) { %>
+                  <% for(var i=0; i < packages.length; i++) { %>
+                    <div class="package_preview_item">
+                      <div class="package_preview_name">
+                        <span>
+                          <%=packages[i].package_name%>
+                        </span>
+                      </div>
+                      <div class="package_preview_price">
+                        <span>฿ <%=packages[i].package_price%> / เดือน</span>
+                      </div>
+                      <a
+                        href="/checkout/<%= creators[0].creator_name %>?id_package=<%=packages[i].id%>&id_creator=<%= creators[0].id %>">เข้าร่วม</a>
+                      <div class="package_preview_desc">
+                        <%-packages[i].package_desc%>
+                      </div>
+                    </div>
+                    <% } %>
+                      <%} else { %>
+                        <div class="no-packages-message">No packages available.</div>
+                        <% } %>
+              </div>
+            </div>
+    
+            <% } else { %>
+    
+              <div class="limit_package_preview">
+                <div class="package_preview_header">
+                  <span>ยินดีต้อนรับสู่ <%= creators[0].creator_name %></span>
+                </div>
+              </div>
+    
+              <% } %>
+
+        <div class="content_feed_limit">
+            <div class="content_feed">
+                <% for(var i=0; i < posts.length; i++) { %>
+                    <div class="box_feed">
+                        <div class="header_creator_feed">
+                            <div class="creator_feed left">
+                                <img src="<%= creators[0].img %>">
+                                <div class="creator_info">
+                                    <span class="post_creator_name">
+                                        <%= creators[0].creator_name %>
+                                    </span>
+                                    <span class="post_time_feed_home">
+                                        <%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short' ,
+                                            year: 'numeric' , month: 'short' , day: 'numeric' , hour: 'numeric' ,
+                                            minute: 'numeric' }) %>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="post_feed">
+                            <div class="container_post_image">
+                                <script>
+                                    fetchImagePost(`<%= posts[i].id %>`);
+                                </script>
+                                <div class="post_image_show" id="image_show_<%= posts[i].id %>"></div>
+                            </div>
+                            <div class="post_title_feed">
+                                <span>
+                                    <%= posts[i].post_title %>
+                                </span>
+                            </div>
+                            <div class="post_desc_feed">
+                                <%- posts[i].post_desc %>
+                            </div>
+                        </div>
+                        <div class="comment_user" id="commentPost_<%= posts[i].id %>">
+
+                        </div>
+                        <script>
+                            fetchComments(`<%= posts[i].id %>`, `<%= creators[0].creator_id %>`);
+                        </script>
+                        <hr>
+                    </div>
+                    <% } %>
+            </div>
+        </div>
+
+    </div>
+</div>

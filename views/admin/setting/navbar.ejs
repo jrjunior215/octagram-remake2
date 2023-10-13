@@ -1,0 +1,26 @@
+<div class="setting_title">
+    <h1>ตั้งค่า</h1>
+</div>
+<nav>
+    <ul>
+        <li><a href="/admin/setting" class="nav_setting">ทั่วไป</a></li>
+        <li><a href="/admin/setting/account" class="nav_setting">บัญชี</a></li>
+    </ul>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navSetting = document.querySelectorAll('.nav_setting');
+
+        const currentPath = window.location.pathname;
+
+        // Check each navigation link's href attribute against the current URL pathname
+        navSetting.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+    });
+</script>

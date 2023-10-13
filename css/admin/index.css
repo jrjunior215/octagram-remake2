@@ -53,8 +53,18 @@ main {
 .header_data_dashboard {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start; /* เรียงจากซ้ายไปขวา */
+    justify-content: flex-start;
+    /* เรียงจากซ้ายไปขวา */
 }
+
+.header_data_member {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* เรียงจากซ้ายไปขวา */
+    justify-content: center;
+}
+
 
 .data_box {
     background-color: #fff;
@@ -62,9 +72,12 @@ main {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 8px;
     padding: 15px;
-    width: calc(25% - 20px); /* 4 กล่องในแต่ละแถว (ลบ 20px ออก) */
-    margin: 0 10px; /* เพิ่มระยะห่าง 20px */
-    margin-bottom: 20px; /* เพิ่มระยะห่าง 20px */
+    width: calc(25% - 20px);
+    /* 4 กล่องในแต่ละแถว (ลบ 20px ออก) */
+    margin: 0 10px;
+    /* เพิ่มระยะห่าง 20px */
+    margin-bottom: 20px;
+    /* เพิ่มระยะห่าง 20px */
     box-sizing: border-box;
 }
 
@@ -80,19 +93,23 @@ main {
 }
 
 .data_box:nth-child(1) {
-    border-bottom: 3px solid #FF5733; /* สีส้ม */
+    border-bottom: 3px solid #FF5733;
+    /* สีส้ม */
 }
 
 .data_box:nth-child(2) {
-    border-bottom: 3px solid #3498db; /* สีน้ำเงิน */
+    border-bottom: 3px solid #3498db;
+    /* สีน้ำเงิน */
 }
 
 .data_box:nth-child(3) {
-    border-bottom: 3px solid #e7e13c; /* สีแดง */
+    border-bottom: 3px solid #e7e13c;
+    /* สีแดง */
 }
 
 .data_box:nth-child(4) {
-    border-bottom: 3px solid #2ecc71; /* สีเขียว */
+    border-bottom: 3px solid #2ecc71;
+    /* สีเขียว */
 }
 
 .data_form {
@@ -112,13 +129,25 @@ main {
     }
 
     .data_box {
-        width: calc(100% - 20px); /* กล่องเต็มแถว */
-        margin-right: 0; /* ไม่ต้องมีระยะห่างด้านขวา */
+        width: calc(100% - 20px);
+        /* กล่องเต็มแถว */
+        margin-right: 0;
+        /* ไม่ต้องมีระยะห่างด้านขวา */
     }
 }
 
 .header_data_box {
     margin-top: 20px;
+}
+
+.header_content {
+    display: flex;
+    align-items: center;
+}
+
+.header_icon {
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .header_data_box h1 {
@@ -131,4 +160,71 @@ main {
     background-color: #e5e5e5;
     border: none;
     margin: 10px 0;
+}
+
+.graph_report {
+    width: 100%;
+    display: flex;
+}
+
+.container_graph {
+    background-color: #fff;
+    border: 1px solid #e9e7e7;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    padding: 20px;
+    width: 70%;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+.box_graph {
+    background-color: #fff;
+    border: 1px solid #e9e7e7;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    padding: 20px;
+    width: 30%;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+.container_income_octagram {
+    background-color: #fefefe;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.header_income_octagram {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header_income_octagram span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.header_income_octagram span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 25px;
+}
+
+.content_income_octagram {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.content_income_octagram span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 35px;
+    color: #cac0c0;
+}
+
+#income_now {
+    font-size: 70px;
+    color: #76cf9b;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }

@@ -1,0 +1,51 @@
+<div class="content_category">
+    <div class="container_search_category">
+        <div class="limit_search_category">
+
+            <div class="header_search_category">
+                <span>หมวดหมู่คริเอเตอร์</span>
+            </div>
+
+            <div class="search_list_category">
+                <% for(var i=0; i < categories.length; i++) { %>
+                    <a href="/category/name?name=<%= categories[i].category_name %>&id_category=<%= categories[i].id %>"
+                        class="list_item_cateogry">
+                        <%= categories[i].category_name %>
+                    </a>
+                    <% } %>
+            </div>
+            <div class="margin_top_category"></div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function clearSearchInput() {
+        var searchInput = document.getElementById("autosearch");
+        var clearIcon = document.querySelector(".x_icon");
+        var search_content = document.getElementById("search_content");
+        search_content.classList.remove("show_content");
+        searchInput.value = ""; // Clear the input value
+        clearIcon.style.display = "none";
+    }
+
+    function toggleClearIcon() {
+        var searchInput = document.getElementById("autosearch");
+        var clearIcon = document.querySelector(".x_icon");
+
+        if (searchInput.value.trim() !== "") {
+            clearIcon.style.display = "inline";
+        } else {
+            clearIcon.style.display = "none";
+        }
+    }
+
+    // Call toggleClearIcon initially and add input event listener
+    toggleClearIcon();
+    document.getElementById("autosearch").addEventListener("input", toggleClearIcon);
+
+
+</script>

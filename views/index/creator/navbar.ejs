@@ -1,0 +1,21 @@
+<div class="navbar">
+  <a href="/<%= creators[0].creator_name %>/look" class="nav_creator">Home</a>
+  <a href="/<%= creators[0].creator_name %>/look/about" class="nav_creator">About</a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const navSetting = document.querySelectorAll('.nav_creator');
+
+      const currentPath = window.location.pathname;
+
+      // Check each navigation link's href attribute against the current URL pathname
+      navSetting.forEach(link => {
+          const linkHref = link.getAttribute('href');
+          if (linkHref === currentPath) {
+              link.classList.add('active');
+          }
+      });
+
+  });
+</script>

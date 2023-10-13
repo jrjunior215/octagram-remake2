@@ -90,6 +90,20 @@ Post.show_check2 = async (id_creator) => {
 
 };
 
+Post.show_list_all = async (id_creator) => {
+
+  const queryString = `SELECT * FROM posts WHERE id_creator = '${id_creator}' AND permission = 'ALL' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 Post.feed = async (id_user) => {
 
   const queryString = `SELECT * FROM memberships WHERE id_user = '${id_user}' AND ` + `status` + ` = '1' ORDER BY id DESC`

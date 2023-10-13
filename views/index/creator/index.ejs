@@ -1,11 +1,77 @@
 <!-- <div class="nav_container"></div> -->
 <div class="container_octagram">
   <div class="container_creator">
-    <div class="search_input">
-      <div class="search_input_limiter">
-        <i class="fa-solid fa-magnifying-glass search_icons_input"></i>
-        <input class="search_text" type="text" name="search" id="autosearch" autocomplete="off">
-        <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
+
+    <div class="cotnainer_search">
+
+      <div class="limit_search">
+        <div class="header_search">
+          <span>ค้นหาครีเอเตอร์ของคุณ</span>
+        </div>
+        <div class="search_input">
+          <div class="search_input_limiter">
+            <i class="fa-solid fa-magnifying-glass search_icons_input"></i>
+            <input class="search_text" type="text" name="search" id="autosearch" autocomplete="off">
+            <i class="fa-solid fa-x x_icon" onclick="clearSearchInput()"></i>
+          </div>
+        </div>
+
+        <div class="search_content_limit">
+          <div class="search_content" id="search_content">
+          </div>
+        </div>
+      </div>
+
+      <div class="lmiter_search_bottom"></div>
+
+    </div>
+
+    <div class="container_creator_list">
+      <div class="slideshow-container">
+        <div class="slideshow">
+          <div class="slide">
+            <img src="/img/slide/1.jpg" alt="Slide 1">
+            <div class="craetor_search_name">
+              <img src="/img/slide/pro_1.jpg" alt="">
+              <h1>ยินดีต้อนรับ ทุกคน!</h1>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="/img/slide/2.jpg" alt="Slide 2">
+            <div class="craetor_search_name">
+              <img src="/img/slide/pro_2.jpg" alt="">
+              <h1>Hello everyone!</h1>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="/img/slide/3.jpg" alt="Slide 3">
+            <div class="craetor_search_name">
+              <img src="/img/slide/pro_3.jpg" alt="">
+              <h1>안녕하세요</h1>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="/img/slide/4.jpg" alt="Slide 4">
+            <div class="craetor_search_name">
+              <img src="/img/slide/pro_4.jpg" alt="">
+              <h1>안녕하세요</h1>
+            </div>
+          </div>
+          <div class="slide">
+            <img src="/img/slide/5.jpg" alt="Slide 5">
+            <div class="craetor_search_name">
+              <img src="/img/slide/pro_5.jpg" alt="">
+              <h1>Mba'éichapa</h1>
+            </div>
+          </div>
+        </div>
+        <div class="dots-container">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
       </div>
     </div>
 
@@ -14,25 +80,126 @@
 
 <script>
   function clearSearchInput() {
-      var searchInput = document.getElementById("autosearch");
-      var clearIcon = document.querySelector(".x_icon");
-      var search_content = document.getElementById("search_content");
-      search_content.classList.remove("show_content");
-      searchInput.value = ""; // Clear the input value
-      clearIcon.style.display = "none";
+    var searchInput = document.getElementById("autosearch");
+    var clearIcon = document.querySelector(".x_icon");
+    var search_content = document.getElementById("search_content");
+    search_content.classList.remove("show_content");
+    searchInput.value = ""; // Clear the input value
+    clearIcon.style.display = "none";
   }
 
   function toggleClearIcon() {
-      var searchInput = document.getElementById("autosearch");
-      var clearIcon = document.querySelector(".x_icon");
+    var searchInput = document.getElementById("autosearch");
+    var clearIcon = document.querySelector(".x_icon");
 
-      if (searchInput.value.trim() !== "") {
-          clearIcon.style.display = "inline";
-      } else {
-          clearIcon.style.display = "none";
-      }
+    if (searchInput.value.trim() !== "") {
+      clearIcon.style.display = "inline";
+    } else {
+      clearIcon.style.display = "none";
+    }
   }
-  
+
   toggleClearIcon();
   document.getElementById("autosearch").addEventListener("input", toggleClearIcon);
+
+  async function load_data(query = '') {
+
+    let search_content = document.getElementById('search_content');
+
+    if (query === '') {
+      search_content.classList.remove("show_content");
+
+    } else {
+
+      search_content.classList.add("show_content");
+      await fetch('/search/query?data_query=' + query + '').then(response => response.json())
+        .then(data => {
+          function truncateDescription(description) {
+            const maxLength = 50; // Set the maximum length for the description
+
+            if (description.length > maxLength) {
+              return description.slice(0, maxLength) + '...';
+            }
+
+            return description;
+          }
+
+          var html = '<ul class="profile_search">';
+
+          if (data.length > 0) {
+            for (var count = 0; count < data.length; count++) {
+              html += '<li class="search_result">';
+              html += '<a href="/' + data[count].creator_name + '/look">';
+              html += '<img src="' + data[count].img + '" alt="">';
+              html += '<div class="creator_info">';
+              html += '<span class="creator_name">' + data[count].creator_name + '</span>';
+              html += '<span class="creator_desc">' + truncateDescription(data[count].creator_desc) + '</span>';
+              html += '</div>';
+              html += '</a>';
+              html += '</li>';
+            }
+          }
+          else {
+            html += '<li class="search_result">';
+            html += '<div class="center_data">';
+            html += '<span class="nodata">ไม่พบคริเอเตอร์ของคุณ.</span>';
+            html += '</div>';
+            html += '</li>';
+          }
+
+          html += '</ul>';
+
+          const search_content = $("#search_content");
+          search_content.empty();
+          search_content.append(html);
+
+        })
+    }
+
+  }
+
+  var search_element = document.getElementById("autosearch");
+  var search_content = document.getElementById("search_content");
+
+  search_element.onkeyup = async function () {
+    console.log("Test")
+    var query = search_element.value;
+    await load_data(query);
+
+    // Check if the input value is empty
+    if (query.trim() === '') {
+      search_content.classList.remove("show_content");
+    }
+  };
+
+  search_element.onfocus = async function () {
+    var query = search_element.value;
+    await load_data(query);
+
+    // Check if the input value is empty
+    if (query.trim() === '') {
+      search_content.classList.remove("show_content");
+    }
+  };
+
+  let slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+
+    // Hide all slides and remove active-dot class from all dots
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      dots[i].classList.remove("active-dot");
+    }
+
+    slideIndex++;
+    if (slideIndex > slides.length) { slideIndex = 1 }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].classList.add("active-dot");
+
+    setTimeout(showSlides, 2000); // 2 seconds
+  }
 </script>

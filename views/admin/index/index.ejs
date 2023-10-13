@@ -9,7 +9,10 @@
       </div>
 
       <div class="header_data_box">
-        <h1>สมาชิก</h1>
+        <div class="header_content">
+          <h1>สมาชิก</h1>
+          <i class="fa-solid fa-users header_icon"></i>
+        </div>
         <hr>
       </div>
 
@@ -17,24 +20,62 @@
 
         <a href="/admin/members" class="data_box">
           <h2>บัญชี</h2>
-          <span class="data_form"><%= users.length %></span>
+          <span class="data_form">
+            <%= users.length %>
+          </span>
           <span class="data_suffix">บัญชี</span>
         </a>
         <a href="/admin/members/creator" class="data_box">
           <h2>คริเอเตอร์</h2>
-          <span class="data_form"><%= creators.length %></span>
+          <span class="data_form">
+            <%= creators.length %>
+          </span>
           <span class="data_suffix">คริเอเตอร์</span>
         </a>
         <a href="/admin/members/reg_creator" class="data_box">
           <h2>รอตรวจสอบ</h2>
-          <span class="data_form"><%= creator_regs.length %></span>
+          <span class="data_form">
+            <%= creator_regs.length %>
+          </span>
           <span class="data_suffix">บัญชี</span>
         </a>
         <a href="" class="data_box">
           <h2>สมาชิกรายเดือน</h2>
-          <span class="data_form"><%= members.length %></span>
+          <span class="data_form">
+            <%= members.length %>
+          </span>
           <span class="data_suffix">สมาชิก</span>
         </a>
+
+      </div>
+
+      <div class="header_data_box">
+        <div class="header_content">
+          <h1>รายงาน</h1>
+          <i class="fa-solid fa-chart-simple header_icon"></i>
+        </div>
+        <hr>
+      </div>
+
+      <div class="graph_report">
+
+        <div class="container_graph">
+          <canvas id="incomeChart"></canvas>
+        </div>
+        <div class="box_graph">
+
+          <div class="container_income_octagram">
+            <div class="header_income_octagram">
+              <span>รายได้</span>
+              <span><i class="fa-solid fa-bars"></i></span>
+            </div>
+            <div class="content_income_octagram">
+              <span>฿</span>
+              <span id="income_now"></span>
+            </div>
+          </div>
+
+        </div>
 
       </div>
 
@@ -43,5 +84,68 @@
 </div>
 
 <script>
-  
+  window.onload = async function () {
+    const response = await fetch('/income/octagram');
+    incomelist = await response.json();
+
+    const monthsData = [
+      { month: 'มกราคม', income: 0 },
+      { month: 'กุมภาพันธ์', income: 0 },
+      { month: 'มีนาคม', income: 0 },
+      { month: 'เมษายน', income: 0 },
+      { month: 'พฤษภาคม', income: 0 },
+      { month: 'มิถุนายน', income: 0 },
+      { month: 'กรกฎาคม', income: 0 },
+      { month: 'สิงหาคม', income: 0 },
+      { month: 'กันยายน', income: 0 },
+      { month: 'ตุลาคม', income: 0 },
+      { month: 'พฤศจิกายน', income: 0 },
+      { month: 'ธันวาคม', income: 0 },
+    ];
+
+    incomelist.forEach(item => {
+      const date = new Date(item.date_income);
+      const month = date.getMonth();
+      monthsData[month].income += item.income;
+    });
+
+    const ctx = document.getElementById('incomeChart').getContext('2d');
+
+    const labels = monthsData.map(item => item.month);
+    const data = monthsData.map(item => item.income);
+
+    const config = {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'รายได้',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    const myChart = new Chart(ctx, config);
+
+    // หาว่านี้เดือนปัจจุบันคือเดือนที่เท่าไหร่
+    const today = new Date();
+    const currentMonth = today.getMonth();
+
+    // คำนวณรายได้ของเดือนปัจจุบัน
+    const currentMonthIncome = monthsData[currentMonth].income;
+
+    // นำรายได้ของเดือนปัจจุบันไปแสดงใน HTML
+    const incomeNowElement = document.getElementById('income_now');
+    incomeNowElement.textContent = `${currentMonthIncome}`;
+  }
 </script>

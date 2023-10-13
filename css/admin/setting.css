@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.container_page_setting {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container_setting {
+    margin-top: 3vh;
+    width: 40%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.setting_box {
+    width: 100%;
+    height: auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.setting_profile {
+    display: grid;
+}
+
+.setting_profile img {
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.btn_upload {
+    height: 40px;
+    width: 120px;
+    border: 1px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #eeeeee;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+}
+
+.btn_upload:hover {
+    background-color: #d8d8d8;
+}
+
+.btn_upload::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.btn_save {
+    padding: 10px 20px 10px 20px;
+    width: auto;
+    border: 1px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #1e3c7e;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.btn_save:hover {
+    background-color: #4866a7;
+}
+
+.upload_pic {
+    width: 100%;
+    display: flex;
+}
+
+.setting_grid {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.setting_box input {
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #dfdfdf;
+    width: 100%;
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.setting {
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.setting_title {
+    width: 100%;
+    margin: 10px;
+}
+
+.setting_title h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.nav_setting.active {
+    width: 100%;
+    border-radius: 0;
+    border-bottom: 2px solid #c4c4c4;
+}
+
+.setting nav {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.setting ul {
+    display: flex;
+}
+
+.setting ul li {
+    margin-right: 20px  ;
+}
+
+.setting ul li a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    border-radius: 0;
+}
+
+.old_img {
+    display: block;
+}
+
+.new_img {
+    display: none;
+}
+
+.alert_error_span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: red;
+    margin-bottom: 20px;
+}
