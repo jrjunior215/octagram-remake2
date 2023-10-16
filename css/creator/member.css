@@ -131,3 +131,32 @@ tbody tr td {
   color: #fff;
   background-color: #4CAF50;
 }
+
+.container_member_all {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.data_box {
+  background-color: #fff;
+  border: 1px solid #e9e7e7;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 8px;
+  padding: 15px;
+  width: calc(25% - 20px);
+  margin: 0 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.data_box h2 {
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-family: 'Noto Sans Thai', sans-serif;
+  color: #454444;
+}
+
+.data_box span {
+  font-family: 'Noto Sans Thai', sans-serif;
+}

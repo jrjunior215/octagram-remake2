@@ -262,4 +262,32 @@ Member.reoder = async (id_creator, id_package, id_user, agreementId, nextBilling
   });
 };
 
+Member.status_active = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_creator = '${id_creator}' AND status = '1' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Member.status_cancel = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_creator = '${id_creator}' AND status = '0' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
 module.exports = Member;

@@ -2,6 +2,33 @@
   <div class="limit_member_page">
     <div class="member_page">
       <%- include('./navbar.ejs')%>
+
+      <div class="container_member_all">
+
+        <div href="/admin/members" class="data_box">
+            <h2>สมาชิกทั้งหมด</h2>
+            <span class="data_form">
+              <%= member.length %>
+            </span>
+            <span class="data_suffix">บัญชี</span>
+        </div>
+        <div href="/admin/members" class="data_box">
+            <h2>สมาชิกที่ใช้งาน</h2>
+            <span class="data_form">
+              <%= status_active.length %>
+            </span>
+            <span class="data_suffix">บัญชี</span>
+        </div>
+        <div href="/admin/members" class="data_box">
+            <h2>สมาชิกที่ยกเลิก</h2>
+            <span class="data_form">
+              <%= status_cancel.length %>
+            </span>
+            <span class="data_suffix">บัญชี</span>
+        </div>
+
+      </div>
+
         <table>
           <thead>
             <tr>

@@ -144,7 +144,7 @@
       }
     });
   });
-  
+
   document.getElementById('backButton').addEventListener('click', function () {
     window.history.back();
   });
@@ -155,7 +155,9 @@
     const cancelButton = document.getElementById('cancel-button');
 
     const file = fileInput.files[0];
-    if (file) {
+    const allowedExtensions = /(\.png|\.jpeg|\.jpg)$/i; // Regular expression for allowed extensions
+
+    if (file && allowedExtensions.exec(file.name)) {
       const reader = new FileReader();
       reader.onload = function (e) {
         image.src = e.target.result;
@@ -163,9 +165,13 @@
       };
       reader.readAsDataURL(file);
     } else {
-      imagePreview.src = '/img/creator_img.png';
+      alert("Please select a valid PNG, JPEG, or JPG file.");
+      fileInput.value = ''; // Reset the input value
+      image.src = '/img/creator_img.png'; // Set the image source back to default
+      cancelButton.style.display = 'none'; // Hide the cancel button
     }
   }
+
 
   function cancelUpload() {
     const image = document.getElementById('profile-image1');
