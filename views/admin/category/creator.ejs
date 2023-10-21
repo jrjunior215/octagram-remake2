@@ -2,77 +2,54 @@
     <div class="limit_member_page">
         <div class="member_page">
             <%- include('./navbar.ejs')%>
-                <div class="header_data_member">
 
-                    <a href="/admin/members" class="data_box">
-                        <h2>บัญชี</h2>
-                        <span class="data_form">
-                            <%= users.length %>
-                        </span>
-                        <span class="data_suffix">บัญชี</span>
-                    </a>
-                    <a href="/admin/members/creator" class="data_box">
-                        <h2>คริเอเตอร์</h2>
-                        <span class="data_form">
-                            <%= creators.length %>
-                        </span>
-                        <span class="data_suffix">คริเอเตอร์</span>
-                    </a>
-                    <a href="/admin/members/reg_creator" class="data_box">
-                        <h2>รอตรวจสอบ</h2>
-                        <span class="data_form">
-                            <%= creator_regs.length %>
-                        </span>
-                        <span class="data_suffix">บัญชี</span>
-                    </a>
-
-                </div>
                 <table>
                     <thead>
                         <tr>
                             <th>ลำดับที่</th>
-                            <th>รูปโปรไฟล์</th>
-                            <th>ชื่อผู้ใช้</th>
-                            <th>อีเมล</th>
-                            <th>บทบาท</th>
-                            <th>วันที่สร้าง</th>
+                            <th>รูปคริเอเตอร์</th>
+                            <th>ชื่อคริเอเตอร์</th>
+                            <th>ชื่อหมวดหมู่</th>
+                            <th>วันที่</th>
                         </tr>
                     </thead>
                     <tbody id="member_list_data">
                     </tbody>
                 </table>
-                <div class="container_serach_member">
-                    <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="ค้นหาผู้ใช้">
+
+                <div class="container_serach_category">
+                    <input type="text" id="searchInput" onkeyup="searchCategories()" placeholder="ค้นหา">
                 </div>
+
                 <div id="pagination">
                     <button onclick="previousPage()">
                         <</button>
                             <span id="paginationNumbers"></span>
                             <button onclick="nextPage()">></button>
                 </div>
+
         </div>
     </div>
 </div>
 
 <script>
-    let memberlist;
-    let filteredUsers;
-    const itemsPerPage = 5;
+    let category;
+    let filteredCategories;
+    const itemsPerPage = 10;
     let currentPage = 1;
 
-    function searchUsers() {
+    function searchCategories() {
         const input = document.getElementById("searchInput");
         const query = input.value.toLowerCase();
 
-        filteredUsers = memberlist.filter(user => {
-            return user.name.toLowerCase().includes(query) ||
-                user.email.toLowerCase().includes(query) ||
-                user.role.toLowerCase().includes(query);
+        filteredCategories = category.filter(cat => {
+            return cat.category_name.toLowerCase().includes(query) ||
+                cat.creator_name.toLowerCase().includes(query);
         });
 
         currentPage = 1;
-        renderTable(currentPage, filteredUsers);
-        renderPagination(filteredUsers);
+        renderTable(currentPage, filteredCategories);
+        renderPagination(filteredCategories);
 
         $('#paginationNumbers button:first').addClass('active');
     }
@@ -94,11 +71,10 @@
         for (var count = start; count < end && count < data.length; count++) {
             html += '<tr>';
             html += '<td>' + (count + 1) + '</td>';
-            html += '<td><img src="' + data[count].img + '" alt="user_profile" class="img_member_profile" onerror="/img/error_profile.png"></td>';
-            html += '<td>' + data[count].name + '</td>';
-            html += '<td>' + data[count].email + '</td>';
-            html += '<td>' + data[count].role + '</td>';
-            html += '<td>' + formatDate(data[count].date_user) + '</td>';
+            html += '<td><div class="membership_content"><img src="' + data[count].img + '" alt="creator"></div></td>';
+            html += '<td>' + data[count].creator_name + '</td>';
+            html += '<td>' + data[count].category_name + '</td>';
+            html += '<td>' + formatDate(data[count].add_date) + '</td>';
             html += '</tr>';
         }
 
@@ -121,19 +97,20 @@
     }
 
     function previousPage() {
-        const data = filteredUsers || memberlist;
+        const data = filteredCategories || category;
 
         if (currentPage > 1) {
             currentPage--;
             renderTable(currentPage, data);
 
             $('#paginationNumbers button').removeClass('active');
+
             $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
         }
     }
 
     function nextPage() {
-        const data = filteredUsers || memberlist;
+        const data = filteredCategories || category;
 
         const totalPages = Math.ceil(data.length / itemsPerPage);
         if (currentPage < totalPages) {
@@ -141,12 +118,13 @@
             renderTable(currentPage, data);
 
             $('#paginationNumbers button').removeClass('active');
+
             $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
         }
     }
 
     function goToPage(page) {
-        const data = filteredUsers || memberlist;
+        const data = filteredCategories || category;
 
         currentPage = page;
         renderTable(currentPage, data);
@@ -159,12 +137,13 @@
         $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
     }
 
-    window.onload = async function () {
-        const response = await fetch('/member/admin');
-        memberlist = await response.json();
 
-        renderTable(1, memberlist);
-        renderPagination(memberlist);
+    window.onload = async function () {
+        const response = await fetch('/category/admin/creator');
+        category = await response.json();
+
+        renderTable(1, category);
+        renderPagination(category);
 
         $('#paginationNumbers button:first').addClass('active');
     }

@@ -51,7 +51,6 @@ Member.creator = async (id_creator) => {
   })
 };
 
-
 Member.admin = async () => {
   const queryString = `SELECT * FROM users ORDER BY id DESC`
   return new Promise(function (resolve, reject) {
@@ -288,6 +287,73 @@ Member.status_cancel = async (id_creator) => {
     });
   })
 
+};
+
+Member.status_pendding = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE id_creator = '${id_creator}' AND status = '3' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Member.all_active = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE status = '1' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Member.all_cancel = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE status = '0' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Member.all_pendding = async (id_creator) => {
+
+  const queryString = `SELECT * FROM memberships WHERE status = '3' ORDER BY id DESC`
+
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+
+};
+
+Member.dashboard = async () => {
+  const queryString = `SELECT *,memberships.status AS member_status, memberships.id AS id_member, creators.id AS creator_id, memberships.create_date AS member_create_date, creators.img AS creator_img, users.img AS user_img  FROM memberships JOIN creators ON memberships.id_creator = creators.id JOIN packages ON memberships.id_package = packages.id JOIN users ON memberships.id_user = users.id ORDER BY memberships.id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
 };
 
 module.exports = Member;

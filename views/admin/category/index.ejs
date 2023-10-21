@@ -44,6 +44,7 @@
 
 <script>
     let category;
+    let filteredCategories;
     const itemsPerPage = 5;
     let currentPage = 1;
 
@@ -51,7 +52,7 @@
         const input = document.getElementById("searchInput");
         const query = input.value.toLowerCase();
 
-        const filteredCategories = category.filter(cat => {
+        filteredCategories = category.filter(cat => {
             return cat.category_name.toLowerCase().includes(query) ||
                 cat.name.toLowerCase().includes(query) ||
                 formatDate(cat.create_category_date).includes(query);
@@ -60,6 +61,8 @@
         currentPage = 1;
         renderTable(currentPage, filteredCategories);
         renderPagination(filteredCategories);
+
+        $('#paginationNumbers button:first').addClass('active');
     }
 
     function formatDate(dateString) {
@@ -87,7 +90,7 @@
             html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
             html += '<div class="toottip_member">';
             html += '<a onclick="editCategory(' + data[count].id_category + ')"><i class="fa-solid fa-pen-to-square member_icon"></i>แก้ไข</a>';
-            html += '<a href="/admin/category/delete?id_category=' + data[count].id_category + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ลบ</a>';
+            html += '<a href="/admin/category/delete?id_category=' + data[count].id_category + '"><i class="fa-solid fa-trash member_icon"></i>ลบ</a>';
             html += '</div>';
             html += '</div>';
             html += '</td>';
@@ -97,6 +100,8 @@
         const member_list_data = $("#member_list_data");
         member_list_data.empty();
         member_list_data.append(html);
+
+        addTooltipEventListeners();
     }
 
     function renderPagination(data) {
@@ -113,28 +118,28 @@
     }
 
     function previousPage() {
+        const data = filteredCategories || category;
+
         if (currentPage > 1) {
             currentPage--;
-            renderTable(currentPage, category);
+            renderTable(currentPage, data);
 
-            // Remove 'active' class from all pagination buttons
             $('#paginationNumbers button').removeClass('active');
 
-            // Add 'active' class to the current pagination button
             $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
         }
     }
 
     function nextPage() {
-        const totalPages = Math.ceil(category.length / itemsPerPage);
+        const data = filteredCategories || category;
+
+        const totalPages = Math.ceil(data.length / itemsPerPage);
         if (currentPage < totalPages) {
             currentPage++;
-            renderTable(currentPage, category);
+            renderTable(currentPage, data);
 
-            // Remove 'active' class from all pagination buttons
             $('#paginationNumbers button').removeClass('active');
 
-            // Add 'active' class to the current pagination button
             $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
         }
     }
@@ -144,13 +149,11 @@
         currentPage = page;
         renderTable(currentPage, category);
 
-        // Remove the 'active' class from all pagination buttons
         $('#paginationNumbers button').removeClass('active');
 
         currentPage = page;
         renderTable(currentPage, category);
 
-        // Add the 'active' class to the current pagination button
         $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
     }
 
@@ -164,7 +167,6 @@
                 const tooltipContainer = tooltip.closest('.container_toottip_member');
                 const tooltipContent = tooltipContainer.querySelector('.toottip_member');
 
-                // Hide all other tooltips
                 const allTooltips = document.querySelectorAll('.toottip_member');
                 allTooltips.forEach(otherTooltip => {
                     if (otherTooltip !== tooltipContent) {
@@ -187,10 +189,8 @@
     function editCategory(categoryId) {
         const editForm = document.querySelector('.container_category_edit');
 
-        // Find the category by ID
         const selectedCategory = category.find(cat => cat.id_category === categoryId);
 
-        // Populate the input fields
         const inputCategoryName = editForm.querySelector('input[name="category_name_edit"]');
         const inputCategoryId = editForm.querySelector('input[name="id_category"]');
 
@@ -228,8 +228,6 @@
         renderPagination(category);
 
         $('#paginationNumbers button:first').addClass('active');
-
-        addTooltipEventListeners();
     }
 
 

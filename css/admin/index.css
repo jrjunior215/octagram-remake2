@@ -52,19 +52,13 @@ main {
 
 .header_data_dashboard {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    /* เรียงจากซ้ายไปขวา */
+    justify-content: center;
 }
 
 .header_data_member {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    /* เรียงจากซ้ายไปขวา */
     justify-content: center;
 }
-
 
 .data_box {
     background-color: #fff;
@@ -206,7 +200,7 @@ main {
 
 .header_income_octagram span {
     font-family: 'Noto Sans Thai', sans-serif;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .content_income_octagram {
@@ -224,4 +218,53 @@ main {
     font-size: 70px;
     color: #76cf9b;
     text-shadow: 1px 1px 2px rgb(0, 0, 0);
+}
+
+.container_member_dashboard {
+    background-color: #fefefe;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.header_member_dashboard h1 {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 20px;
+}
+
+.member_box_dashboard {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.member_box_dashboard {
+    padding: 5px;
+    border: 1px solid #c8c5c5;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+
+.member_user_dashboard img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.member_package_dashboard {
+    margin: auto 0;
+}
+
+.member_package_dashboard span {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 14px;
+}
+
+.member_creator_dashboard img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
 }

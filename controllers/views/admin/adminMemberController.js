@@ -10,5 +10,5 @@ module.exports = async (req, res) => {
   const member = await Member.all();
   
   res.locals.layout = 'admin/components/layout';
-  res.render('admin/member/index', { title_nav: 'Member | Octagram', users: user, creators: creator, creator_regs: creator_reg, members: member})
+  res.render('admin/member/index', { title_nav: 'สมาชิก | Octagram', users: user, creators: creator, creator_regs: creator_reg, members: member})
 }

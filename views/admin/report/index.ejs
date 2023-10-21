@@ -1,0 +1,414 @@
+<div class="content">
+    <div class="limit_member_page">
+        <div class="member_page">
+            <%- include('./navbar.ejs')%>
+
+                <div class="header_membership_content">
+                    <div class="header_member">
+                        <div class="headeer_membership_show">
+                            <h1>สมาชิกรายเดือน</h1>
+                        </div>
+                        <div class="header_membership_time">
+                            <form id="dateSearchForm">
+                                <label for="startDate">เริ่ม:</label>
+                                <input type="date" id="startDate" name="startDate">
+                                <label for="endDate">ถึง:</label>
+                                <input type="date" id="endDate" name="endDate">
+                                <button type="submit">ค้นหา</button>
+                                <button type="button" onclick="resetDates()">รีเซ็ต</button>
+                            </form>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="container_membership_list">
+                    <div class="container_membership_graph">
+                        <canvas id="userChart"></canvas>
+                    </div>
+                    <div class="container_membership_number">
+                        <div class="header_member_dashboard">
+                            <a href="" class="member_box">
+                                <h2>สมาชิกรายเดือน</h2>
+                                <span class="member_form" id="member_all">
+                                </span>
+                            </a>
+                            <a href="" class="member_box">
+                                <h2>สมาชิกที่ใช้งาน</h2>
+                                <span class="member_form" id="member_active">
+                                </span>
+                            </a>
+                            <a href="" class="member_box">
+                                <h2>สมาชิกที่ยกเลิก</h2>
+                                <span class="member_form" id="member_cancel">
+                                </span>
+                            </a>
+                            <a href="" class="member_box">
+                                <h2>สมาชิกรอดำเนินการ</h2>
+                                <span class="member_form" id="member_pending">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ลำดับที่</th>
+                            <th>สมาชิก</th>
+                            <th>สมัครแพ็คเกจ</th>
+                            <th>คริเอเตอร์</th>
+                            <th>วันที่เข้าร่วม</th>
+                            <th>วันที่เรียกเก็บเงินครั้งล่าสุด</th>
+                            <th>วันที่เรียกเก็บเงินครั้งต่อไป</th>
+                            <th>สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="member_list_data">
+                    </tbody>
+                </table>
+
+                <div class="container_serach_category">
+                    <input type="text" id="searchInput" onkeyup="searchCategories()" placeholder="ค้นหาสมาชิกรายเดือน">
+                </div>
+
+                <div id="pagination">
+                    <button onclick="previousPage()">
+                        <</button>
+                            <span id="paginationNumbers"></span>
+                            <button onclick="nextPage()">></button>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    let category;
+    let filteredCategories;
+    let membersInDateRange;
+    const itemsPerPage = 5;
+    let currentPage = 1;
+
+    function drawChart(data) {
+        var months = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+        var ctx = document.getElementById("userChart").getContext('2d');
+
+        var existingChart = Chart.getChart(ctx);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
+        var monthCounts = Array.from({ length: 12 }, () => 0);
+
+        data.forEach(item => {
+            var createMonth = new Date(item.member_create_date).getMonth();
+            monthCounts[createMonth]++;
+        });
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'จำนวนสมาชิกรายเดือน',
+                    data: monthCounts,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: Math.max(...monthCounts) + 1,
+                        title: {
+                            display: true,
+                            text: 'จำนวน'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'เดือน'
+                        }
+                    }
+                }
+            }
+        });
+
+        return false;
+    }
+
+    function drawDateRangeChart(data, startDate, endDate) {
+        const formattedStartDate = formatDate(startDate);
+        const formattedEndDate = formatDate(endDate);
+
+        // นับจำนวนสมาชิกทั้งหมด
+        const totalMembers = data.length;
+
+        var ctx = document.getElementById("userChart").getContext('2d');
+
+        var existingChart = Chart.getChart(ctx);
+        if (existingChart) {
+            existingChart.destroy();
+        }
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [formattedStartDate + ' - ' + formattedEndDate],
+                datasets: [{
+                    label: 'จำนวนสมาชิกรายเดือน',
+                    data: [totalMembers], // นำจำนวนสมาชิกทั้งหมดมาใช้
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: totalMembers + 1,
+                        title: {
+                            display: true,
+                            text: 'จำนวน'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'ช่วงเวลา'
+                        }
+                    }
+                }
+            }
+        });
+
+        return false;
+    }
+
+    window.onload = async function () {
+        const response = await fetch('/member/creator/admin');
+        category = await response.json();
+        console.log(category);
+
+        const member_all = category.length;
+        const member_active = category.filter(member => member.member_status === 1).length;
+        const member_cancel = category.filter(member => member.member_status === 0).length;
+        const member_pending = category.filter(member => member.member_status === 2).length;
+
+        document.getElementById('member_all').textContent = member_all > 0 ? member_all : '-';
+        document.getElementById('member_active').textContent = member_active > 0 ? member_active : '-';
+        document.getElementById('member_cancel').textContent = member_cancel > 0 ? member_cancel : '-';
+        document.getElementById('member_pending').textContent = member_pending > 0 ? member_pending : '-';
+
+        renderTable(1, category);
+        renderPagination(category);
+
+        $('#paginationNumbers button:first').addClass('active');
+
+        const now = new Date();
+        const formattedDate = now.toISOString().slice(0, 10);
+        document.getElementById('endDate').value = formattedDate;
+        document.getElementById('startDate').value = formattedDate;
+
+        drawChart(category);
+    }
+
+    function resetDates() {
+        const now = new Date();
+        const formattedDate = now.toISOString().slice(0, 10);
+        document.getElementById('endDate').value = formattedDate;
+        document.getElementById('startDate').value = formattedDate;
+
+        document.getElementById('dateSearchForm').dispatchEvent(new Event('submit'));
+
+        const member_all = category.length;
+        const member_active = category.filter(member => member.member_status === 1).length;
+        const member_cancel = category.filter(member => member.member_status === 0).length;
+        const member_pending = category.filter(member => member.member_status === 2).length;
+
+        document.getElementById('member_all').textContent = member_all > 0 ? member_all : '-';
+        document.getElementById('member_active').textContent = member_active > 0 ? member_active : '-';
+        document.getElementById('member_cancel').textContent = member_cancel > 0 ? member_cancel : '-';
+        document.getElementById('member_pending').textContent = member_pending > 0 ? member_pending : '-';
+
+        currentPage = 1;
+        renderTable(currentPage, category);
+        renderPagination(category);
+        drawChart(category);
+        $('#paginationNumbers button:first').addClass('active');
+    }
+
+    document.getElementById('dateSearchForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const startDate = document.getElementById('startDate').value;
+        const endDate = document.getElementById('endDate').value;
+
+        if (startDate) {
+
+            if (!endDate) {
+                alert('โปรดกรอกวันที่สิ้นสุด');
+                return;
+            }
+
+            membersInDateRange = category.filter(member => {
+                const memberCreateDate = new Date(member.member_create_date).toISOString().slice(0, 10);
+                return memberCreateDate >= startDate && memberCreateDate <= endDate;
+            });
+
+            const member_all = membersInDateRange.length;
+            const member_active = membersInDateRange.filter(member => member.member_status === 1).length;
+            const member_cancel = membersInDateRange.filter(member => member.member_status === 0).length;
+            const member_pending = membersInDateRange.filter(member => member.member_status === 2).length;
+
+            document.getElementById('member_all').textContent = member_all > 0 ? member_all : '-';
+            document.getElementById('member_active').textContent = member_active > 0 ? member_active : '-';
+            document.getElementById('member_cancel').textContent = member_cancel > 0 ? member_cancel : '-';
+            document.getElementById('member_pending').textContent = member_pending > 0 ? member_pending : '-';
+
+            currentPage = 1;
+            renderTable(currentPage, membersInDateRange);
+            renderPagination(membersInDateRange);
+            drawDateRangeChart(membersInDateRange, startDate, endDate);
+            $('#paginationNumbers button:first').addClass('active');
+
+
+        } else {
+            alert('โปรดกรอกวันที่เริ่ม');
+        }
+    });
+
+    function searchCategories() {
+        const data = membersInDateRange || category;
+
+        const input = document.getElementById("searchInput");
+        const query = input.value.toLowerCase();
+
+        filteredCategories = data.filter(cat => {
+            const categoryNameMatch = cat.category_name && cat.category_name.toLowerCase().includes(query);
+            const nameMatch = cat.name && cat.name.toLowerCase().includes(query);
+            const creatorNameMatch = cat.creator_name && cat.creator_name.toLowerCase().includes(query);
+            const packageNameMatch = cat.package_name && cat.package_name.toLowerCase().includes(query);
+
+            return categoryNameMatch || nameMatch || creatorNameMatch || packageNameMatch;
+        });
+
+        currentPage = 1;
+        renderTable(currentPage, filteredCategories);
+        renderPagination(filteredCategories);
+
+        $('#paginationNumbers button:first').addClass('active');
+    }
+
+    function formatDate(dateString) {
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        };
+        return new Date(dateString).toLocaleDateString('en-GB', options);
+    }
+
+    function renderTable(pageNumber, data) {
+        let start = (pageNumber - 1) * itemsPerPage;
+        let end = start + itemsPerPage;
+        let html = '';
+
+        for (var count = start; count < end && count < data.length; count++) {
+            html += '<tr>';
+            html += '<td>' + (count + 1) + '</td>';
+            html += '<td><div class="membership_content"><img src="' + data[count].user_img + '" alt="creator"><span>' + data[count].name + '</span></div></td>';
+            html += '<td>' + data[count].package_name + '</td>';
+            html += '<td><div class="membership_content"><img src="' + data[count].creator_img + '" alt="creator"><span>' + data[count].creator_name + '</span></div></td>';
+            html += '<td>' + formatDate(data[count].member_create_date) + '</td>';
+            html += '<td>' + formatDate(data[count].start_date) + '</td>';
+            html += '<td>' + formatDate(data[count].end_date) + '</td>';
+            const status = data[count].member_status;
+            if (status === 0) {
+                html += '<td class="inactive_member">ยกเลิก</td>';
+            } else if (status === 1) {
+                html += '<td class="active_member">ใช้งาน</td>';
+            } else if (status === 2) {
+                html += '<td class="suspended_member">ระงับการใช้งาน</td>';
+            } else if (status === 3) {
+                html += '<td class="expired_member">หมดอายุ</td>';
+            } else if (status === 4) {
+                html += '<td class="pending_member">รอการยืนยัน</td>';
+            } else if (status === 5) {
+                html += '<td class="cancelled_member">ยกเลิก</td>';
+            } else if (status === 6) {
+                html += '<td class="renewed_member">ต่ออายุ</td>';
+            } else {
+                html += '<td class="unknown_member">ไม่ทราบสถานะ</td>';
+            }
+            html += '</tr>';
+        }
+
+        const member_list_data = $("#member_list_data");
+        member_list_data.empty();
+        member_list_data.append(html);
+
+    }
+
+    function renderPagination(data) {
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        const paginationNumbers = $("#paginationNumbers");
+        let html = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            html += '<button onclick="goToPage(' + i + ')">' + i + '</button>';
+        }
+
+        paginationNumbers.empty();
+        paginationNumbers.append(html);
+    }
+
+    function previousPage() {
+        const data = membersInDateRange || filteredCategories || category;
+
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable(currentPage, data);
+
+            $('#paginationNumbers button').removeClass('active');
+
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
+
+    function nextPage() {
+        const data = membersInDateRange || filteredCategories || category;
+
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable(currentPage, data);
+
+            $('#paginationNumbers button').removeClass('active');
+
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
+
+    function goToPage(page) {
+
+        const data = membersInDateRange || filteredCategories || category;
+
+        currentPage = page;
+        renderTable(currentPage, data);
+
+        $('#paginationNumbers button').removeClass('active');
+
+        currentPage = page;
+        renderTable(currentPage, data);
+
+        $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+    }
+
+</script>

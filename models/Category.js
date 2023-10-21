@@ -31,6 +31,17 @@ Category.admin = async () => {
   })
 };
 
+Category.admin_creator = async () => {
+  const queryString = `SELECT *,categories_creator.id AS id_category FROM categories_creator JOIN creators ON creators.id = categories_creator.id_creator JOIN categories ON categories.id = categories_creator.id_category ORDER BY categories_creator.id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+};
+
 Category.find = async (data) => {
   const query = data;
   const queryString = `SELECT * FROM categories WHERE category_name LIKE '%${query}%'`
@@ -102,7 +113,7 @@ Category.reset = async (id_creator) => {
 
 Category.creator_list = async (id_category) => {
 
-  const queryString = `SELECT * FROM categories_creator JOIN creators ON categories_creator.id_creator = creators.id WHERE id_category = '${id_category}' `
+  const queryString = `SELECT * FROM categories_creator JOIN creators ON categories_creator.id_creator = creators.id WHERE id_category = '${id_category}'`
 
   return new Promise(function (resolve, reject) {
     dbConnection.execute(queryString).then(async ([rows]) => {

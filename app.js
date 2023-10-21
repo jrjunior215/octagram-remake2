@@ -133,11 +133,15 @@ const adminMemberCreatorController = require('./controllers/views/admin/adminMem
 const adminCategoryController = require('./controllers/views/admin/adminCategoryController');
 const memberAdmin = require('./controllers/models/member/memberAdmin');
 const memberAdminCreator = require('./controllers/models/member/memberAdminCreator');
-const categoryAdmin = require('./controllers/models/category/categoryAdmin');
 const adminMemberNewCreatorController = require('./controllers/views/admin/adminMemberNewCreatorController');
 const memberAdminNewCreator = require('./controllers/models/member/memberAdminNewCreator');
 const adminMemberCheckController = require('./controllers/views/admin/adminMemberCheckController');
 const adminsettingAccountController = require('./controllers/views/admin/adminsettingAccountController');
+const adminCreatorController = require('./controllers/views/admin/adminCreatorController');
+const adminReportController = require('./controllers/views/admin/adminReportController');
+const memberAdminList = require('./controllers/models/member/memberAdminList');
+const adminCategoryCreatorController = require('./controllers/views/admin/adminCategoryCreatorController');
+const adminIncomeCreatorController = require('./controllers/views/admin/adminIncomeCreatorController');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -227,6 +231,8 @@ const categoryCreate = require('./controllers/models/category/categoryCreate');
 const categoryCreatorEdit = require('./controllers/models/category/categoryCreatorEdit');
 const categoryAdminEdit = require('./controllers/models/category/categoryAdminEdit');
 const categoryAdminDelete = require('./controllers/models/category/categoryAdminDelete');
+const categoryAdmin = require('./controllers/models/category/categoryAdmin');
+const categoryAdminCreator = require('./controllers/models/category/categoryAdminCreator');
 
 // MIDDLEWARE
 const logIn = require('./middleware/logIn');
@@ -292,8 +298,12 @@ app.get('/admin/category', logIn, adminCategoryController);
 app.get('/member/admin', logIn, memberAdmin);
 app.get('/member/admin/creator', logIn, memberAdminCreator);
 app.get('/member/admin/reg_creator', logIn, memberAdminNewCreator);
-app.get('/category/admin', logIn, categoryAdmin);
 app.get('/admin/members/check', logIn, adminMemberCheckController);
+app.get('/admin/creator', logIn, adminCreatorController);
+app.get('/admin/report', logIn, adminReportController);
+app.get('/member/creator/admin', logIn, memberAdminList);
+app.get('/admin/category/creator', logIn, adminCategoryCreatorController);
+app.get('/admin/report/income/creator', logIn, adminIncomeCreatorController);
 
 // PACKAGE PAGE
 app.get('/package/create', logIn, packageCreateController);
@@ -369,6 +379,8 @@ app.post('/admin/category/create', logIn, categoryCreate);
 app.post('/category/edit', logIn, categoryCreatorEdit);
 app.post('/admin/category/edit', logIn, categoryAdminEdit);
 app.get('/admin/category/delete', logIn, categoryAdminDelete);
+app.get('/category/admin', logIn, categoryAdmin);
+app.get('/category/admin/creator', logIn, categoryAdminCreator);
 
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController);

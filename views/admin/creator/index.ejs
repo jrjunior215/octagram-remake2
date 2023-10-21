@@ -1,0 +1,212 @@
+<script src="/js/comment/comment_creator.js"></script>
+<script>
+    function fetchMembership(id_package) {
+        fetch(`/memberships/${id_package}`)
+            .then(response => response.json())
+            .then(membership => {
+                const packageMemberElement = document.querySelector(`#package_member_${id_package} span`);
+                packageMemberElement.innerText = `${membership.length} คนสมัคร`;
+            })
+            .catch(error => console.error(`Error fetching membership for id_package ${id_package}:`, error));
+    }
+    
+    async function fetchImagePost(id_post) {
+        const response = await fetch(`/post/img/list?id_post=${id_post}`);
+        const posts_image = await response.json();
+
+        const imageShow = document.getElementById(`image_show_${id_post}`);
+        if (posts_image.length > 0) {
+            posts_image.forEach(imageData => {
+                const img = document.createElement('img');
+                img.src = imageData.post_img;
+                img.alt = 'Post Image';
+                img.addEventListener('click', function () {
+                    expandImage(imageData.post_img);
+                });
+
+                imageShow.appendChild(img);
+            });
+        }
+    }
+
+    function expandImage(imageUrl) {
+        const modal = document.createElement('div');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="${imageUrl}" alt="Expanded Image">
+        </div>
+    `;
+        document.body.appendChild(modal);
+
+        const closeModal = modal.querySelector('.close-modal');
+        closeModal.addEventListener('click', function () {
+            modal.remove();
+        });
+    }
+</script>
+
+<div class="content">
+    <div class="container_member_check_page">
+        <div class="member_check_page">
+            <div class="creator_data_box">
+                <div class="creator_check">
+                    <div class="creator_img_check">
+                        <img src="<%= creators[0].img %>" alt="profile_creator">
+                    </div>
+                    <div class="creator_title_check">
+                        <h1>
+                            <%= creators[0].creator_name %>
+                        </h1>
+                        <p>
+                            <%= members.length %> Members <%= posts.length %> Posts <%= packages.length %> Packages
+                        </p>
+                        <span>
+                            <%= creators[0].creator_desc %>
+                        </span>
+                    </div>
+                    <div class="creator_data_check">
+                        <div class="data_header">
+                            <h1>ข้อมูลส่วนตัว</h1>
+                        </div>
+                        <div class="verify_page">
+                            <div class="verify_creator_box">
+                                <div class="verify_creator_profile">
+                                    <div class="verify_creator_grid">
+                                        <span>ชื่อจริง</span>
+                                        <input type="text" name="fname" value="<%= creators[0].fname %>" readonly>
+                                    </div>
+                                    <div class="verify_creator_grid">
+                                        <span>นามสกุล</span>
+                                        <input type="text" name="lname" value="<%= creators[0].lname %>" readonly>
+                                    </div>
+                                    <div class="verify_creator_grid">
+                                        <span>เบอร์โทรศัพท์</span>
+                                        <input type="text" name="phone" value="<%= creators[0].phone %>" readonly>
+                                    </div>
+                                    <div class="verify_creator_grid">
+                                        <span>วันเดือนปีเกิด</span>
+                                        <input type="date" id="dateInput" name="birthdate"
+                                            value="<%= creators[0].birthdate %>" readonly>
+                                    </div>
+                                    <div class="verify_creator_grid">
+                                        <span>ที่อยู่ปัจจุบัน</span>
+                                        <textarea type="text" name="location"
+                                            readonly><%= creators[0].location %></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="center_border"></div>
+                <div class="desc_creator_check">
+                    <div class="container_creator_package">
+                        <div class="header_creator_package">
+                            <h1>แพ็กเกจทั้งหมด</h1>
+                            <hr>
+                        </div>
+                        <div class="content_creator_package">
+                            <% if (packages.length> 0) { %>
+                                <% for(var i=0; i < packages.length; i++) { %>
+                                    <div class="package_item">
+                                        <div class="package_price">
+                                            <span>
+                                                <%=packages[i].package_price%> บาท / เดือน
+                                            </span>
+                                        </div>
+                                        <script>
+                                            fetchMembership(`<%=packages[i].id%>`);
+                                        </script>
+                                        <div id="package_member_<%=packages[i].id%>" class="package_member">
+                                            <span></span>
+                                        </div>
+                                        <div class="package_name">
+                                            <span>
+                                                <%=packages[i].package_name%>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                        <%} else { %>
+    
+                                            <div class="package_no_item">
+                                                <div class="package_no_title">
+                                                    <span><i class="fa-solid fa-file-circle-xmark fa-mark-x"></i></span>
+                                                    <span class="package_no_title_text">ไม่มีแพ็กเกจ</span>
+                                                </div>
+                                            </div>
+    
+                                            <% } %>
+                        </div>
+                    </div>
+                    <div class="container_creator_post">
+                        <div class="header_creator_post">
+                            <h1>โพสต์ทั้งหมด</h1>
+                            <hr>
+                        </div>
+                        <div class="content_creator_post">
+                            <% if (posts.length> 0) { %>
+                            <div class="content_post">
+                                <% for(var i=0; i < posts.length; i++) { %>
+                                    <div class="box_feed">
+                                        <div class="header_creator_feed">
+                                            <div class="creator_feed left">
+                                                <img src="<%= creators[0].img %>">
+                                                <div class="creator_info">
+                                                    <span class="post_creator_name">
+                                                        <%= creators[0].creator_name %>
+                                                    </span>
+                                                    <span class="post_time_feed_home">
+                                                        <%= new Date(posts[i].post_date).toLocaleString('en-US', { weekday: 'short' ,
+                                                            year: 'numeric' , month: 'short' , day: 'numeric' , hour: 'numeric' ,
+                                                            minute: 'numeric' }) %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="post_feed">
+                                            <div class="container_post_image">
+                                                <script>
+                                                    fetchImagePost(`<%= posts[i].id %>`);
+                                                </script>
+                                                <div class="post_image_show" id="image_show_<%= posts[i].id %>"></div>
+                                            </div>
+                                            <div class="post_title_feed">
+                                                <span>
+                                                    <%= posts[i].post_title %>
+                                                </span>
+                                            </div>
+                                            <div class="post_desc_feed">
+                                                <%- posts[i].post_desc %>
+                                            </div>
+                                        </div>
+                                        <div class="comment_user" id="commentPost_<%= posts[i].id %>">
+                
+                                        </div>
+                                        <script>
+                                            fetchComments(`<%= posts[i].id %>`, `<%= SESSION_USER.creator_id %>`);
+                                        </script>
+                                        <hr>
+                                    </div>
+                                    <% } %>
+                            </div>
+                            <%} else { %>
+    
+                                <div class="package_no_item">
+                                    <div class="package_no_title">
+                                        <span><i class="fa-solid fa-file-circle-xmark fa-mark-x"></i></span>
+                                        <span class="package_no_title_text">ไม่มีโพสต์</span>
+                                    </div>
+                                </div>
+
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

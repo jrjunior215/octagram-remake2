@@ -39,13 +39,6 @@
           </span>
           <span class="data_suffix">บัญชี</span>
         </a>
-        <a href="" class="data_box">
-          <h2>สมาชิกรายเดือน</h2>
-          <span class="data_form">
-            <%= members.length %>
-          </span>
-          <span class="data_suffix">สมาชิก</span>
-        </a>
 
       </div>
 
@@ -57,6 +50,39 @@
         <hr>
       </div>
 
+      <div class="header_data_dashboard">
+
+        <a href="" class="data_box">
+          <h2>สมาชิกรายเดือน</h2>
+          <span class="data_form">
+            <%= members.length %>
+          </span>
+          <span class="data_suffix">บัญชี</span>
+        </a>
+        <a href="" class="data_box">
+          <h2>สมาชิกที่ใช้งาน</h2>
+          <span class="data_form">
+            <%= all_active.length %>
+          </span>
+          <span class="data_suffix">บัญชี</span>
+        </a>
+        <a href="" class="data_box">
+          <h2>สมาชิกที่ยกเลิก</h2>
+          <span class="data_form">
+            <%= all_cancel.length %>
+          </span>
+          <span class="data_suffix">บัญชี</span>
+        </a>
+        <a href="" class="data_box">
+          <h2>สมาชิกรอดำเนินการ</h2>
+          <span class="data_form">
+            <%= all_pendding.length %>
+          </span>
+          <span class="data_suffix">บัญชี</span>
+        </a>
+
+      </div>
+
       <div class="graph_report">
 
         <div class="container_graph">
@@ -66,8 +92,7 @@
 
           <div class="container_income_octagram">
             <div class="header_income_octagram">
-              <span>รายได้</span>
-              <span><i class="fa-solid fa-bars"></i></span>
+              <span>รายได้เดือนนี้</span>
             </div>
             <div class="content_income_octagram">
               <span>฿</span>
@@ -75,8 +100,32 @@
             </div>
           </div>
 
-        </div>
+          <div class="container_member_dashboard">
+            <div class="header_member_dashboard">
+              <h1>การสมัครล่าสุด</h1>
+            </div>
+            <div class="cotent_member_dashboard">
+              <% for(var i=0; i < 3; i++) { %>
+                <div class="member_box_dashboard">
+                  <div class="member_user_dashboard">
+                    <img src="<%= member_dashboard[i].user_img %>" alt="user">
+                  </div>
+                  <div class="member_package_dashboard">
+                    <span>เข้าร่วม</span>
+                    <span>
+                      <%= member_dashboard[i].package_name %>
+                    </span>
+                    <span>ของ</span>
+                  </div>
+                  <div class="member_creator_dashboard">
+                    <img src="<%= member_dashboard[i].creator_img %>" alt="user">
+                  </div>
+                </div>
+                <% } %>
+            </div>
+          </div>
 
+        </div>
       </div>
 
     </div>
@@ -89,18 +138,18 @@
     incomelist = await response.json();
 
     const monthsData = [
-      { month: 'มกราคม', income: 0 },
-      { month: 'กุมภาพันธ์', income: 0 },
-      { month: 'มีนาคม', income: 0 },
-      { month: 'เมษายน', income: 0 },
-      { month: 'พฤษภาคม', income: 0 },
-      { month: 'มิถุนายน', income: 0 },
-      { month: 'กรกฎาคม', income: 0 },
-      { month: 'สิงหาคม', income: 0 },
-      { month: 'กันยายน', income: 0 },
-      { month: 'ตุลาคม', income: 0 },
-      { month: 'พฤศจิกายน', income: 0 },
-      { month: 'ธันวาคม', income: 0 },
+      { month: 'ม.ค.', income: 0 },
+      { month: 'ก.พ.', income: 0 },
+      { month: 'มี.ค.', income: 0 },
+      { month: 'เม.ย.', income: 0 },
+      { month: 'พ.ค.', income: 0 },
+      { month: 'มิ.ย.', income: 0 },
+      { month: 'ก.ค.', income: 0 },
+      { month: 'ส.ค.', income: 0 },
+      { month: 'ก.ย.', income: 0 },
+      { month: 'ต.ค.', income: 0 },
+      { month: 'พ.ย.', income: 0 },
+      { month: 'ธ.ค.', income: 0 },
     ];
 
     incomelist.forEach(item => {
@@ -129,7 +178,17 @@
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'รายได้ (บาท)'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'เดือน'
+            }
           }
         }
       }

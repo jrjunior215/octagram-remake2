@@ -41,6 +41,9 @@
                     <tbody id="member_list_data">
                     </tbody>
                 </table>
+                <div class="container_serach_member">
+                    <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="ค้นหาผู้ใช้">
+                </div>
                 <div id="pagination">
                     <button onclick="previousPage()">
                         <</button>
@@ -52,9 +55,27 @@
 </div>
 
 <script>
-    let memberlist; // Define memberlist globally
-    const itemsPerPage = 5; // Number of items to show per page
+    let memberlist;
+    let filteredUsers;
+    const itemsPerPage = 5; 
     let currentPage = 1;
+
+    function searchUsers() {
+        const input = document.getElementById("searchInput");
+        const query = input.value.toLowerCase();
+
+        filteredUsers = memberlist.filter(user => {
+            return user.name.toLowerCase().includes(query) ||
+                user.email.toLowerCase().includes(query) ||
+                user.role.toLowerCase().includes(query);
+        });
+
+        currentPage = 1;
+        renderTable(currentPage, filteredUsers);
+        renderPagination(filteredUsers);
+
+        $('#paginationNumbers button:first').addClass('active');
+    }
 
     function formatDate(dateString) {
         const options = {
@@ -82,7 +103,7 @@
             html += '<div class="container_toottip_member">';
             html += '<i id="tooltip_click" class="material-icons tooltip_click">more_horiz</i>';
             html += '<div class="toottip_member">';
-            html += '<a href="/admin/members/check?id_creator=' + data[count].id + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ตรวจสอบ</a>';
+            html += '<a href="/admin/creator?id_creator=' + data[count].id + '"><i class="fa-solid fa-magnifying-glass member_icon"></i>ตรวจสอบ</a>';
             html += '</div>';
             html += '</div>';
             html += '</td>';
@@ -92,61 +113,8 @@
         const member_list_data = $("#member_list_data");
         member_list_data.empty();
         member_list_data.append(html);
-    }
 
-    function renderPagination(data) {
-        const totalPages = Math.ceil(data.length / itemsPerPage);
-        const paginationNumbers = $("#paginationNumbers");
-        let html = '';
-
-        for (let i = 1; i <= totalPages; i++) {
-            html += '<button onclick="goToPage(' + i + ')">' + i + '</button>';
-        }
-
-        paginationNumbers.empty();
-        paginationNumbers.append(html);
-    }
-
-    function previousPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            renderTable(currentPage, memberlist);
-
-            // Remove 'active' class from all pagination buttons
-            $('#paginationNumbers button').removeClass('active');
-
-            // Add 'active' class to the current pagination button
-            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
-        }
-    }
-
-    function nextPage() {
-        const totalPages = Math.ceil(memberlist.length / itemsPerPage);
-        if (currentPage < totalPages) {
-            currentPage++;
-            renderTable(currentPage, memberlist);
-
-            // Remove 'active' class from all pagination buttons
-            $('#paginationNumbers button').removeClass('active');
-
-            // Add 'active' class to the current pagination button
-            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
-        }
-    }
-
-    function goToPage(page) {
-
-        currentPage = page;
-        renderTable(currentPage, memberlist);
-
-        // Remove the 'active' class from all pagination buttons
-        $('#paginationNumbers button').removeClass('active');
-
-        currentPage = page;
-        renderTable(currentPage, memberlist);
-
-        // Add the 'active' class to the current pagination button
-        $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        addTooltipEventListeners();
     }
 
     function addTooltipEventListeners() {
@@ -154,8 +122,7 @@
 
         tooltips.forEach(tooltip => {
             tooltip.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent the click from reaching the document
-                console.log("click")
+                event.stopPropagation(); 
 
                 const tooltipContainer = tooltip.closest('.container_toottip_member');
                 const tooltipContent = tooltipContainer.querySelector('.toottip_member');
@@ -172,6 +139,58 @@
         });
     }
 
+    function renderPagination(data) {
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        const paginationNumbers = $("#paginationNumbers");
+        let html = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            html += '<button onclick="goToPage(' + i + ')">' + i + '</button>';
+        }
+
+        paginationNumbers.empty();
+        paginationNumbers.append(html);
+    }
+
+    function previousPage() {
+        const data = filteredUsers || memberlist;
+
+        if (currentPage > 1) {
+            currentPage--;
+            renderTable(currentPage, data);
+
+            $('#paginationNumbers button').removeClass('active');
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
+
+    function nextPage() {
+        const data = filteredUsers || memberlist;
+
+        const totalPages = Math.ceil(data.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderTable(currentPage, data);
+
+            $('#paginationNumbers button').removeClass('active');
+            $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+        }
+    }
+
+    function goToPage(page) {
+        const data = filteredUsers || memberlist;
+
+        currentPage = page;
+        renderTable(currentPage, data);
+
+        $('#paginationNumbers button').removeClass('active');
+
+        currentPage = page;
+        renderTable(currentPage, data);
+
+        $('#paginationNumbers button').eq(currentPage - 1).addClass('active');
+    }
+
     window.onload = async function () {
         const response = await fetch('/member/admin/creator');
         memberlist = await response.json();
@@ -181,8 +200,6 @@
 
         $('#paginationNumbers button:first').addClass('active');
 
-        addTooltipEventListeners();
     }
-
 
 </script>
