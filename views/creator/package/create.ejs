@@ -7,7 +7,8 @@
             <span>สร้างแพ็กเกจ</span>
           </div>
           <div class="package_create_preview">
-            <a href="/package/preview?creator=<%= SESSION_USER.creator_name %>" target="_blank">ดูตัวอย่าง<i class="fa-regular fa-note-sticky fa-note"></i></a>
+            <a href="/package/preview?creator=<%= SESSION_USER.creator_name %>" target="_blank">ดูตัวอย่าง<i
+                class="fa-regular fa-note-sticky fa-note"></i></a>
           </div>
         </div>
         <div class="package_creator_box">
@@ -18,7 +19,7 @@
           <div class="setting_grid">
             <span>ราคารายเดือน</span>
             <div class="price-input">
-              <input type="number" name="package_price" placeholder="0.00" id="price">
+              <input type="number" name="package_price" placeholder="0.00" id="price" step="0.01">
             </div>
           </div>
           <div class="setting_grid">
@@ -45,8 +46,9 @@
 
   priceInput.addEventListener('blur', function () {
     const inputValue = parseFloat(this.value);
-    if (!isNaN(inputValue)) {
+    if (!isNaN(inputValue) && Number.isInteger(inputValue)) {
       this.value = inputValue.toFixed(2);
     }
   });
+
 </script>

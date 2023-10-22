@@ -66,4 +66,17 @@ Income.octagram = async () => {
   
 };
 
+Income.admin_creator = async () => {
+
+  const queryString = `SELECT * FROM creators_income JOIN creators ON creators.id = creators_income.id_creator ORDER BY creators_income.id DESC`
+  return new Promise(function (resolve, reject) {
+    dbConnection.execute(queryString).then(async ([rows]) => {
+      resolve(rows);
+    }).catch(err => {
+      if (err) throw err;
+    });
+  })
+  
+};
+
 module.exports = Income;

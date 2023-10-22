@@ -15,7 +15,7 @@ const upload = multer({ storage });
 module.exports = async (req, res) => {
     const middleware = upload.array('images');
     middleware(req, res, async (err) => {
-        const image = req.files; 
+        const image = req.files;
         const data = req.body;
 
         if (data.permission.includes('ALL')) {

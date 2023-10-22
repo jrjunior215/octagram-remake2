@@ -142,6 +142,7 @@ const adminReportController = require('./controllers/views/admin/adminReportCont
 const memberAdminList = require('./controllers/models/member/memberAdminList');
 const adminCategoryCreatorController = require('./controllers/views/admin/adminCategoryCreatorController');
 const adminIncomeCreatorController = require('./controllers/views/admin/adminIncomeCreatorController');
+const IncomeCreatorAdmin = require('./controllers/models/income/IncomeCreatorAdmin');
 
 // PACKAGE PAGE
 const packageCreateController = require('./controllers/views/creator/package/packageCreateController');
@@ -304,6 +305,7 @@ app.get('/admin/report', logIn, adminReportController);
 app.get('/member/creator/admin', logIn, memberAdminList);
 app.get('/admin/category/creator', logIn, adminCategoryCreatorController);
 app.get('/admin/report/income/creator', logIn, adminIncomeCreatorController);
+app.get('/admin/income/creator', logIn, IncomeCreatorAdmin);
 
 // PACKAGE PAGE
 app.get('/package/create', logIn, packageCreateController);

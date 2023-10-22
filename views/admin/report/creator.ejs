@@ -9,7 +9,8 @@
                             <h1>รายได้คริเอเตอร์</h1>
                         </div>
                         <div class="header_membership_month">
-
+                            <label for="monthSelect">เลือกเดือน:</label>
+                            <select id="monthSelect"></select>
                         </div>
                     </div>
                     <hr>
@@ -48,37 +49,78 @@
 <script>
     let category;
     let filteredCategories;
-    let membersInDateRange;
+    let currentMonthCategory;
     const itemsPerPage = 5;
     let currentPage = 1;
 
-   
+    function onMonthSelectChange() {
+        const selectedMonth = parseInt(document.getElementById("monthSelect").value);
+
+        currentMonthCategory = category.filter(item => {
+            const itemDate = new Date(item.date_income);
+            const itemMonth = itemDate.getMonth() + 1;
+            return itemMonth === selectedMonth;
+        });
+
+        currentPage = 1;
+        renderTable(currentPage, currentMonthCategory);
+        renderPagination(currentMonthCategory);
+
+        $('#paginationNumbers button:first').addClass('active');
+    }
+
+    function populateMonths() {
+        const monthSelect = document.getElementById("monthSelect");
+        const currentMonth = new Date().getMonth(); // Get current month (0-11)
+
+        const thaiMonths = [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+        ];
+
+        for (let i = 0; i < 12; i++) {
+            const option = document.createElement("option");
+            option.value = i + 1; // Months are 1-indexed
+            option.text = thaiMonths[i];
+            monthSelect.appendChild(option);
+        }
+
+        // Set current month as selected
+        monthSelect.selectedIndex = currentMonth;
+        monthSelect.addEventListener("change", onMonthSelectChange);
+    }
 
     window.onload = async function () {
-        const response = await fetch('/member/creator/admin');
+        const response = await fetch('/admin/income/creator');
         category = await response.json();
         console.log(category);
 
-        renderTable(1, category);
-        renderPagination(category);
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; // 
+
+        currentMonthCategory = category.filter(item => {
+            const itemDate = new Date(item.date_income);
+            const itemMonth = itemDate.getMonth() + 1;
+            return itemMonth === currentMonth;
+        });
+
+        renderTable(1, currentMonthCategory);
+        renderPagination(currentMonthCategory);
+        populateMonths();
 
         $('#paginationNumbers button:first').addClass('active');
     }
 
     function searchCategories() {
-        const data = membersInDateRange || category;
 
         const input = document.getElementById("searchInput");
         const query = input.value.toLowerCase();
 
-        filteredCategories = data.filter(cat => {
-            const categoryNameMatch = cat.category_name && cat.category_name.toLowerCase().includes(query);
-            const nameMatch = cat.name && cat.name.toLowerCase().includes(query);
-            const creatorNameMatch = cat.creator_name && cat.creator_name.toLowerCase().includes(query);
-            const packageNameMatch = cat.package_name && cat.package_name.toLowerCase().includes(query);
-
-            return categoryNameMatch || nameMatch || creatorNameMatch || packageNameMatch;
+        filteredCategories = currentMonthCategory.filter(cat => {
+            return cat.creator_name.toLowerCase().includes(query);
         });
+
+        console.log(filteredCategories)
 
         currentPage = 1;
         renderTable(currentPage, filteredCategories);
@@ -104,30 +146,11 @@
         for (var count = start; count < end && count < data.length; count++) {
             html += '<tr>';
             html += '<td>' + (count + 1) + '</td>';
-            html += '<td><div class="membership_content"><img src="' + data[count].user_img + '" alt="creator"><span>' + data[count].name + '</span></div></td>';
-            html += '<td>' + data[count].package_name + '</td>';
-            html += '<td><div class="membership_content"><img src="' + data[count].creator_img + '" alt="creator"><span>' + data[count].creator_name + '</span></div></td>';
-            html += '<td>' + formatDate(data[count].member_create_date) + '</td>';
-            html += '<td>' + formatDate(data[count].start_date) + '</td>';
-            html += '<td>' + formatDate(data[count].end_date) + '</td>';
-            const status = data[count].member_status;
-            if (status === 0) {
-                html += '<td class="inactive_member">ยกเลิก</td>';
-            } else if (status === 1) {
-                html += '<td class="active_member">ใช้งาน</td>';
-            } else if (status === 2) {
-                html += '<td class="suspended_member">ระงับการใช้งาน</td>';
-            } else if (status === 3) {
-                html += '<td class="expired_member">หมดอายุ</td>';
-            } else if (status === 4) {
-                html += '<td class="pending_member">รอการยืนยัน</td>';
-            } else if (status === 5) {
-                html += '<td class="cancelled_member">ยกเลิก</td>';
-            } else if (status === 6) {
-                html += '<td class="renewed_member">ต่ออายุ</td>';
-            } else {
-                html += '<td class="unknown_member">ไม่ทราบสถานะ</td>';
-            }
+            html += '<td><div class="membership_content"><img src="' + data[count].img + '" alt="creator"><span>' + data[count].creator_name + '</span></div></td>';
+            html += '<td>' + data[count].income + '</td>';
+            html += '<td>' + data[count].fee + '</td>';
+            html += '<td>' + data[count].total_income + '</td>';
+            html += '<td>' + formatDate(data[count].date_income) + '</td>';
             html += '</tr>';
         }
 
@@ -151,7 +174,7 @@
     }
 
     function previousPage() {
-        const data = membersInDateRange || filteredCategories || category;
+        const data = filteredCategories || currentMonthCategory;
 
         if (currentPage > 1) {
             currentPage--;
@@ -164,7 +187,7 @@
     }
 
     function nextPage() {
-        const data = membersInDateRange || filteredCategories || category;
+        const data = filteredCategories || currentMonthCategory;
 
         const totalPages = Math.ceil(data.length / itemsPerPage);
         if (currentPage < totalPages) {
@@ -179,7 +202,7 @@
 
     function goToPage(page) {
 
-        const data = membersInDateRange || filteredCategories || category;
+        const data = filteredCategories || currentMonthCategory;
 
         currentPage = page;
         renderTable(currentPage, data);
