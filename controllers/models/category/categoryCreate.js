@@ -1,7 +1,12 @@
-const Category = require('../../../models/Category')
+const Category = require('../../../models/Category');
 
 module.exports = async (req, res) => {
-  const data = req.body;
-  await Category.create(data);
-  res.redirect('/admin/category');
+    try {
+        const data = req.body;
+        await Category.create(data);
+        res.redirect('/admin/category');
+    } catch (error) {
+        console.error(error);
+        res.redirect('/error');
+    }
 }

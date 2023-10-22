@@ -18,6 +18,6 @@ module.exports = async (req, res) => {
     res.render('home/creator/about', { title_nav: `${creator[0].creator_name} about | Octagram`, creators: creator, categories: category, members_all: member_all, posts_all: post_all, checks: check });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error'); // Adjust the error handling as needed
+    res.redirect('/error');
   }
 }

@@ -309,6 +309,7 @@ main {
     color: #000000;
     font-size: 25px;
     font-family: 'Noto Sans Thai', sans-serif;
+    word-break: break-word;
 }
 
 .post_desc_feed {

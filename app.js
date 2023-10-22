@@ -86,13 +86,15 @@ cron.schedule('0 12 * * *', async () => {
 
 // VIEWS
 
+// 404 
+const errorStatus = require('./controllers/models/404/errorStatus');
+
 // INDEX PAGE
 const indexController = require('./controllers/views/index/indexController');
 const indexPageController = require('./controllers/views/index/indexPageController');
 const indexCategoryController = require('./controllers/views/index/indexCategoryController');
 const indexsearchCategoryController  = require('./controllers/views/index/searchCategoryController');
 const IndexCreator = require('./controllers/views/index/IndexCreator');
-
 
 // AUTH PAGE
 const loginController = require('./controllers/views/auth/loginController');
@@ -257,12 +259,16 @@ app.get('/logout', logoutController);
 // GOOGLE AUTH PAGE
 app.get('/auth/google/login', googleLoginController);
 app.get('/auth/google', googleController);
-app.get('/auth/google/callback', passport.authenticate('google', { session: false }),
-  async (req, res) => {
-    const data = req.user;
+app.get('/auth/google/callback', async (req, res) => {
+  try {
+    const data = await passport.authenticate('google', { session: false })(req, res);
     req.session.userData = data;
     res.redirect('/auth/google/login');
-  });
+  } catch (error) {
+    res.redirect('/error');
+  }
+});
+
 
 // HOME PAGE
 app.get('/home', logIn, homeController);
@@ -384,6 +390,9 @@ app.get('/admin/category/delete', logIn, categoryAdminDelete);
 app.get('/category/admin', logIn, categoryAdmin);
 app.get('/category/admin/creator', logIn, categoryAdminCreator);
 
+// 404
+app.get('/error', errorStatus);
+
 // CHECKOUT
 app.get('/checkout/:creator_name', logIn, checkoutController);
 app.get('/checkout/reorder_wores/:creator_name', logIn, reorderWores);
@@ -394,7 +403,6 @@ app.get('/:creator_name', logIn, creatorPageController);
 app.get('/:creator_name/packages', logIn, creatorPackageController);
 app.get('/:creator_name/about', logIn, creatorAboutUserController);
 app.get('/:creator_name/look', logout, IndexCreator);
-
 
 // SET POST LISTEN
 

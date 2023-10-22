@@ -1,6 +1,11 @@
 const Income = require('../../../models/Income');
 
 module.exports = async (req, res) => {
-    const income = await Income.octagram();
-    res.json(income);
+    try {
+        const income = await Income.octagram();
+        res.json(income);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }

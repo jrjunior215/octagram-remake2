@@ -65,34 +65,7 @@
 </div>
 
 <script>
-  document.getElementById('backButton').addEventListener('click', function () {
-    window.history.back();
-  });
-
-  $(document).ready(function () {
-    $("#myForm").submit(function (e) {
-      // Check if at least one checkbox with the name "permission" is checked
-      if ($("input[name='permission']:checked").length === 0) {
-        e.preventDefault(); // Prevent form submission
-        alert("กรุณากำหนดสิทธิ์ในการเข้าถึงอย่างน้อยหนึงสิทธิ์."); // Show an error message
-      }
-    });
-  });
-
-  const permissionAllCheckbox = document.getElementById('permission_all');
-  const permissionCheckboxes = document.querySelectorAll('input[name="permission"]');
-
-  // Add an event listener to the permission_all checkbox
-  permissionAllCheckbox.addEventListener('change', function () {
-    const isChecked = this.checked; // Check if permission_all is checked
-
-    // Loop through the permission checkboxes and set their checked property
-    permissionCheckboxes.forEach(function (checkbox) {
-      checkbox.checked = isChecked;
-    });
-  });
-
-  document.getElementById('imageUpload').addEventListener('change', function () {
+    document.getElementById('imageUpload').addEventListener('change', function () {
     var files = this.files;
     var imagePreview = document.getElementById('imagePreview');
     var existingImages = imagePreview.getElementsByTagName('img');
@@ -103,7 +76,7 @@
 
       if (ext !== 'png' && ext !== 'jpeg' && ext !== 'jpg') {
         alert("โปรดเลือกเฉพาะไฟล์ที่มีนามสกุล .png, .jpeg หรือ .jpg");
-        this.value = null; // ล้างค่าที่เลือก
+        this.value = null;
         return;
       }
 
@@ -111,7 +84,7 @@
 
       reader.onload = function (e) {
         var imgContainer = document.createElement('div');
-        imgContainer.classList.add('imageContainer'); // เพิ่มคลาสเพื่อให้สามารถจัดการรูปได้
+        imgContainer.classList.add('imageContainer');
 
         var img = document.createElement('img');
         img.src = e.target.result;
@@ -133,5 +106,30 @@
 
       reader.readAsDataURL(file);
     }
+  });
+
+  document.getElementById('backButton').addEventListener('click', function () {
+    window.history.back();
+  });
+
+  $(document).ready(function () {
+    $("#myForm").submit(function (e) {
+
+      if ($("input[name='permission']:checked").length === 0) {
+        e.preventDefault();
+        alert("กรุณากำหนดสิทธิ์ในการเข้าถึงอย่างน้อยหนึงสิทธิ์.");
+      }
+    });
+  });
+
+  const permissionAllCheckbox = document.getElementById('permission_all');
+  const permissionCheckboxes = document.querySelectorAll('input[name="permission"]');
+
+  permissionAllCheckbox.addEventListener('change', function () {
+    const isChecked = this.checked;
+
+    permissionCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = isChecked;
+    });
   });
 </script>

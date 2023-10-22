@@ -1,8 +1,14 @@
 const Creator = require('../../../models/Creator');
 
 module.exports = async (req, res) => {
-  const creator = await Creator.all_index();
+  try {
 
-  res.locals.layout = 'index/components/layout';
-  res.render('index/index/index', {creator: creator});
+    const creator = await Creator.all_index();
+
+    res.locals.layout = 'index/components/layout';
+    res.render('index/index/index', { creator: creator });
+    
+  } catch (error) {
+    res.redirect('/error');
+  }
 }

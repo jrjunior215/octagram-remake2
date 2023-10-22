@@ -1,5 +1,9 @@
 module.exports = (req, res) => {
-  req.session.destroy(() => {
+  try {
+    req.session.destroy(() => {
       res.redirect('/')
-  })
+    })
+  } catch (error) {
+    res.redirect('/error');
+  }
 }

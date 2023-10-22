@@ -1,7 +1,11 @@
 const Creator = require('../../../models/Creator');
 
 module.exports = async (req, res) => {
-  const data = req.body;
-  await Creator.edit(data)
-  res.redirect('/creator');
+  try {
+    const data = req.body;
+    await Creator.edit(data);
+    res.redirect('/creator');
+  } catch (error) {
+    res.redirect('/error');
+  }
 }

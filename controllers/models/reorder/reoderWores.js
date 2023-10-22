@@ -15,6 +15,6 @@ module.exports = async (req, res) => {
     res.render('home/checkout/wores', { title_nav: `Checkout ${creator_name} | Octagram`, packages: package, members: member });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error'); 
+    res.redirect('/error');
   }
 }

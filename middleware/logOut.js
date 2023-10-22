@@ -1,6 +1,5 @@
 module.exports = (req, res, next) => {
-  if(SESSION_USER) {
-    console.log(SESSION_USER);  
+  if(SESSION_USER) { 
     if( SESSION_USER.role === "USER" ) {
       return res.redirect('/home')
     } else if ( SESSION_USER.role === "ADMIN" ) {

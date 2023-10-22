@@ -20,6 +20,10 @@
     src: url('../../fonts/montserrat/Montserrat-Bold.ttf');
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@600&display=swap');
+
 /*----------- Scrollbar Design -----------*/
 
 ::-webkit-scrollbar {
@@ -45,6 +49,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    word-break: break-word;
 }
 
 a,
@@ -67,5 +72,44 @@ strong {
     font-weight: 700;
     color: black;
     font-size: 18px;
+}
 
+.container_error {
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_error h1 {
+    color: #fff;
+    font-size: 30vw;
+}
+
+.container_callback {
+    position: absolute;
+    text-align: center;
+}
+
+.container_error h2 {
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #000000;
+    font-size: 3vw;
+}
+
+.container_error a {
+    font-family: 'Noto Sans Thai', sans-serif;
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 15px;
+    background-color: #000000;
+    border-radius: 10px;
+    transition: all 1000ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+}
+
+.container_error a:hover {
+    background-color: #5e5b5b;
 }

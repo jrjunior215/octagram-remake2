@@ -4,28 +4,28 @@ const Package = require('../../../../models/Package');
 const Post = require('../../../../models/Post');
 
 module.exports = async (req, res) => {
-  const creator_name = req.params.creator_name;
-  const creator = await Creator.page(creator_name);
-  const id_creator = creator[0].id;
-  const id_user = SESSION_USER.id;
+  try {
+    const creator_name = req.params.creator_name;
+    const creator = await Creator.page(creator_name);
+    const id_creator = creator[0].id;
+    const id_user = SESSION_USER.id;
 
-  const member_all = await Member.show(id_creator);
-  const post_all = await Post.show(id_creator);
+    const member_all = await Member.show(id_creator);
+    const post_all = await Post.show(id_creator);
 
-  await Member.check(id_creator, id_user).then(async (result) => {
-
-    const permission = result[0].id_package;
-    const post = await Post.show_check1(id_creator, permission);
-    res.locals.layout = 'home/components/layout';
-    res.render('home/creator/index', { title_nav: `${creator[0].creator_name} | Octagram`, creators: creator, checks: result, posts: post, posts_all: post_all, members_all: member_all });
-
-  }).catch(async (error) => {
-
-    const post = await Post.show_check2(id_creator);
-    const package = await Package.list(id_creator);
-    res.locals.layout = 'home/components/layout';
-    res.render('home/creator/index', { title_nav: `${creator[0].creator_name} | Octagram`, creators: creator, checks: error, packages: package, posts: post, posts_all: post_all, members_all: member_all  });
-
-  })
+    await Member.check(id_creator, id_user).then(async (result) => {
+      const permission = result[0].id_package;
+      const post = await Post.show_check1(id_creator, permission);
+      res.locals.layout = 'home/components/layout';
+      res.render('home/creator/index', { title_nav: `${creator[0].creator_name} | Octagram`, creators: creator, checks: result, posts: post, posts_all: post_all, members_all: member_all });
+    }).catch(async (error) => {
+      const post = await Post.show_check2(id_creator);
+      const package = await Package.list(id_creator);
+      res.locals.layout = 'home/components/layout';
+      res.render('home/creator/index', { title_nav: `${creator[0].creator_name} | Octagram`, creators: creator, checks: error, packages: package, posts: post, posts_all: post_all, members_all: member_all });
+    })
+  } catch (error) {
+    res.redirect('/error');
+  }
 
 }
