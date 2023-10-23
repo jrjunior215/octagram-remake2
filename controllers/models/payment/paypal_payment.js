@@ -346,11 +346,14 @@ router.post('/reoder/better', async (req, res) => {
         };
 
         const billingPlan = await new Promise((resolve, reject) => {
-            paypal.billingPlan.create(billingPlanAttributes, (error, billingPlan) => {
+            paypal.billingAgreement.create(billingAgreementAttributes, (error, billingAgreement) => {
                 if (error) {
+                    console.error(error);
+                    // ลองแสดงข้อมูล details
+                    console.log(error.response.details);
                     reject(error);
                 } else {
-                    resolve(billingPlan);
+                    resolve(billingAgreement);
                 }
             });
         });
@@ -423,6 +426,7 @@ router.post('/reoder/better', async (req, res) => {
         console.error(error);
         res.redirect('/error');
     }
+
 });
 
 router.get('/reoder/success', async (req, res) => {

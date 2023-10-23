@@ -259,15 +259,18 @@ app.get('/logout', logoutController);
 // GOOGLE AUTH PAGE
 app.get('/auth/google/login', googleLoginController);
 app.get('/auth/google', googleController);
-app.get('/auth/google/callback', async (req, res) => {
-  try {
-    const data = await passport.authenticate('google', { session: false })(req, res);
-    req.session.userData = data;
-    res.redirect('/auth/google/login');
-  } catch (error) {
-    res.redirect('/error');
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { session: false }),
+  (req, res) => {
+    try {
+      const data = req.user; // Assuming the user data is stored in req.user after successful authentication
+      req.session.userData = data;
+      res.redirect('/auth/google/login');
+    } catch (error) {
+      res.redirect('/error');
+    }
   }
-});
+);
 
 
 // HOME PAGE
