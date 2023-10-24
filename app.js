@@ -406,6 +406,7 @@ app.get('/:creator_name', logIn, creatorPageController);
 app.get('/:creator_name/packages', logIn, creatorPackageController);
 app.get('/:creator_name/about', logIn, creatorAboutUserController);
 app.get('/:creator_name/look', logout, IndexCreator);
+app.get('/:creator_name/look/about', logIn);
 
 // SET POST LISTEN
 
