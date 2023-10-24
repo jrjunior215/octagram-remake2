@@ -31,8 +31,8 @@ router.post('/checkout', async (req, res) => {
                 }
             ],
             merchant_preferences: {
-                return_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/success`,
-                cancel_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/cancel`,
+                return_url: `http://${SERVER_IP}/paypal/success`,
+                cancel_url: `http://${SERVER_IP}/paypal/cancel`,
                 auto_bill_amount: 'YES',
                 initial_fail_amount_action: 'CONTINUE'
             },
@@ -203,8 +203,8 @@ router.post('/reoder/wores', async (req, res) => {
                 }
             ],
             merchant_preferences: {
-                return_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/reoder/success`,
-                cancel_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/reoder/cancel`,
+                return_url: `http://${SERVER_IP}/paypal/reoder/success`,
+                cancel_url: `http://${SERVER_IP}/paypal/reoder/cancel`,
                 auto_bill_amount: 'YES',
                 initial_fail_amount_action: 'CONTINUE'
             },
@@ -338,8 +338,8 @@ router.post('/reoder/better', async (req, res) => {
                 }
             ],
             merchant_preferences: {
-                return_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/reoder/success`,
-                cancel_url: `http://${SERVER_IP}:${SERVER_PORT}/paypal/reoder/cancel`,
+                return_url: `http://${SERVER_IP}/paypal/reoder/success`,
+                cancel_url: `http://${SERVER_IP}/paypal/reoder/cancel`,
                 auto_bill_amount: 'YES',
                 initial_fail_amount_action: 'CONTINUE'
             },
