@@ -1,5 +1,8 @@
+// const SERVER_IP = 'localhost';
+// const SERVER_PORT = '4002';
+
 const SERVER_IP = 'localhost';
-const SERVER_PORT = '4002';
+const SERVER_PORT = '4000';
 
 module.exports = {
   SERVER_PORT,
